@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoop - Mahallendeki İndirimleri Keşfet</title>
+    <style>
+        :root {
+            --bg-navy: #152237;
+            --card-navy: #1f2f4a;
+            --accent-cream: #f4e8c1;
+            --text-light: #f8f9fa;
+            --text-muted: #a0aec0;
+            --badge-gold: #d4af37;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-navy);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent-cream);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .deal-card {
+            background-color: var(--card-navy);
+            border: 1px solid rgba(244, 232, 193, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .deal-info h3 {
+            font-size: 18px;
+            color: var(--accent-cream);
+            margin-bottom: 6px;
+        }
+
+        .deal-info p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .deal-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .claim-btn {
+            background-color: var(--accent-cream);
+            color: var(--bg-navy);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .claim-btn:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">HOOP</div>
+            <div class="subtitle">Ortaköy Mahallesi İndirim Fırsatları</div>
+        </header>
+
+        <main>
+            <div class="deal-card">
+                <div class="deal-info">
+                    <h3>Ortaköy Fırını</h3>
+                    <p>%20 Kahve & Kruvasan İndirimi</p>
+                    <span class="deal-meta">Kalan Stok: 12</span>
+                </div>
+                <button class="claim-btn">Kodu Al</button>
+            </div>
+
+            <div class="deal-card">
+                <div class="deal-info">
+                    <h3>Boğaz Büfe</h3>
+                    <p>Tatlı Yanında Çay İkramı</p>
+                    <span class="deal-meta">Kalan Stok: 5</span>
+                </div>
+                <button class="claim-btn">Kodu Al</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
