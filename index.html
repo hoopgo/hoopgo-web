@@ -10,13 +10,13 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
         
         /* HEADER LOGO TASARIMI */
         .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
         .logo-img { height: 48px; width: auto; object-fit: contain; margin-bottom: 4px; }
         
-        /* Orijinal içi içe O harfleri (Görsel olmadığı durum için yedek) */
+        /* Orijinal içi içe O harfleri (Görsel yüklenmezse yedek) */
         .logo-text { font-size: 42px; font-weight: 800; color: #ffffff; letter-spacing: -2px; display: flex; align-items: center; justify-content: center; }
         .oo-container { display: inline-flex; align-items: center; position: relative; margin: 0 -2px; }
         .ring-left { width: 28px; height: 28px; border: 6px solid #38bdf8; border-radius: 50%; display: inline-block; margin-right: -10px; z-index: 1; }
@@ -24,17 +24,18 @@
         
         .sub-title { font-size: 14px; color: #94a3b8; font-weight: 600; margin-top: 4px; }
 
-        .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #e2e8f0; }
+        .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px; font-weight: 700; color: #e2e8f0; }
         .badge-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(34, 197, 94, 0.3); }
 
-        .esnaf-link { display: block; text-align: center; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; text-decoration: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 13px; margin-bottom: 20px; }
-
-        .deals-list { display: flex; flex-direction: column; gap: 16px; }
+        .deals-list { display: flex; flex-direction: column; gap: 16px; flex: 1; }
         .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; padding: 16px; display: flex; gap: 12px; align-items: center; position: relative; overflow: hidden; }
-        .deal-img { width: 80px; height: 80px; border-radius: 14px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
+        .deal-img { width: 84px; height: 84px; border-radius: 14px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
         
         .deal-info { flex: 1; min-width: 0; }
-        .deal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .shop-name { font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .deal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .shop-address { font-size: 11px; color: #64748b; margin-bottom: 6px; display: flex; align-items: center; gap: 2px; }
+        
         .price-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
         .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
         .new-price { font-size: 18px; color: #22c55e; font-weight: 800; }
@@ -44,6 +45,10 @@
         .meta-time { background: #1e293b; color: #f59e0b; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; }
 
         .btn-claim { background: #38bdf8; color: #0f172a; border: none; padding: 10px 12px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer; text-align: center; flex-shrink: 0; white-space: nowrap; }
+
+        /* ALT ETİKET VE KİLİT BÖLÜMÜ */
+        .footer-badges { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e293b; }
+        .badge-item { background: #0f172a; border: 1px solid #1e293b; color: #94a3b8; font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
     </style>
 </head>
 <body>
@@ -52,7 +57,6 @@
         <div class="header">
             <img src="logo.png" alt="hoop" class="logo-img" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='flex';">
             
-            <!-- Logo Görseli Olmazsa İçi İçe Halkalı Logo Gösterilir -->
             <div id="alt-logo" class="logo-text" style="display: none;">
                 h<div class="oo-container"><span class="ring-left"></span><span class="ring-right"></span></div>p
             </div>
@@ -65,18 +69,34 @@
             <span class="badge-live">● CANLI FIRSATLAR</span>
         </div>
 
-        <a href="esnaf.html" class="esnaf-link">🏪 Esnaf misiniz? Fırsat Yayınlayın ➔</a>
-
         <!-- FIRSAT LİSTESİ -->
         <div class="deals-list" id="dealsContainer">
             <!-- JavaScript ile dinamik dolacak -->
+        </div>
+
+        <!-- ALT ETİKET VE KİLİT ROZETLERİ -->
+        <div class="footer-badges">
+            <div class="badge-item">🏷️ Canlı Fırsat</div>
+            <div class="badge-item">🔒 Güvenli Kod</div>
         </div>
     </div>
 
     <script>
         const defaultDeals = [
             {
+                shop: 'Ortaköy Kasabı',
+                title: 'Kıyma (1 kg)',
+                address: 'Dereboyu Cde. No: 12',
+                oldPrice: '1000 TL',
+                newPrice: '750 TL',
+                stock: '15 Adet',
+                time: 'Saat 21.00\'e kadar',
+                img: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=200'
+            },
+            {
+                shop: 'Ortaköy Kumpircisi',
                 title: 'Ortaköy Kumpir',
+                address: 'Meydan Sk. No: 4',
                 oldPrice: '220 TL',
                 newPrice: '160 TL',
                 stock: '8/10',
@@ -84,7 +104,9 @@
                 img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200'
             },
             {
+                shop: 'Kasap Burger',
                 title: 'Kasap Hamburger',
+                address: 'Ortaköy Cd. No: 8',
                 oldPrice: '350 TL',
                 newPrice: '240 TL',
                 stock: '5/10',
@@ -106,7 +128,9 @@
                 card.innerHTML = `
                     <img src="${deal.img}" class="deal-img" alt="${deal.title}">
                     <div class="deal-info">
+                        <div class="shop-name">${deal.shop}</div>
                         <div class="deal-title">${deal.title}</div>
+                        <div class="shop-address">📍 ${deal.address}</div>
                         <div class="price-box">
                             ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
                             <span class="new-price">${deal.newPrice}</span>
@@ -116,15 +140,15 @@
                             <span class="meta-time">Saat: ${deal.time}</span>
                         </div>
                     </div>
-                    <button class="btn-claim" onclick="getCoupon('${deal.title}')">Kupon Al</button>
+                    <button class="btn-claim" onclick="getCoupon('${deal.shop}', '${deal.title}')">Kupon Al</button>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function getCoupon(title) {
+        function getCoupon(shop, title) {
             const code = 'H-' + Math.floor(1000 + Math.random() * 9000);
-            alert(`🎉 Tebrikler!\n\n${title} fırsatı için kodunuz: ${code}\n\nBu kodu esnafa göstererek indiriminizi alabilirsiniz.`);
+            alert(`🎉 Tebrikler!\n\n${shop} - ${title} fırsatı için kodunuz: ${code}\n\nBu kodu 1 saat içinde esnafa göstererek indiriminizi alabilirsiniz.`);
         }
 
         loadDeals();
