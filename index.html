@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Ortaköy Fırsatları</title>
+    <title>hoop - Ortaköy Mahallesi Canlı Fırsatları</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -99,7 +99,6 @@
             min-width: 0;
         }
 
-        /* BAŞLIK ARTIK 2 SATIRA İZİN VERİYOR KESİLMİYOR */
         .item-title {
             font-size: 13px;
             font-weight: 700;
@@ -194,7 +193,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .modal-shop-name {
@@ -206,7 +205,10 @@
         .modal-shop-address {
             font-size: 12px;
             color: #94a3b8;
-            margin-top: 2px;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .modal-close {
@@ -227,8 +229,8 @@
         }
 
         .modal-product-title {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             color: #e2e8f0;
             margin-bottom: 4px;
         }
@@ -243,30 +245,59 @@
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            margin-top: 14px;
+            margin-top: 16px;
+            transition: background 0.2s;
         }
 
+        .btn-kod-al:hover {
+            background: #059669;
+        }
+
+        /* CODE & TIMER RESULT BOX */
         .code-result-box {
             display: none;
             border: 2px dashed #10b981;
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 14px;
+            padding: 16px;
             text-align: center;
-            background: #064e3b22;
-            margin-top: 14px;
+            background: #064e3b15;
+            margin-top: 16px;
+        }
+
+        .code-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
         .generated-code {
-            font-size: 30px;
+            font-size: 36px;
             font-weight: 800;
             color: #34d399;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
+            margin: 4px 0;
+        }
+
+        .timer-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #064e3b44;
+            color: #6ee7b7;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 4px;
         }
 
         .code-note {
             font-size: 11px;
             color: #94a3b8;
-            margin-top: 4px;
+            margin-top: 8px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -361,13 +392,20 @@
             <button class="btn-kod-al" id="btnKodAl" onclick="generateCode()">🎟️ KOD AL / FIRSATI YAKALA</button>
 
             <div class="code-result-box" id="codeResultBox">
+                <div class="code-label">Kupon Kodunuz</div>
                 <div class="generated-code" id="generatedCode">750</div>
-                <div class="code-note">1 saat içinde kodu esnafa söyleyip alışverişinizi yapınız.</div>
+                <div class="timer-box">
+                    <span>⏱️ Kalan Süre:</span>
+                    <span id="countdownTimer">60:00</span>
+                </div>
+                <div class="code-note">Süre bitmeden bu kodu dükkandaki esnafa söyleyip indiriminizi alabilirsiniz.</div>
             </div>
         </div>
     </div>
 
     <script>
+        let countdownInterval = null;
+
         function openModal(shopName, address, product, oldPrice, newPrice) {
             document.getElementById('modalShopName').innerText = shopName;
             document.getElementById('modalShopAddress').innerText = '📍 ' + address;
@@ -375,21 +413,48 @@
             document.getElementById('modalOldPrice').innerText = oldPrice;
             document.getElementById('modalNewPrice').innerText = newPrice;
 
+            // Reset modal state
             document.getElementById('btnKodAl').style.display = 'block';
             document.getElementById('codeResultBox').style.display = 'none';
+
+            if (countdownInterval) clearInterval(countdownInterval);
 
             document.getElementById('modalOverlay').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('modalOverlay').style.display = 'none';
+            if (countdownInterval) clearInterval(countdownInterval);
         }
 
         function generateCode() {
+            // Generates a random 3-digit code
             const randomCode = Math.floor(100 + Math.random() * 900);
             document.getElementById('generatedCode').innerText = randomCode;
             document.getElementById('btnKodAl').style.display = 'none';
             document.getElementById('codeResultBox').style.display = 'block';
+
+            // Start 60-Minute Live Countdown Timer
+            let durationSeconds = 60 * 60;
+            const timerDisplay = document.getElementById('countdownTimer');
+
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            countdownInterval = setInterval(function () {
+                let minutes = Math.floor(durationSeconds / 60);
+                let seconds = durationSeconds % 60;
+
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                timerDisplay.innerText = minutes + ':' + seconds;
+
+                if (--durationSeconds < 0) {
+                    clearInterval(countdownInterval);
+                    timerDisplay.innerText = 'SÜRE DOLDU';
+                    timerDisplay.style.color = '#ef4444';
+                }
+            }, 1000);
         }
 
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
