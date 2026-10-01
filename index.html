@@ -9,71 +9,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #060913; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; }
+        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px 10px; }
+        .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px 12px; border-radius: 24px; position: relative; }
         
-        .header { text-align: center; margin-bottom: 24px; }
-        .logo { font-size: 26px; font-weight: 800; color: #38bdf8; letter-spacing: -0.5px; }
-        .sub-title { font-size: 14px; font-weight: 700; color: #94a3b8; margin-top: 4px; }
+        /* HEADER LOGO TASARIMI */
+        .header { text-align: center; margin-bottom: 20px; margin-top: 10px; }
+        .logo-box { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 8px; }
+        .logo-text { font-size: 38px; font-weight: 800; color: #ffffff; letter-spacing: -1px; }
+        .logo-o1 { color: #38bdf8; }
+        .logo-o2 { color: #22c55e; }
+        .sub-title { font-size: 14px; font-weight: 600; color: #94a3b8; }
 
+        /* KART TASARIMLARI */
         .deals-list { display: flex; flex-direction: column; gap: 14px; }
-        .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 18px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-        .deal-info { flex: 1; }
-        .deal-title { font-size: 15px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; }
-        .price-box { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
-        .new-price { font-size: 17px; color: #38bdf8; font-weight: 800; }
-        .meta-box { display: flex; gap: 10px; font-size: 11px; color: #94a3b8; font-weight: 700; }
+        .deal-card { background: #0b132b; border: 1px solid #1c2b4e; border-radius: 20px; padding: 12px; display: flex; align-items: center; gap: 12px; position: relative; }
         
-        .btn-inspect { background: #2563eb; color: #ffffff; border: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+        .deal-img { width: 75px; height: 75px; border-radius: 14px; object-fit: cover; background: #1e293b; flex-shrink: 0; }
+        .deal-info { flex: 1; }
+        .deal-title { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 6px; line-height: 1.3; }
+        
+        .price-box { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .old-price { font-size: 12px; color: #64748b; text-decoration: line-through; font-weight: 600; }
+        .new-price { font-size: 16px; color: #22c55e; font-weight: 800; } /* YEŞİL FİYAT */
+        
+        .meta-box { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #f59e0b; font-weight: 700; }
+        .meta-item { display: flex; align-items: center; gap: 3px; }
+        
+        .btn-inspect { background: #2563eb; color: #ffffff; border: none; padding: 10px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 
-        .esnaf-link { display: block; text-align: center; margin-top: 30px; padding: 12px; background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 14px; color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 700; }
+        /* TÜKENDİ KARTI */
+        .deal-card.disabled { opacity: 0.5; filter: grayscale(0.6); }
+        .btn-disabled { background: #1e293b; color: #64748b; border: none; padding: 10px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: not-allowed; }
 
-        /* AÇILIR PENCERE (MODAL) TASARIMI */
+        .esnaf-link { display: block; text-align: center; margin-top: 24px; padding: 12px; background: rgba(30, 41, 59, 0.4); border: 1px solid #1e293b; border-radius: 14px; color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 700; }
+
+        /* MODAL (AÇILIR PENCERE) */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 16px; backdrop-filter: blur(4px); }
-        .modal-content { background: #0f172a; width: 100%; max-width: 360px; border-radius: 20px; padding: 24px; border: 1px solid #1e293b; position: relative; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
-        .close-modal { position: absolute; top: 12px; right: 16px; font-size: 28px; color: #64748b; cursor: pointer; font-weight: 500; }
+        .modal-content { background: #0b132b; width: 100%; max-width: 340px; border-radius: 24px; padding: 24px 20px; border: 1px solid #1c2b4e; position: relative; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.9); }
+        .close-modal { position: absolute; top: 14px; right: 18px; font-size: 24px; color: #94a3b8; cursor: pointer; font-weight: 700; }
         .modal-shop-name { font-size: 15px; font-weight: 800; color: #38bdf8; margin-bottom: 4px; }
         .modal-address { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
-        .modal-title { font-size: 18px; font-weight: 800; color: #f8fafc; margin-bottom: 12px; }
-        .modal-price-box { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .modal-title { font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 12px; line-height: 1.3; }
+        .modal-price-box { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; }
         
-        .code-box { display: none; background: rgba(16, 185, 129, 0.1); border: 1px dashed #10b981; padding: 16px; border-radius: 12px; color: #10b981; margin-bottom: 16px; }
-        .code-text { font-size: 22px; font-weight: 800; letter-spacing: 2px; }
-        .code-info { font-size: 11px; margin-top: 6px; color: #94a3b8; }
+        .code-box { display: none; background: rgba(34, 197, 94, 0.05); border: 1.5px dashed #22c55e; padding: 16px 12px; border-radius: 16px; color: #22c55e; margin-bottom: 12px; }
+        .code-text { font-size: 26px; font-weight: 800; letter-spacing: 2px; margin-bottom: 6px; }
+        .code-info { font-size: 12px; color: #94a3b8; font-weight: 600; }
         
-        .btn-generate { width: 100%; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
+        .btn-generate { width: 100%; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="app-container">
+        <!-- ORİJİNAL LOGO -->
         <div class="header">
-            <div class="logo">hoop</div>
+            <div class="logo-text">h<span class="logo-o1">o</span><span class="logo-o2">o</span>p</div>
             <div class="sub-title">Ortaköy Mahallesi Canlı Fırsatları</div>
         </div>
 
-        <!-- İLANLAR BURAYA GELECEK -->
         <div id="dealsContainer" class="deals-list"></div>
 
         <a href="esnaf.html" class="esnaf-link">🔒 hoop - Esnaf Girişi</a>
     </div>
 
-    <!-- İNCELE (MODAL) EKRANI -->
+    <!-- MODAL (İNCELENEN İLAN) -->
     <div id="dealModal" class="modal-overlay">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">×</span>
+            <span class="close-modal" onclick="closeModal()">✕</span>
             <div class="modal-shop-name">Ortaköy Esnafı</div>
             <div class="modal-address">📍 Dereboyu Cad. Ortaköy</div>
             
-            <h3 id="modalTitle" class="modal-title">Fırsat Adı</h3>
+            <h3 id="modalTitle" class="modal-title">Özel Karışık Kumpir + İçecek</h3>
             <div class="modal-price-box">
-                <span id="modalOldPrice" class="old-price"></span>
-                <span id="modalNewPrice" class="new-price"></span>
+                <span id="modalOldPrice" class="old-price">1000 TL</span>
+                <span id="modalNewPrice" class="new-price">750 TL</span>
             </div>
             
             <div id="codeBox" class="code-box">
-                <div class="code-text" id="generatedCode">H-0000</div>
-                <div class="code-info">Bu kodu dükkanda esnafa gösterin.</div>
+                <div class="code-text" id="generatedCode">H-7792</div>
+                <div class="code-info">Bu kodu 1 saat içinde esnafa söyleyin.</div>
             </div>
             
             <button id="generateBtn" class="btn-generate" onclick="generateCode()">Fırsatı Yakala & Kod Üret 🚀</button>
@@ -81,57 +95,95 @@
     </div>
 
     <script>
-        // Sayfa açıldığında hafızadaki ilanları yükler
         function loadDeals() {
             const container = document.getElementById('dealsContainer');
             const deals = JSON.parse(localStorage.getItem('hoop_deals') || '[]');
 
-            // Eğer hiç ilan yoksa varsayılan bir tane gösterelim
             if (deals.length === 0) {
-                deals.push({
-                    title: 'Özel Karışık Kumpir + İçecek',
-                    oldPrice: '1000 TL',
-                    newPrice: '750 TL',
-                    time: 'Saat 22:00\'ye kadar',
-                    stock: '5 Adet'
-                });
+                deals.push(
+                    {
+                        title: 'Özel Karışık Kumpir + İçecek',
+                        oldPrice: '1000 TL',
+                        newPrice: '750 TL',
+                        time: '45 Dk',
+                        stock: '8/10',
+                        img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150',
+                        active: true
+                    },
+                    {
+                        title: '2 Adet Büyük Boy Filtre Kahve',
+                        oldPrice: '240 TL',
+                        newPrice: '150 TL',
+                        time: '30 Dk',
+                        stock: '5/10',
+                        img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=150',
+                        active: true
+                    },
+                    {
+                        title: 'Taze Kruvasan + Americano',
+                        oldPrice: '300 TL',
+                        newPrice: 'TÜKENDİ',
+                        time: 'Süre Bitti',
+                        stock: '0/10',
+                        img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=150',
+                        active: false
+                    }
+                );
             }
 
-            container.innerHTML = ''; // İçini temizle
+            container.innerHTML = '';
 
             deals.forEach(deal => {
                 const card = document.createElement('div');
-                card.className = 'deal-card';
-                card.innerHTML = `
-                    <div class="deal-info">
-                        <div class="deal-title">${deal.title}</div>
-                        <div class="price-box">
-                            ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
-                            <span class="new-price">${deal.newPrice}</span>
-                        </div>
-                        <div class="meta-box">
-                            <span>⏳ ${deal.time}</span>
-                            <span>⚡ Stok: ${deal.stock}</span>
-                        </div>
-                    </div>
-                    <button class="btn-inspect">İncele ➔</button>
-                `;
                 
-                // İncele Butonuna Tıklanma Özelliği Ekleme
-                const inspectBtn = card.querySelector('.btn-inspect');
-                inspectBtn.onclick = () => openModal(deal.title, deal.oldPrice, deal.newPrice);
+                if (deal.active === false || deal.newPrice === 'TÜKENDİ') {
+                    card.className = 'deal-card disabled';
+                    card.innerHTML = `
+                        <img src="${deal.img || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150'}" class="deal-img" alt="Ürün">
+                        <div class="deal-info">
+                            <div class="deal-title">${deal.title}</div>
+                            <div class="price-box">
+                                ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
+                                <span style="color: #ef4444; font-weight: 800; font-size: 14px;">TÜKENDİ</span>
+                            </div>
+                            <div class="meta-box" style="color: #ef4444;">
+                                <span>❌ Stok / Süre Bitti</span>
+                            </div>
+                        </div>
+                        <button class="btn-disabled" disabled>Tükendi</button>
+                    `;
+                } else {
+                    card.className = 'deal-card';
+                    card.innerHTML = `
+                        <img src="${deal.img || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150'}" class="deal-img" alt="Ürün">
+                        <div class="deal-info">
+                            <div class="deal-title">${deal.title}</div>
+                            <div class="price-box">
+                                ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
+                                <span class="new-price">${deal.newPrice}</span>
+                            </div>
+                            <div class="meta-box">
+                                <span class="meta-item">⏳ ${deal.time}</span>
+                                <span>•</span>
+                                <span class="meta-item">🔥 Stok: ${deal.stock}</span>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">İncele ➔</button>
+                    `;
+                    
+                    const inspectBtn = card.querySelector('.btn-inspect');
+                    inspectBtn.onclick = () => openModal(deal.title, deal.oldPrice, deal.newPrice);
+                }
                 
-                container.prepend(card); // En yeni ekleneni en üste koyar
+                container.appendChild(card);
             });
         }
 
-        // Modal (Açılır Pencere) Fonksiyonları
         function openModal(title, oldPrice, newPrice) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalOldPrice').innerText = oldPrice || '';
             document.getElementById('modalNewPrice').innerText = newPrice;
             
-            // Kod kutusunu gizle, butonu göster (Her açılışta sıfırlamak için)
             document.getElementById('codeBox').style.display = 'none';
             document.getElementById('generateBtn').style.display = 'block';
             
@@ -142,7 +194,6 @@
             document.getElementById('dealModal').style.display = 'none';
         }
 
-        // Rastgele Kupon Kodu Üretme
         function generateCode() {
             const randomCode = 'H-' + Math.floor(1000 + Math.random() * 9000);
             document.getElementById('generatedCode').innerText = randomCode;
