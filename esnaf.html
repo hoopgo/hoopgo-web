@@ -57,6 +57,67 @@
             letter-spacing: -0.2px;
         }
 
+        /* PIN / AUTH CARD */
+        .auth-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 24px 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #f3f4f6;
+            margin-bottom: 8px;
+        }
+
+        .auth-sub {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .pin-input {
+            width: 100%;
+            max-width: 200px;
+            background-color: #1a2333;
+            border: 2px solid #334155;
+            color: #38bdf8;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 12px;
+            outline: none;
+            margin: 0 auto 16px auto;
+            display: block;
+        }
+
+        .pin-input:focus {
+            border-color: #38bdf8;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        /* MAIN PANEL CONTENT (Gizli başlar) */
+        .panel-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         /* CARD PANEL */
         .panel-card {
             background: #0f172a;
@@ -94,7 +155,7 @@
 
         .form-row .form-group {
             flex: 1;
-            min-width: 0; /* Taşmayı önler */
+            min-width: 0;
         }
 
         label {
@@ -184,57 +245,73 @@
             <div class="header-title">hoop Esnaf Girişi</div>
         </div>
 
-        <!-- MÜŞTERİ KOD ONAYI -->
-        <div class="panel-card">
-            <div class="panel-title">🎟️️ Müşteri Kod Onayı</div>
-            <div class="form-row" style="align-items: center;">
-                <div class="form-group" style="margin-bottom:0;">
-                    <input type="text" placeholder="3 Haneli Kod" maxlength="3" style="text-align: center; font-size: 16px; letter-spacing: 2px;">
-                </div>
-                <button class="btn-approve" onclick="alert('Kupon başarıyla doğrulandı ve uygulandı!')">Onayla</button>
-            </div>
+        <!-- 1. GÜVENLİK / PIN GİRİŞ EKRANI -->
+        <div class="auth-card" id="authBox">
+            <div class="auth-title">🔒 Esnaf Doğrulama</div>
+            <div class="auth-sub">Devam etmek için 4 haneli esnaf PIN kodunuzu girin</div>
+            
+            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••" pattern="[0-9]*" inputmode="numeric">
+            <div class="error-msg" id="errorMsg">⚠️ Hatalı PIN kodu! Tekrar deneyin.</div>
+            
+            <button class="btn-approve" style="width:100%; padding: 14px;" onclick="checkPin()">Giriş Yap ➔</button>
         </div>
 
-        <!-- YENİ CANLI FIRSAT YAYINLA -->
-        <div class="panel-card">
-            <div class="panel-title">🚀 Yeni Canlı Fırsat Yayınla</div>
-            
-            <div class="form-group">
-                <label>Ürün / Fırsat Başlığı</label>
-                <input type="text" placeholder="Örn: Özel Karışık Kumpir + İçecek">
-            </div>
+        <!-- 2. KONTROL PANELİ (GİRİŞ BAŞARILI OLUNCA AÇILIR) -->
+        <div class="panel-content" id="panelContent">
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Normal Fiyat (TL)</label>
-                    <input type="number" placeholder="1000">
-                </div>
-                <div class="form-group">
-                    <label>Fırsat Fiyatı (TL)</label>
-                    <input type="number" placeholder="750">
+            <!-- MÜŞTERİ KOD ONAYI -->
+            <div class="panel-card">
+                <div class="panel-title">🎟 Müşteri Kod Onayı</div>
+                <div class="form-row" style="align-items: center;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <input type="text" placeholder="3 Haneli Kod" maxlength="3" style="text-align: center; font-size: 16px; letter-spacing: 2px;">
+                    </div>
+                    <button class="btn-approve" onclick="alert('Kupon başarıyla doğrulandı ve uygulandı!')">Onayla</button>
                 </div>
             </div>
 
-            <div class="form-row">
+            <!-- YENİ CANLI FIRSAT YAYINLA -->
+            <div class="panel-card">
+                <div class="panel-title">🚀 Yeni Canlı Fırsat Yayınla</div>
+                
                 <div class="form-group">
-                    <label>Stok Adedi</label>
-                    <input type="number" placeholder="10">
+                    <label>Ürün / Fırsat Başlığı</label>
+                    <input type="text" placeholder="Örn: Özel Karışık Kumpir + İçecek">
                 </div>
-                <div class="form-group">
-                    <label>Yayın Süresi</label>
-                    <select>
-                        <option>30 Dakika</option>
-                        <option selected>60 Dakika</option>
-                        <option>120 Dakika</option>
-                    </select>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Normal Fiyat (TL)</label>
+                        <input type="number" placeholder="1000">
+                    </div>
+                    <div class="form-group">
+                        <label>Fırsat Fiyatı (TL)</label>
+                        <input type="number" placeholder="750">
+                    </div>
                 </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stok Adedi</label>
+                        <input type="number" placeholder="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Yayın Süresi</label>
+                        <select>
+                            <option>30 Dakika</option>
+                            <option selected>60 Dakika</option>
+                            <option>120 Dakika</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    Hizmet Bedeli: %10 ➔ <strong>0 TL (Pilot Ücretsiz)</strong>
+                </div>
+
+                <button class="btn-primary" onclick="alert('Fırsat başarıyla canlıya alındı!')">Fırsatı Canlıya Al ⚡</button>
             </div>
 
-            <div class="info-box">
-                Hizmet Bedeli: %10 ➔ <strong>0 TL (Pilot Ücretsiz)</strong>
-            </div>
-
-            <button class="btn-primary" onclick="alert('Fırsat başarıyla canlıya alındı!')">Fırsatı Canlıya Al ⚡</button>
         </div>
 
         <div class="footer-back">
@@ -243,5 +320,24 @@
 
     </div>
 
+    <script>
+        // Varsayılan Test PIN Kodu: 1999
+        const CORRECT_PIN = "1999";
+
+        function checkPin() {
+            const input = document.getElementById('pinInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const authBox = document.getElementById('authBox');
+            const panelContent = document.getElementById('panelContent');
+
+            if (input === CORRECT_PIN) {
+                authBox.style.display = 'none';
+                panelContent.style.display = 'flex';
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('pinInput').value = '';
+            }
+        }
+    </script>
 </body>
 </html>
