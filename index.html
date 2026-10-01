@@ -36,19 +36,19 @@
             align-items: center;
         }
 
-        /* HEADER & LOGO SECTION */
+        /* HEADER SECTION */
         .header {
             text-align: center;
-            margin-top: 12px;
-            margin-bottom: 32px;
+            margin-top: 10px;
+            margin-bottom: 28px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .logo-wrapper {
-            width: 240px;
+        .main-logo {
+            width: 220px;
             height: auto;
             display: block;
         }
@@ -57,7 +57,7 @@
             color: #94a3b8;
             font-size: 15px;
             font-weight: 500;
-            margin-top: 14px;
+            margin-top: 12px;
             letter-spacing: -0.2px;
         }
 
@@ -121,23 +121,30 @@
 <body>
 
     <div class="app-container">
-        <!-- HEADER / LOGO & SLOGAN -->
+        <!-- HEADER / DIRECT SVG LOGO EMBEDDED -->
         <div class="header">
-            <svg class="logo-wrapper" viewBox="0 0 400 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="main-logo" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- h -->
-                <path d="M 45 25 C 52 25 58 31 58 38 L 58 55 C 65 47 75 43 86 43 C 103 43 115 54 115 74 L 115 97 C 115 104 109 110 102 110 C 95 110 89 104 89 97 L 89 77 C 89 67 82 62 73 62 C 64 62 58 67 58 77 L 58 97 C 58 104 52 110 45 110 C 38 110 32 104 32 97 L 32 38 C 32 31 38 25 45 25 Z" fill="#FFFFFF"/>
-
-                <!-- Blue Ring (First o) -->
-                <circle cx="155" cy="76" r="26" stroke="#0066FF" stroke-width="16"/>
-
-                <!-- Green Ring (Second o) -->
-                <circle cx="215" cy="76" r="26" stroke="#7CA954" stroke-width="16"/>
-
-                <!-- Intersecting Overlap Loop -->
-                <path d="M 181 53 C 189 59 194 67 194 76 C 194 85 189 93 181 99 C 178 93 176 85 176 76 C 176 67 178 59 181 53 Z" fill="#0066FF"/>
+                <path d="M70 40 C70 30 80 30 85 30 C90 30 100 30 100 40 L100 70 C110 52 130 48 150 48 C185 48 200 70 200 105 L200 150 C200 160 190 160 185 160 C180 160 170 160 170 150 L170 110 C170 85 155 76 138 76 C118 76 100 90 100 115 L100 150 C100 160 90 160 85 160 C80 160 70 160 70 150 L70 40 Z" fill="#F5F5F7"/>
+                
+                <!-- Blue Ring -->
+                <circle cx="230" cy="115" r="42" stroke="#0066FF" stroke-width="26"/>
+                
+                <!-- Green Ring -->
+                <circle cx="310" cy="115" r="42" stroke="#7CA954" stroke-width="26"/>
+                
+                <!-- Overlap Clip -->
+                <g clip-path="url(#ring-clip)">
+                    <circle cx="230" cy="115" r="42" stroke="#0066FF" stroke-width="26"/>
+                </g>
+                <defs>
+                    <clipPath id="ring-clip">
+                        <rect x="270" y="70" width="40" height="45"/>
+                    </clipPath>
+                </defs>
 
                 <!-- p -->
-                <path d="M 295 43 C 315 43 330 57 330 76 C 330 95 315 110 295 110 C 284 110 274 104 268 95 L 268 118 C 268 125 262 131 255 131 C 248 131 242 125 242 118 L 242 55 C 242 48 248 43 255 43 C 262 43 268 48 268 55 L 268 58 C 274 48 284 43 295 43 Z M 289 62 C 278 62 268 70 268 76 C 268 83 278 91 289 91 C 300 91 308 83 308 76 C 308 70 300 62 289 62 Z" fill="#FFFFFF"/>
+                <path d="M410 48 C445 48 475 75 475 115 C475 155 445 182 410 182 C390 182 375 172 365 158 L365 190 C365 200 355 200 350 200 C345 200 335 200 335 190 L335 60 C335 50 345 50 350 50 C355 50 365 50 365 60 L365 72 C375 58 390 48 410 48 Z M402 76 C380 76 365 92 365 115 C365 138 380 154 402 154 C425 154 442 138 442 115 C442 92 425 76 402 76 Z" fill="#F5F5F7"/>
             </svg>
             <div class="tagline">Mahallendeki fırsatları keşfet.</div>
         </div>
