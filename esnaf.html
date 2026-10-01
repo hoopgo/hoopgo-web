@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Esnaf Paneli</title>
+    <title>hoop - Ortaköy Esnaf Paneli</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -31,12 +31,21 @@
         
         .form-group { margin-bottom: 14px; }
         label { display: block; font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 6px; }
-        input, select { width: 100%; background: #162032; border: 1px solid #283548; color: #fff; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 14px; outline: none; }
+        input { width: 100%; background: #162032; border: 1px solid #283548; color: #fff; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 14px; outline: none; text-transform: capitalize; }
         input:focus { border-color: #2563eb; }
 
-        /* İKİLİ VE ÜÇLÜ HİZALAMA GRID (TAŞMAYI ÖNLER) */
+        /* HA
+ZIR ŞABLON BUTONLARI */
+        .quick-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .tag-btn { background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .tag-btn:hover { background: #38bdf8; color: #0f172a; }
+
+        /* ÖZEL SÜRE VE SEÇENEK BUTONLARI (POPUP SIZ) */
+        .option-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .option-btn { background: #162032; border: 1px solid #283548; color: #94a3b8; padding: 10px 4px; border-radius: 10px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .option-btn.active { background: #2563eb; color: #ffffff; border-color: #3b82f6; box-shadow: 0 0 12px rgba(37, 99, 235, 0.4); }
+
         .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
         .btn { width: 100%; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
         .btn-back { background: transparent; color: #64748b; border: 1px solid #1e293b; text-align: center; text-decoration: none; display: block; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-top: 8px; }
@@ -47,7 +56,7 @@
         <!-- HEADER -->
         <div class="header">
             <div class="logo">hoop esnaf</div>
-            <div class="badge">🔒 Esnaf Paneli</div>
+            <div class="badge">📍 Ortaköy</div>
         </div>
 
         <!-- PIN GİRİŞ EKRANI -->
@@ -55,7 +64,7 @@
             <div class="pin-icon">🔑</div>
             <div class="pin-title">Esnaf Giriş Şifresi</div>
             <div class="pin-sub">Lütfen 4 haneli güvenlik PIN kodunuzu girin.</div>
-            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••">
+            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••" style="text-transform: none;">
             <button class="pin-btn" onclick="checkPin()">Giriş Yap ➔</button>
         </div>
 
@@ -67,39 +76,46 @@
                 
                 <div class="form-group">
                     <label>Fırsat / Ürün Adı</label>
-                    <input type="text" placeholder="Örn: Karışık Kumpir + İçecek">
+                    <input type="text" id="productName" placeholder="Örn: Karışık Kumpir + İçecek" oninput="formatTitle(this)">
+                    
+                    <!-- HIZLI DOLDURMA ŞABLONLARI -->
+                    <div class="quick-tags">
+                        <span class="tag-btn" onclick="setProduct('Karışık Kumpir + İçecek')">+ Kumpir Menü</span>
+                        <span class="tag-btn" onclick="setProduct('Sade Waffle + Çay')">+ Waffle Menü</span>
+                        <span class="tag-btn" onclick="setProduct('Özel Fırsat Menüsü')">+ Özel Menü</span>
+                    </div>
                 </div>
 
                 <!-- NORMAL VE İNDİRİMLİ FİYAT YAN YANA -->
                 <div class="row-2">
                     <div class="form-group">
                         <label>Normal Fiyat (₺)</label>
-                        <input type="number" placeholder="1000">
+                        <input type="number" id="priceNormal" placeholder="300" style="text-transform: none;">
                     </div>
                     <div class="form-group">
                         <label>İndirimli Fiyat (₺)</label>
-                        <input type="number" placeholder="750">
+                        <input type="number" id="priceDiscount" placeholder="180" style="text-transform: none;">
                     </div>
                 </div>
 
-                <!-- STOK VE SÜRE YAN YANA -->
-                <div class="row-2">
-                    <div class="form-group">
-                        <label>Stok Adedi</label>
-                        <input type="number" placeholder="5">
-                    </div>
-                    <div class="form-group">
-                        <label>Yayın Süresi</label>
-                        <select>
-                            <option value="30">30 Dakika</option>
-                            <option value="45" selected>45 Dakika</option>
-                            <option value="60">60 Dakika</option>
-                            <option value="120">2 Saat</option>
-                        </select>
+                <!-- STOK ADEDİ -->
+                <div class="form-group">
+                    <label>Stok Adedi</label>
+                    <input type="number" id="stockCount" placeholder="5" value="5" style="text-transform: none;">
+                </div>
+
+                <!-- POPUP OLMAYAN ÖZEL SÜRE SEÇİMİ -->
+                <div class="form-group">
+                    <label>Yayın Süresi</label>
+                    <div class="option-grid">
+                        <div class="option-btn" onclick="selectTime(this, 30)">30 Dk</div>
+                        <div class="option-btn active" onclick="selectTime(this, 45)">45 Dk</div>
+                        <div class="option-btn" onclick="selectTime(this, 60)">60 Dk</div>
+                        <div class="option-btn" onclick="selectTime(this, 120)">2 Saat</div>
                     </div>
                 </div>
 
-                <button class="btn" onclick="alert('Fırsatınız canlıya alındı!')">Fırsatı Canlıya Al 🚀</button>
+                <button class="btn" onclick="publishDeal()">Fırsatı Canlıya Al 🚀</button>
             </div>
 
             <!-- KUPON DOĞRULAMA KARTI -->
@@ -107,7 +123,7 @@
                 <div class="card-title">🎟️ Kupon / Kod Doğrula</div>
                 <div class="form-group">
                     <label>Müşteri Kodu</label>
-                    <input type="text" placeholder="Örn: H-8942">
+                    <input type="text" placeholder="Örn: H-8942" style="text-transform: uppercase;">
                 </div>
                 <button class="btn" style="background: #059669;" onclick="alert('Kupon Onaylandı!')">Kuponu Onayla ✓</button>
             </div>
@@ -117,6 +133,8 @@
     </div>
 
     <script>
+        let selectedTime = 45;
+
         function checkPin() {
             const input = document.getElementById('pinInput').value;
             if(input === "1999") {
@@ -125,6 +143,38 @@
             } else {
                 alert('Hatalı PIN Kodu! Lütfen tekrar deneyin.');
             }
+        }
+
+        /* Başlıkları nizami olarak baş harflerini büyük yapan fonksiyon */
+        function formatTitle(input) {
+            let words = input.value.split(' ');
+            for (let i = 0; i < words.length; i++) {
+                if (words[i].length > 0) {
+                    words[i] = words[i][0].toLocaleUpperCase('tr-TR') + words[i].substring(1);
+                }
+            }
+            input.value = words.join(' ');
+        }
+
+        /* Hazır Şablon Seçme */
+        function setProduct(name) {
+            document.getElementById('productName').value = name;
+        }
+
+        /* Süre Butonları Tıklama */
+        function selectTime(element, minutes) {
+            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            selectedTime = minutes;
+        }
+
+        function publishDeal() {
+            const name = document.getElementById('productName').value;
+            if(!name) {
+                alert('Lütfen bir ürün adı girin.');
+                return;
+            }
+            alert(`"${name}" fırsatı ${selectedTime} dakika süreyle canlıya alındı!`);
         }
     </script>
 </body>
