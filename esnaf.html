@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Esnaf Kontrol Paneli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>hoop - Esnaf Girişi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
             justify-content: center;
             min-height: 100vh;
             padding: 0;
+            overflow-x: hidden;
         }
 
         .app-container {
@@ -29,51 +30,45 @@
             max-width: 480px;
             background-color: #070a14;
             min-height: 100vh;
-            padding: 16px 14px 32px 14px;
+            padding: 16px 14px 40px 14px;
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
 
         /* HEADER */
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #1f2937;
+            text-align: center;
+            padding: 10px 0 14px 0;
+            border-bottom: 1px solid #1e293b;
         }
 
-        .shop-badge {
-            font-size: 15px;
+        .logo-img {
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-size: 14px;
             font-weight: 800;
             color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-top: 6px;
+            letter-spacing: -0.2px;
         }
 
-        .status-online {
-            font-size: 11px;
-            background: #065f46;
-            color: #34d399;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-        }
-
-        /* SECTION BOXES */
+        /* CARD PANEL */
         .panel-card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 18px;
-            padding: 18px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            width: 100%;
         }
 
-        .card-title {
-            font-size: 14px;
+        .panel-title {
+            font-size: 15px;
             font-weight: 800;
             color: #f3f4f6;
             margin-bottom: 12px;
@@ -82,98 +77,53 @@
             gap: 8px;
         }
 
-        /* KOD ONAY FORMU */
-        .code-input-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .input-code {
-            flex: 1;
-            background: #070a14;
-            border: 2px solid #3b82f6;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 24px;
-            font-weight: 800;
-            color: #60a5fa;
-            text-align: center;
-            letter-spacing: 4px;
-            outline: none;
-        }
-
-        .input-code::placeholder {
-            color: #374151;
-            font-size: 14px;
-            letter-spacing: 0;
-            font-weight: 600;
-        }
-
-        .btn-verify {
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 0 18px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .result-msg {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 700;
-            text-align: center;
-            display: none;
-        }
-
-        .result-msg.success {
-            background: #064e3b;
-            color: #34d399;
-            border: 1px solid #059669;
-        }
-
-        /* İLAN EKLEME FORMU */
+        /* INPUT GRIDS */
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 6px;
             margin-bottom: 12px;
+            width: 100%;
         }
 
-        .form-label {
+        .form-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 0; /* Taşmayı önler */
+        }
+
+        label {
             font-size: 12px;
             font-weight: 700;
             color: #9ca3af;
         }
 
-        .form-input, .form-select {
-            background: #070a14;
-            border: 1px solid #1f2937;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 13px;
-            color: #ffffff;
-            outline: none;
-        }
-
-        .form-input:focus, .form-select:focus {
-            border-color: #10b981;
-        }
-
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn-publish {
+        input, select {
             width: 100%;
-            background: #10b981;
+            background-color: #1a2333;
+            border: 1px solid #334155;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            border-color: #2563eb;
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            width: 100%;
+            background: #16a34a;
             color: #ffffff;
             border: none;
             padding: 14px;
@@ -181,28 +131,46 @@
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            margin-top: 6px;
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+            margin-top: 4px;
         }
 
-        /* FAKE KOMİSYON / DEĞER PANOSU (PSİKOLOJİK ÇAPA) */
-        .commission-box {
-            background: #0f172a;
-            border: 1px dashed #334155;
-            border-radius: 14px;
-            padding: 12px 14px;
-            font-size: 11px;
-            color: #94a3b8;
-            line-height: 1.5;
-        }
-
-        .commission-highlight {
-            color: #f59e0b;
+        .btn-approve {
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
             font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
-        .free-tag {
+        /* HİZMET BEDELİ BİLGİ KUTUSU */
+        .info-box {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px dashed #34d399;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 12px;
             color: #34d399;
-            font-weight: 800;
+            font-weight: 700;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .footer-back {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-back-link {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -212,80 +180,68 @@
 
         <!-- HEADER -->
         <div class="header">
-            <div class="shop-badge">🏪 Ortaköy Kumpircisi</div>
-            <div class="status-online">● Dükkan Canlı</div>
+            <img src="logo.png.jpeg" alt="hoop logo" class="logo-img">
+            <div class="header-title">hoop Esnaf Girişi</div>
         </div>
 
-        <!-- 1. KOD DOĞRULAMA (EN ÜSTTE HIZLI ERİŞİM) -->
+        <!-- MÜŞTERİ KOD ONAYI -->
         <div class="panel-card">
-            <div class="card-title">🎟️ Müşteri Kod Onayı</div>
-            <div class="code-input-group">
-                <input type="number" class="input-code" id="merchantCodeInput" placeholder="3 Haneli Kod" maxlength="3">
-                <button class="btn-verify" onclick="verifyCustomerCode()">ONAYLA</button>
-            </div>
-            <div class="result-msg success" id="verifyResult">
-                ✅ Kod Geçerli! "Karışık Kumpir" satışı onaylandı. Stok güncellendi.
+            <div class="panel-title">🎟️️ Müşteri Kod Onayı</div>
+            <div class="form-row" style="align-items: center;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <input type="text" placeholder="3 Haneli Kod" maxlength="3" style="text-align: center; font-size: 16px; letter-spacing: 2px;">
+                </div>
+                <button class="btn-approve" onclick="alert('Kupon başarıyla doğrulandı ve uygulandı!')">Onayla</button>
             </div>
         </div>
 
-        <!-- 2. HIZLI İLAN OLUŞTURMA -->
+        <!-- YENİ CANLI FIRSAT YAYINLA -->
         <div class="panel-card">
-            <div class="card-title">🚀 Yeni Canlı Fırsat Yayınla</div>
-
+            <div class="panel-title">🚀 Yeni Canlı Fırsat Yayınla</div>
+            
             <div class="form-group">
-                <label class="form-label">Ürün / Fırsat Başlığı</label>
-                <input type="text" class="form-input" placeholder="Örn: Özel Karışık Kumpir + İçecek">
+                <label>Ürün / Fırsat Başlığı</label>
+                <input type="text" placeholder="Örn: Özel Karışık Kumpir + İçecek">
             </div>
 
-            <div class="row-2">
+            <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Normal Fiyat (TL)</label>
-                    <input type="number" class="form-input" placeholder="1000">
+                    <label>Normal Fiyat (TL)</label>
+                    <input type="number" placeholder="1000">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Fırsat Fiyatı (TL)</label>
-                    <input type="number" class="form-input" placeholder="750">
+                    <label>Fırsat Fiyatı (TL)</label>
+                    <input type="number" placeholder="750">
                 </div>
             </div>
 
-            <div class="row-2">
+            <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Stok Adedi</label>
-                    <input type="number" class="form-input" placeholder="10">
+                    <label>Stok Adedi</label>
+                    <input type="number" placeholder="10">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Yayın Süresi</label>
-                    <select class="form-select">
+                    <label>Yayın Süresi</label>
+                    <select>
                         <option>30 Dakika</option>
-                        <option selected>60 Dakika (1 Saat)</option>
-                        <option>2 Saat</option>
+                        <option selected>60 Dakika</option>
+                        <option>120 Dakika</option>
                     </select>
                 </div>
             </div>
 
-            <!-- FAKE KOMİSYON GÖSTERGESİ -->
-            <div class="commission-box">
-                <div>Hizmet Bedeli: <span style="text-decoration: line-through;">%10 (75 TL)</span> ➔ <span class="free-tag">0 TL (Pilot Ücretsiz)</span></div>
-                <div style="margin-top:2px;">Bu ay **hoop** ile sağlanan toplam kazanç: <span class="commission-highlight">18.500 TL</span></div>
+            <div class="info-box">
+                Hizmet Bedeli: %10 ➔ <strong>0 TL (Pilot Ücretsiz)</strong>
             </div>
 
-            <button class="btn-publish" onclick="alert('İlan Ortaköy canlı akışına eklendi!')">FIRSATI CANLIYA AL ➔</button>
+            <button class="btn-primary" onclick="alert('Fırsat başarıyla canlıya alındı!')">Fırsatı Canlıya Al ⚡</button>
+        </div>
+
+        <div class="footer-back">
+            <a href="index.html" class="btn-back-link">← Ana Sayfaya / Müşteri Görünümüne Dön</a>
         </div>
 
     </div>
 
-    <script>
-        function verifyCustomerCode() {
-            const input = document.getElementById('merchantCodeInput').value;
-            const result = document.getElementById('verifyResult');
-
-            if(input.length === 3) {
-                result.style.display = 'block';
-                document.getElementById('merchantCodeInput').value = '';
-            } else {
-                alert('Lütfen müşterinin 3 haneli kodunu girin.');
-            }
-        }
-    </script>
 </body>
 </html>
