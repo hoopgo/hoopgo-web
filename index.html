@@ -2,291 +2,89 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Ortaköy Mahallesi Canlı Fırsatları</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>hoop - Ortaköy Mahallesi Canlı Fırsatlar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #060913; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
+        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        
+        .header { text-align: center; margin-bottom: 24px; }
+        .logo { font-size: 26px; font-weight: 800; color: #38bdf8; letter-spacing: -0.5px; }
+        .sub-title { font-size: 14px; font-weight: 700; color: #94a3b8; margin-top: 4px; }
 
-        body {
-            background-color: #060913;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0;
-        }
+        .deals-list { display: flex; flex-direction: column; gap: 14px; }
+        .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 18px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .deal-info { flex: 1; }
+        .deal-title { font-size: 15px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; }
+        .price-box { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
+        .new-price { font-size: 17px; color: #38bdf8; font-weight: 800; }
+        .meta-box { display: flex; gap: 10px; font-size: 11px; color: #94a3b8; font-weight: 700; }
+        
+        .btn-inspect { background: #2563eb; color: #ffffff; border: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
 
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background-color: #070a14;
-            min-height: 100vh;
-            padding: 16px 14px 40px 14px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* LOGO & HEADER */
-        .header {
-            text-align: center;
-            padding: 12px 0 16px 0;
-        }
-
-        .logo-img {
-            height: 48px;
-            object-fit: contain;
-        }
-
-        .location-sub {
-            font-size: 13px;
-            font-weight: 700;
-            color: #9ca3af;
-            margin-top: 4px;
-            letter-spacing: -0.2px;
-        }
-
-        /* CARD LIST */
-        .card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        /* DEAL CARD */
-        .deal-card {
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 12px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .deal-card.sold-out {
-            opacity: 0.45;
-            filter: grayscale(80%);
-            border-color: #111827;
-            background: #090d16;
-        }
-
-        .product-img-box {
-            width: 84px;
-            height: 84px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background-color: #1e293b;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .deal-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 800;
-            color: #f3f4f6;
-            line-height: 1.25;
-            margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .price-row {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .old-price {
-            font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
-            text-decoration: line-through;
-        }
-
-        .new-price {
-            font-size: 16px;
-            font-weight: 800;
-            color: #34d399;
-        }
-
-        .sold-out .new-price {
-            color: #ef4444;
-        }
-
-        .meta-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #9ca3af;
-        }
-
-        .stock-badge {
-            color: #fb923c;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .btn-action {
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            align-self: center;
-            white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-action.disabled {
-            background: #1f2937;
-            color: #4b5563;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* FOOTER / ESNAF GİRİŞİ */
-        .footer-esnaf {
-            margin-top: 36px;
-            padding-top: 18px;
-            border-top: 1px dashed #1f2937;
-            text-align: center;
-        }
-
-        .btn-esnaf-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #6b7280;
-            font-size: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            transition: all 0.2s;
-        }
-
-        .btn-esnaf-link:hover {
-            color: #38bdf8;
-            border-color: #38bdf8;
-        }
+        .esnaf-link { display: block; text-align: center; margin-top: 30px; padding: 12px; background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 14px; color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 700; }
     </style>
 </head>
 <body>
-
     <div class="app-container">
-
-        <!-- HEADER / LOGO -->
         <div class="header">
-            <img src="logo.png.jpeg" alt="hoop logo" class="logo-img">
-            <div class="location-sub">Ortaköy Mahallesi Canlı Fırsatları</div>
+            <div class="logo">hoop</div>
+            <div class="sub-title">Ortaköy Mahallesi Canlı Fırsatları</div>
         </div>
 
-        <!-- FIRSAT LİSTESİ -->
-        <div class="card-list">
-
-            <!-- AKTİF İLAN 1 -->
+        <div id="dealsContainer" class="deals-list">
+            <!-- Varsayılan İlan 1 -->
             <div class="deal-card">
-                <div class="product-img-box">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" class="product-img" alt="Kumpir">
-                </div>
                 <div class="deal-info">
-                    <div class="product-title">Özel Karışık Kumpir + İçecek</div>
-                    <div class="price-row">
+                    <div class="deal-title">Özel Karışık Kumpir + İçecek</div>
+                    <div class="price-box">
                         <span class="old-price">1000 TL</span>
                         <span class="new-price">750 TL</span>
                     </div>
-                    <div class="meta-row">
+                    <div class="meta-box">
                         <span>⏳ 45 Dk</span>
-                        <span class="stock-badge">🔥 Stok: 8/10</span>
+                        <span>⚡ Stok: 8/10</span>
                     </div>
                 </div>
-                <button class="btn-action" onclick="alert('Kupon Kodunuz: H-750\nDükkana gösterip indirimi kullanın!')">İncele ➔</button>
+                <button class="btn-inspect">İncele ➔</button>
             </div>
-
-            <!-- AKTİF İLAN 2 -->
-            <div class="deal-card">
-                <div class="product-img-box">
-                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300" class="product-img" alt="Kahve">
-                </div>
-                <div class="deal-info">
-                    <div class="product-title">2 Adet Büyük Boy Filtre Kahve</div>
-                    <div class="price-row">
-                        <span class="old-price">240 TL</span>
-                        <span class="new-price">150 TL</span>
-                    </div>
-                    <div class="meta-row">
-                        <span>⏳ 30 Dk</span>
-                        <span class="stock-badge">🔥 Stok: 5/10</span>
-                    </div>
-                </div>
-                <button class="btn-action" onclick="alert('Kupon Kodunuz: H-150\nDükkana gösterip indirimi kullanın!')">İncele ➔</button>
-            </div>
-
-            <!-- TÜKENDİ / PASİF İLAN (EN ALTTA) -->
-            <div class="deal-card sold-out">
-                <div class="product-img-box">
-                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300" class="product-img" alt="Kruvasan">
-                </div>
-                <div class="deal-info">
-                    <div class="product-title">Taze Kruvasan + Americano</div>
-                    <div class="price-row">
-                        <span class="old-price">300 TL</span>
-                        <span class="new-price">TÜKENDİ</span>
-                    </div>
-                    <div class="meta-row" style="color: #ef4444;">
-                        <span>✕ Stok / Süre Bitti</span>
-                    </div>
-                </div>
-                <button class="btn-action disabled" disabled>Tükendi</button>
-            </div>
-
         </div>
 
-        <!-- FOOTER: ESNAF GİRİŞ KÖPRÜSÜ -->
-        <div class="footer-esnaf">
-            <a href="esnaf.html" class="btn-esnaf-link">
-                🏷 hoop — Esnaf Girişi 🔒
-            </a>
-        </div>
-
+        <a href="esnaf.html" class="esnaf-link">🔒 hoop - Esnaf Girişi</a>
     </div>
 
+    <script>
+        function loadDeals() {
+            const container = document.getElementById('dealsContainer');
+            const deals = JSON.parse(localStorage.getItem('hoop_deals') || '[]');
+
+            deals.forEach(deal => {
+                const card = document.createElement('div');
+                card.className = 'deal-card';
+                card.innerHTML = `
+                    <div class="deal-info">
+                        <div class="deal-title">${deal.title}</div>
+                        <div class="price-box">
+                            ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
+                            <span class="new-price">${deal.newPrice}</span>
+                        </div>
+                        <div class="meta-box">
+                            <span>⏳ ${deal.time}</span>
+                            <span>⚡ Stok: ${deal.stock}</span>
+                        </div>
+                    </div>
+                    <button class="btn-inspect">İncele ➔</button>
+                `;
+                container.prepend(card); // En yeni ekleneni en üste koyar
+            });
+        }
+
+        window.onload = loadDeals;
+    </script>
 </body>
 </html>
