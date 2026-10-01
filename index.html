@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Ortakoy Mahallesi Canli Firsatlari</title>
+    <title>hoop - Mahallendeki Fırsatları Yakala</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -12,48 +12,60 @@
         body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
         .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         
+        /* HEADER LOGO TASARIMI */
         .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-        .logo-text { font-size: 38px; font-weight: 800; color: #ffffff; letter-spacing: -1.5px; }
-        .logo-o1 { color: #38bdf8; }
-        .logo-o2 { color: #22c55e; }
-        .sub-title { font-size: 13px; color: #94a3b8; font-weight: 600; margin-top: 2px; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; margin-bottom: 4px; }
+        
+        /* Orijinal içi içe O harfleri (Görsel olmadığı durum için yedek) */
+        .logo-text { font-size: 42px; font-weight: 800; color: #ffffff; letter-spacing: -2px; display: flex; align-items: center; justify-content: center; }
+        .oo-container { display: inline-flex; align-items: center; position: relative; margin: 0 -2px; }
+        .ring-left { width: 28px; height: 28px; border: 6px solid #38bdf8; border-radius: 50%; display: inline-block; margin-right: -10px; z-index: 1; }
+        .ring-right { width: 28px; height: 28px; border: 6px solid #84cc16; border-radius: 50%; display: inline-block; z-index: 2; }
+        
+        .sub-title { font-size: 14px; color: #94a3b8; font-weight: 600; margin-top: 4px; }
 
         .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #e2e8f0; }
         .badge-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(34, 197, 94, 0.3); }
 
-        .esnaf-link { display: block; text-align: center; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; text-decoration: none; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 13px; margin-bottom: 20px; }
+        .esnaf-link { display: block; text-align: center; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; text-decoration: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 13px; margin-bottom: 20px; }
 
         .deals-list { display: flex; flex-direction: column; gap: 16px; }
-        .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; padding: 16px; display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
-        .deal-img { width: 84px; height: 84px; border-radius: 14px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
+        .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; padding: 16px; display: flex; gap: 12px; align-items: center; position: relative; overflow: hidden; }
+        .deal-img { width: 80px; height: 80px; border-radius: 14px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
         
-        .deal-info { flex: 1; }
-        .deal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; }
-        .price-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+        .deal-info { flex: 1; min-width: 0; }
+        .deal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .price-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
         .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
-        .new-price { font-size: 20px; color: #22c55e; font-weight: 800; }
+        .new-price { font-size: 18px; color: #22c55e; font-weight: 800; }
         
-        .meta-box { display: flex; gap: 8px; }
-        .meta-tag { background: #1e293b; color: #38bdf8; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; }
-        .meta-time { background: #1e293b; color: #f59e0b; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; }
+        .meta-box { display: flex; gap: 6px; flex-wrap: wrap; }
+        .meta-tag { background: #1e293b; color: #38bdf8; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; }
+        .meta-time { background: #1e293b; color: #f59e0b; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; }
 
-        .btn-claim { background: #2563eb; color: #ffffff; border: none; padding: 10px 14px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; }
+        .btn-claim { background: #38bdf8; color: #0f172a; border: none; padding: 10px 12px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer; text-align: center; flex-shrink: 0; white-space: nowrap; }
     </style>
 </head>
 <body>
     <div class="app-container">
         <!-- HEADER -->
         <div class="header">
-            <div class="logo-text">h<span class="logo-o1">o</span><span class="logo-o2">o</span>p</div>
-            <div class="sub-title">Ortakoy Mahallesi Canli Firsatlari</div>
+            <img src="logo.png" alt="hoop" class="logo-img" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='flex';">
+            
+            <!-- Logo Görseli Olmazsa İçi İçe Halkalı Logo Gösterilir -->
+            <div id="alt-logo" class="logo-text" style="display: none;">
+                h<div class="oo-container"><span class="ring-left"></span><span class="ring-right"></span></div>p
+            </div>
+
+            <div class="sub-title">Mahallendeki Fırsatları Yakala</div>
         </div>
 
         <div class="location-bar">
-            <span>📍 Ortakoy, Besiktas</span>
+            <span>📍 Ortaköy, Beşiktaş</span>
             <span class="badge-live">● CANLI FIRSATLAR</span>
         </div>
 
-        <a href="esnaf.html" class="esnaf-link">🏪 Esnaf misiniz? Firsat Yayinlayin ➔</a>
+        <a href="esnaf.html" class="esnaf-link">🏪 Esnaf misiniz? Fırsat Yayınlayın ➔</a>
 
         <!-- FIRSAT LİSTESİ -->
         <div class="deals-list" id="dealsContainer">
@@ -64,11 +76,11 @@
     <script>
         const defaultDeals = [
             {
-                title: 'Ortakoy Kumpir',
+                title: 'Ortaköy Kumpir',
                 oldPrice: '220 TL',
                 newPrice: '160 TL',
                 stock: '8/10',
-                time: '( 19 : 45 )',
+                time: '19:45',
                 img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200'
             },
             {
@@ -76,7 +88,7 @@
                 oldPrice: '350 TL',
                 newPrice: '240 TL',
                 stock: '5/10',
-                time: '( 20 : 15 )',
+                time: '20:15',
                 img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200'
             }
         ];
@@ -88,7 +100,7 @@
             let allDeals = [...savedDeals, ...defaultDeals];
             container.innerHTML = '';
 
-            allDeals.forEach((deal, index) => {
+            allDeals.forEach((deal) => {
                 const card = document.createElement('div');
                 card.className = 'deal-card';
                 card.innerHTML = `
@@ -104,7 +116,7 @@
                             <span class="meta-time">Saat: ${deal.time}</span>
                         </div>
                     </div>
-                    <button class="btn-claim" onclick="getCoupon('${deal.title}')">Al</button>
+                    <button class="btn-claim" onclick="getCoupon('${deal.title}')">Kupon Al</button>
                 `;
                 container.appendChild(card);
             });
@@ -112,7 +124,7 @@
 
         function getCoupon(title) {
             const code = 'H-' + Math.floor(1000 + Math.random() * 9000);
-            alert(`🎉 Tebrikler!\n\n${title} firsati icin kodunuz: ${code}\n\nBu kodu esnafa gostererek indiriminizi alabilirsiniz.`);
+            alert(`🎉 Tebrikler!\n\n${title} fırsatı için kodunuz: ${code}\n\nBu kodu esnafa göstererek indiriminizi alabilirsiniz.`);
         }
 
         loadDeals();
