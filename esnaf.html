@@ -3,354 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Canlı Fırsatlar</title>
+    <title>hoop - Esnaf Paneli</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        body {
-            background-color: #060913;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background-color: #070a14;
-            min-height: 100vh;
-            padding: 16px 14px 40px 14px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* HEADER */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 0 10px 0;
-        }
-
-        .logo-img {
-            height: 48px;
-            object-fit: contain;
-        }
-
-        .location-badge {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid #334155;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* BANNER */
-        .live-banner {
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            border: 1px solid #312e81;
-            border-radius: 16px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .banner-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #ef4444;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ef4444;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-
-        .banner-text {
-            font-size: 13px;
-            font-weight: 800;
-            color: #f3f4f6;
-            letter-spacing: -0.2px;
-        }
-
-        .banner-sub {
-            font-size: 11px;
-            color: #9ca3af;
-            font-weight: 600;
-        }
-
-        /* DEAL CARDS */
-        .deal-card {
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .deal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .merchant-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .merchant-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: #1e293b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #38bdf8;
-            font-size: 18px;
-            border: 1px solid #334155;
-        }
-
-        .merchant-name {
-            font-size: 15px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .merchant-cat {
-            font-size: 11px;
-            color: #9ca3af;
-            font-weight: 600;
-        }
-
-        .timer-badge {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
-            padding: 6px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .deal-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: #f3f4f6;
-            line-height: 1.3;
-        }
-
-        .price-row {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-top: 2px;
-        }
-
-        .current-price {
-            font-size: 24px;
-            font-weight: 800;
-            color: #38bdf8;
-        }
-
-        .old-price {
-            font-size: 14px;
-            color: #64748b;
-            text-decoration: line-through;
-            font-weight: 600;
-        }
-
-        .discount-tag {
-            background: #2563eb;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-            margin-left: auto;
-        }
-
-        .deal-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 10px;
-            border-top: 1px solid #1e293b;
-        }
-
-        .stock-info {
-            font-size: 12px;
-            color: #34d399;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-catch {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        /* ESNAF PANELİ YÖNLENDİRME BUTONU (ETİKET İKONUYLA DÜZELTİLDİ) */
-        .merchant-link-card {
-            background: #0f172a;
-            border: 1px dashed #334155;
-            border-radius: 16px;
-            padding: 14px;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .btn-merchant-link {
-            color: #9ca3af;
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-merchant-link:hover {
-            color: #38bdf8;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #060913; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 14px; }
+        .app-container { width: 100%; max-width: 480px; background-color: #070a14; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo { font-size: 20px; font-weight: 800; color: #38bdf8; }
+        .badge { background: #1e293b; color: #94a3b8; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        
+        /* PIN EKRANI STİLLERİ */
+        .pin-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; gap: 16px; }
+        .pin-title { font-size: 18px; font-weight: 800; color: #f8fafc; }
+        .pin-sub { font-size: 13px; color: #64748b; }
+        .pin-input { background: #0f172a; border: 1px solid #334155; color: #38bdf8; font-size: 24px; font-weight: 800; text-align: center; letter-spacing: 12px; width: 180px; padding: 12px; border-radius: 12px; outline: none; }
+        .pin-btn { background: #2563eb; color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 180px; font-size: 14px; }
+        
+        /* PANEL KARTLARI */
+        .dashboard { display: none; flex-direction: column; gap: 16px; }
+        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; }
+        .card-title { font-size: 16px; font-weight: 800; margin-bottom: 12px; color: #f8fafc; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 6px; }
+        input, select { width: 100%; background: #1e293b; border: 1px solid #334155; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 600; }
+        .btn { width: 100%; background: #2563eb; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 8px; }
+        .btn-back { background: transparent; color: #64748b; border: 1px solid #334155; text-align: center; text-decoration: none; display: block; margin-top: 16px; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 700; }
     </style>
 </head>
 <body>
-
     <div class="app-container">
-
         <!-- HEADER -->
         <div class="header">
-            <img src="logo.png.jpeg" alt="hoop logo" class="logo-img">
-            <div class="location-badge">
-                📍 Ortaköy
-            </div>
+            <div class="logo">hoop esnaf</div>
+            <div class="badge">🔒 Esnaf Paneli</div>
         </div>
 
-        <!-- LIVE BANNER -->
-        <div class="live-banner">
-            <div class="banner-left">
-                <div class="pulse-dot"></div>
-                <div>
-                    <div class="banner-text">Canlı Fırsatlar Aktif</div>
-                    <div class="banner-sub">Çevrendeki anlık indirimleri yakala</div>
+        <!-- PIN GİRİŞ EKRANI -->
+        <div id="pinScreen" class="pin-screen">
+            <div style="font-size: 40px;">🔑</div>
+            <div class="pin-title">Esnaf Giriş Şifresi</div>
+            <div class="pin-sub">Lütfen 4 haneli güvenlik PIN kodunuzu girin.</div>
+            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••">
+            <button class="pin-btn" onclick="checkPin()">Giriş Yap ➔</button>
+        </div>
+
+        <!-- YÖNETİM PANELİ (GİRİŞ YAPILINCA AÇILIR) -->
+        <div id="dashboard" class="dashboard">
+            <div class="card">
+                <div class="card-title">⚡ Yeni Canlı Fırsat Yayınla</div>
+                <div class="form-group">
+                    <label>Fırsat / Ürün Adı</label>
+                    <input type="text" placeholder="Örn: Karışık Kumpir + İçecek">
                 </div>
-            </div>
-        </div>
-
-        <!-- FIRSAT CARD 1 -->
-        <div class="deal-card">
-            <div class="deal-header">
-                <div class="merchant-info">
-                    <div class="merchant-avatar">K</div>
-                    <div>
-                        <div class="merchant-name">Ortaköy Kumpircisi</div>
-                        <div class="merchant-cat">Fast Food / Kumpir</div>
-                    </div>
+                <div class="form-group">
+                    <label>İndirimli Fiyat (₺)</label>
+                    <input type="number" placeholder="750">
                 </div>
-                <div class="timer-badge">⏱ 42 dk</div>
-            </div>
-
-            <div class="deal-title">Özel Karışık Kumpir + Büyük Boy İçecek</div>
-
-            <div class="price-row">
-                <div class="current-price">₺750</div>
-                <div class="old-price">₺1.000</div>
-                <div class="discount-tag">%25 İNDİRİM</div>
-            </div>
-
-            <div class="deal-footer">
-                <div class="stock-info">⚡ Son 4 Stok</div>
-                <button class="btn-catch" onclick="alert('3 Haneli Kupon Kodunuz: H75\n\nEsnafa bu kodu söyleyerek fırsattan yararlanabilirsiniz!')">Fırsatı Yakala ➔</button>
-            </div>
-        </div>
-
-        <!-- FIRSAT CARD 2 -->
-        <div class="deal-card">
-            <div class="deal-header">
-                <div class="merchant-info">
-                    <div class="merchant-avatar" style="color:#f59e0b;">W</div>
-                    <div>
-                        <div class="merchant-name">Bosphorus Waffle</div>
-                        <div class="merchant-cat">Tatlı & Kafe</div>
-                    </div>
+                <div class="form-group">
+                    <label>Stok Adedi</label>
+                    <input type="number" placeholder="5">
                 </div>
-                <div class="timer-badge">⏱ 18 dk</div>
+                <button class="btn" onclick="alert('Fırsatınız canlıya alındı!')">Fırsatı Canlıya Al 🚀</button>
             </div>
 
-            <div class="deal-title">Bol Çikolatalı Meyveli Waffle + Çay</div>
-
-            <div class="price-row">
-                <div class="current-price">₺400</div>
-                <div class="old-price">₺550</div>
-                <div class="discount-tag">%27 İNDİRİM</div>
-            </div>
-
-            <div class="deal-footer">
-                <div class="stock-info">⚡ Son 2 Stok</div>
-                <button class="btn-catch" onclick="alert('3 Haneli Kupon Kodunuz: W40\n\nEsnafa bu kodu söyleyerek fırsattan yararlanabilirsiniz!')">Fırsatı Yakala ➔</button>
-            </div>
+            <a href="index.html" class="btn-back">← Müşteri Sayfasına Dön</a>
         </div>
-
-        <!-- ESNAF GİRİŞİ YÖNLENDİRME (🏷 ETİKET İKONU) -->
-        <div class="merchant-link-card">
-            <a href="esnaf.html" class="btn-merchant-link">
-                🏷 hoop — Esnaf Girişi 🔒
-            </a>
-        </div>
-
     </div>
 
+    <script>
+        function checkPin() {
+            const input = document.getElementById('pinInput').value;
+            // Varsayılan PIN: 1999
+            if(input === "1999") {
+                document.getElementById('pinScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'flex';
+            } else {
+                alert('Hatalı PIN Kodu! Lütfen tekrar deneyin.');
+            }
+        }
+    </script>
 </body>
 </html>
