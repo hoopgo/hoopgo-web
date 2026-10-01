@@ -6,12 +6,12 @@
     <title>Hoop - Mahallendeki İndirimleri Keşfet</title>
     <style>
         :root {
-            --bg-navy: #152237;
-            --card-navy: #1f2f4a;
-            --accent-cream: #f4e8c1;
-            --text-light: #f8f9fa;
-            --text-muted: #a0aec0;
-            --badge-gold: #d4af37;
+            --bg-navy: #052237;
+            --card-navy: #1F2F4A;
+            --accent-cream: #Efde8c;
+            --text-light: #f0f0f0;
+            --text-muted: #8a9eb0;
+            --badge-gold: #D6A837;
         }
 
         * {
@@ -32,99 +32,164 @@
         .app-container {
             width: 100%;
             max-width: 480px;
-            padding: 20px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        header {
-            margin-bottom: 24px;
-            text-align: center;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(31, 47, 74, 0.6);
+            padding: 12px 16px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
         }
 
         .logo {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--accent-cream);
-            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
         }
 
-        .subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 4px;
+        .logo-badge {
+            background-color: var(--badge-gold);
+            color: #000;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 800;
+        }
+
+        .location-select {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .deals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .deal-card {
             background-color: var(--card-navy);
-            border: 1px solid rgba(244, 232, 193, 0.15);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 16px;
-            margin-bottom: 16px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .deal-info h3 {
-            font-size: 18px;
-            color: var(--accent-cream);
-            margin-bottom: 6px;
-        }
-
-        .deal-info p {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
         }
 
         .deal-meta {
-            font-size: 12px;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .claim-btn {
             background-color: var(--accent-cream);
-            color: var(--bg-navy);
+            color: #000;
             border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 700;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.1s ease;
+            transition: transform 0.1s, opacity 0.2s;
+            width: 100%;
         }
 
         .claim-btn:active {
-            transform: scale(0.96);
+            transform: scale(0.98);
+        }
+
+        .coupon-box {
+            display: none;
+            background: var(--bg-navy);
+            border: 2px dashed var(--accent-cream);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .coupon-code {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-cream);
+            letter-spacing: 2px;
+        }
+
+        .coupon-timer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
+
     <div class="app-container">
-        <header>
-            <div class="logo">HOOP</div>
-            <div class="subtitle">Ortaköy Mahallesi İndirim Fırsatları</div>
+        <header class="header">
+            <div class="logo">
+                HOOP <span class="logo-badge">GO</span>
+            </div>
+            <select class="location-select">
+                <option value="ortakoy">Ortaköy</option>
+            </select>
         </header>
 
-        <main>
+        <main class="deals-list">
             <div class="deal-card">
                 <div class="deal-info">
-                    <h3>Ortaköy Fırını</h3>
-                    <p>%20 Kahve & Kruvasan İndirimi</p>
-                    <span class="deal-meta">Kalan Stok: 12</span>
+                    <h3>Ortaköy Fırıncısı</h3>
+                    <p>%20 Taze & Kruvasan İndirimi</p>
+                    <span class="deal-meta">Kalan Stok: 12/20</span>
                 </div>
-                <button class="claim-btn">Kodu Al</button>
+                <button class="claim-btn" onclick="showCoupon(this, 'A-27')">İndirim Kodunu Al</button>
+                <div class="coupon-box">
+                    <div class="coupon-code">A-27</div>
+                    <div class="coupon-timer">Bu kod 1 saat geçerlidir. İşletmeye gösteriniz.</div>
+                </div>
             </div>
 
             <div class="deal-card">
                 <div class="deal-info">
-                    <h3>Boğaz Büfe</h3>
-                    <p>Tatlı Yanında Çay İkramı</p>
-                    <span class="deal-meta">Kalan Stok: 5</span>
+                    <h3>Kahve Durağı Ortaköy</h3>
+                    <p>Filtre Kahvede 1Al 1Öde</p>
+                    <span class="deal-meta">Kalan Stok: 5/15</span>
                 </div>
-                <button class="claim-btn">Kodu Al</button>
+                <button class="claim-btn" onclick="showCoupon(this, 'K-10')">İndirim Kodunu Al</button>
+                <div class="coupon-box">
+                    <div class="coupon-code">K-10</div>
+                    <div class="coupon-timer">Bu kod 1 saat geçerlidir. İşletmeye gösteriniz.</div>
+                </div>
             </div>
         </main>
     </div>
+
+    <script>
+        function showCoupon(btn, code) {
+            btn.style.display = 'none';
+            const couponBox = btn.nextElementSibling;
+            couponBox.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
-
