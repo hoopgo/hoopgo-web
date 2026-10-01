@@ -79,6 +79,15 @@
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        /* PASİF / TÜKENDİ KART STİLİ */
+        .card-row.sold-out {
+            opacity: 0.45;
+            background: #0b0f19;
+            border-color: #111827;
+            filter: grayscale(50%);
         }
 
         .item-thumb {
@@ -145,6 +154,13 @@
             font-weight: 600;
         }
 
+        .badge-soldout-text {
+            color: #ef4444;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
         .btn-incele {
             background: #2563eb;
             color: #ffffff;
@@ -156,6 +172,14 @@
             cursor: pointer;
             flex-shrink: 0;
             white-space: nowrap;
+        }
+
+        /* TÜKENDİ BUTON STİLİ (TIST/PASİF) */
+        .btn-incele.disabled {
+            background: #1e293b;
+            color: #64748b;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         /* POPUP MODAL STYLES */
@@ -246,14 +270,8 @@
             font-weight: 800;
             cursor: pointer;
             margin-top: 16px;
-            transition: background 0.2s;
         }
 
-        .btn-kod-al:hover {
-            background: #059669;
-        }
-
-        /* CODE & TIMER RESULT BOX */
         .code-result-box {
             display: none;
             border: 2px dashed #10b981;
@@ -313,7 +331,7 @@
         <!-- COMPACT LISTING -->
         <div class="cards-list">
 
-            <!-- İLAN 1 -->
+            <!-- CANLI İLAN 1 -->
             <div class="card-row">
                 <img class="item-thumb" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150" alt="Kumpir">
                 <div class="item-info">
@@ -331,7 +349,7 @@
                 <button class="btn-incele" onclick="openModal('Ortaköy Kumpircisi', 'Mecidiye Köprüsü Sok. No:8, Ortaköy', 'Özel Karışık Kumpir + İçecek', '1000 TL', '750 TL')">İncele ➔</button>
             </div>
 
-            <!-- İLAN 2 -->
+            <!-- CANLI İLAN 2 -->
             <div class="card-row">
                 <img class="item-thumb" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=150" alt="Kahve">
                 <div class="item-info">
@@ -349,22 +367,20 @@
                 <button class="btn-incele" onclick="openModal('Kahve Durağı Ortaköy', 'Dereboyu Cad. No:14, Ortaköy', '2 Adet Büyük Boy Filtre Kahve', '240 TL', '150 TL')">İncele ➔</button>
             </div>
 
-            <!-- İLAN 3 -->
-            <div class="card-row">
+            <!-- SÜRESİ/STOĞU BİTEN İLAN (EN ALTA KAYAN TÜKENDİ ÖRNEĞİ) -->
+            <div class="card-row sold-out">
                 <img class="item-thumb" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=150" alt="Kruvasan">
                 <div class="item-info">
                     <div class="item-title">Taze Kruvasan + Americano</div>
                     <div class="price-box">
                         <span class="old-price">300 TL</span>
-                        <span class="new-price">200 TL</span>
+                        <span class="badge-soldout-text">TÜKENDİ</span>
                     </div>
                     <div class="meta-badges">
-                        <span>⏳ 60 Dk</span>
-                        <span>•</span>
-                        <span class="badge-stok">🔥 Stok: 4/15</span>
+                        <span>❌ Stok / Süre Bitti</span>
                     </div>
                 </div>
-                <button class="btn-incele" onclick="openModal('Ortaköy Fırıncısı', 'Ortaköy Meydanı No:3, Ortaköy', 'Taze Kruvasan + Americano', '300 TL', '200 TL')">İncele ➔</button>
+                <button class="btn-incele disabled">Tükendi</button>
             </div>
 
         </div>
@@ -413,7 +429,6 @@
             document.getElementById('modalOldPrice').innerText = oldPrice;
             document.getElementById('modalNewPrice').innerText = newPrice;
 
-            // Reset modal state
             document.getElementById('btnKodAl').style.display = 'block';
             document.getElementById('codeResultBox').style.display = 'none';
 
@@ -428,13 +443,11 @@
         }
 
         function generateCode() {
-            // Generates a random 3-digit code
             const randomCode = Math.floor(100 + Math.random() * 900);
             document.getElementById('generatedCode').innerText = randomCode;
             document.getElementById('btnKodAl').style.display = 'none';
             document.getElementById('codeResultBox').style.display = 'block';
 
-            // Start 60-Minute Live Countdown Timer
             let durationSeconds = 60 * 60;
             const timerDisplay = document.getElementById('countdownTimer');
 
