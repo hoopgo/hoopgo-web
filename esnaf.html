@@ -80,11 +80,11 @@
                 <div class="row-2">
                     <div class="form-group">
                         <label>Normal Fiyat (₺)</label>
-                        <input type="number" id="pOldPrice" placeholder="450" oninput="updateSentence()">
+                        <input type="number" id="pOldPrice" placeholder="1000" oninput="updateSentence()">
                     </div>
                     <div class="form-group">
                         <label>İndirimli Fiyat (₺)</label>
-                        <input type="number" id="pNewPrice" placeholder="380" oninput="updateSentence()">
+                        <input type="number" id="pNewPrice" placeholder="750" oninput="updateSentence()">
                     </div>
                 </div>
 
@@ -148,12 +148,10 @@
             }
         }
 
-        /* Kelimelerin baş harflerini otomatik büyük yapma */
         function capitalize(str) {
             return str.replace(/\b\w/g, l => l.toLocaleUpperCase('tr-TR'));
         }
 
-        /* Cümleyi Canlı Oluşturan Fonksiyon */
         function updateSentence() {
             const name = capitalize(document.getElementById('pName').value) || '...';
             const oldPrice = document.getElementById('pOldPrice').value || '...';
@@ -168,12 +166,34 @@
         }
 
         function publishDeal() {
-            const name = document.getElementById('pName').value;
-            if(!name) {
-                alert('Lütfen ürün veya hizmet adını girin.');
+            const name = capitalize(document.getElementById('pName').value);
+            const oldPrice = document.getElementById('pOldPrice').value;
+            const newPrice = document.getElementById('pNewPrice').value;
+            const amount = document.getElementById('pAmount').value;
+            const unit = document.getElementById('pUnit').value;
+            const time = document.getElementById('pTime').value || '21:00';
+
+            if(!name || !newPrice) {
+                alert('Lütfen en azından Ürün Adı ve İndirimli Fiyatı girin.');
                 return;
             }
-            alert('Fırsatınız başarıyla canlıya alındı!');
+
+            const newDeal = {
+                id: Date.now(),
+                title: name,
+                oldPrice: oldPrice ? oldPrice + ' TL' : '',
+                newPrice: newPrice + ' TL',
+                stock: (amount || '1') + ' ' + unit,
+                time: 'Saat ' + time + "'e kadar"
+            };
+
+            // Hafızadaki mevcut ilanları alıp yenisini ekliyoruz
+            let deals = JSON.parse(localStorage.getItem('hoop_deals') || '[]');
+            deals.unshift(newDeal);
+            localStorage.setItem('hoop_deals', JSON.stringify(deals));
+
+            alert('Fırsatınız başarıyla canlıya alındı! Müşteri sayfasına yönlendiriliyorsunuz.');
+            window.location.href = 'index.html';
         }
     </script>
 </body>
