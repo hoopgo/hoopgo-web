@@ -48,9 +48,10 @@
         }
 
         .main-logo {
-            width: 220px;
+            width: 210px;
             height: auto;
             display: block;
+            object-fit: contain;
         }
 
         .tagline {
@@ -121,31 +122,9 @@
 <body>
 
     <div class="app-container">
-        <!-- HEADER / DIRECT SVG LOGO EMBEDDED -->
+        <!-- HEADER / DIRECT LOGO IMAGE -->
         <div class="header">
-            <svg class="main-logo" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- h -->
-                <path d="M70 40 C70 30 80 30 85 30 C90 30 100 30 100 40 L100 70 C110 52 130 48 150 48 C185 48 200 70 200 105 L200 150 C200 160 190 160 185 160 C180 160 170 160 170 150 L170 110 C170 85 155 76 138 76 C118 76 100 90 100 115 L100 150 C100 160 90 160 85 160 C80 160 70 160 70 150 L70 40 Z" fill="#F5F5F7"/>
-                
-                <!-- Blue Ring -->
-                <circle cx="230" cy="115" r="42" stroke="#0066FF" stroke-width="26"/>
-                
-                <!-- Green Ring -->
-                <circle cx="310" cy="115" r="42" stroke="#7CA954" stroke-width="26"/>
-                
-                <!-- Overlap Clip -->
-                <g clip-path="url(#ring-clip)">
-                    <circle cx="230" cy="115" r="42" stroke="#0066FF" stroke-width="26"/>
-                </g>
-                <defs>
-                    <clipPath id="ring-clip">
-                        <rect x="270" y="70" width="40" height="45"/>
-                    </clipPath>
-                </defs>
-
-                <!-- p -->
-                <path d="M410 48 C445 48 475 75 475 115 C475 155 445 182 410 182 C390 182 375 172 365 158 L365 190 C365 200 355 200 350 200 C345 200 335 200 335 190 L335 60 C335 50 345 50 350 50 C355 50 365 50 365 60 L365 72 C375 58 390 48 410 48 Z M402 76 C380 76 365 92 365 115 C365 138 380 154 402 154 C425 154 442 138 442 115 C442 92 425 76 402 76 Z" fill="#F5F5F7"/>
-            </svg>
+            <img class="main-logo" src="https://i.ibb.co/6yqGvBw/hoop-logo.png" alt="hoop" onerror="this.src='logo.png'">
             <div class="tagline">Mahallendeki fırsatları keşfet.</div>
         </div>
 
