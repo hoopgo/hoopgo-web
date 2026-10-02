@@ -73,35 +73,40 @@
         <div id="registerForm">
             <div class="form-group">
                 <label class="form-label">İŞLETME / DÜKKAN TİCARİ UNVANI</label>
-                <input type="text" class="form-input" placeholder="Örn: Ortaköy Kasabı Gıda San. Tic. Ltd.">
+                <input type="text" id="regTitle" class="form-input" placeholder="Örn: Ortaköy Kasabı Gıda San. Tic. Ltd.">
             </div>
 
             <div class="form-group">
                 <label class="form-label">VERGİ DAİRESİ</label>
-                <input type="text" class="form-input" placeholder="Örn: Beşiktaş Vergi Dairesi">
+                <input type="text" id="regTaxOffice" class="form-input" placeholder="Örn: Beşiktaş Vergi Dairesi">
             </div>
 
             <div class="form-group">
                 <label class="form-label">VERGİ NO / T.C. KİMLİK NO</label>
-                <input type="text" class="form-input" placeholder="10 veya 11 haneli numara">
+                <input type="text" id="regTaxNo" class="form-input" placeholder="10 veya 11 haneli numara">
             </div>
 
             <div class="form-group">
                 <label class="form-label">İŞLETME ADRESİ</label>
-                <input type="text" class="form-input" placeholder="Örn: Dereboyu Cad. No: 12 Ortaköy">
+                <input type="text" id="regAddress" class="form-input" placeholder="Örn: Dereboyu Cad. No: 12 Ortaköy">
             </div>
 
             <div class="form-group">
                 <label class="form-label">YETKİLİ ADI SOYADI</label>
-                <input type="text" class="form-input" placeholder="Ad Soyad">
+                <input type="text" id="regContact" class="form-input" placeholder="Ad Soyad">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">TELEFON NUMARASI</label>
+                <input type="tel" id="regPhone" class="form-input" placeholder="05XX XXX XX XX">
             </div>
 
             <div class="form-group">
                 <label class="form-label">4 HANELİ GİRİŞ PIN KODU (KENDİNİZ BELİRLEYİN)</label>
-                <input type="password" maxlength="4" class="form-input" placeholder="****">
+                <input type="password" id="regPin" maxlength="4" class="form-input" placeholder="****">
             </div>
 
-            <button class="btn-submit" onclick="alert('Kayıt oluşturuldu!')">KAYDI TAMAMLA</button>
+            <button class="btn-submit" onclick="completeRegistration()">KAYDI TAMAMLA</button>
         </div>
 
         <!-- GİRİŞ FORMU -->
@@ -139,6 +144,18 @@
                 tabs[0].classList.remove('active');
                 tabs[1].classList.add('active');
             }
+        }
+
+        function completeRegistration() {
+            const taxNo = document.getElementById('regTaxNo').value;
+            const pin = document.getElementById('regPin').value;
+
+            if (!taxNo || !pin) {
+                alert('Lütfen en az Vergi No ve 4 Haneli PIN Kodunu doldurunuz.');
+                return;
+            }
+
+            alert('🎉 Kayıt talebiniz başarıyla alındı!\n\nYönetici onayından sonra Vergi Numaranız ve belirlediğiniz PIN kodu ile giriş yapabilirsiniz.');
         }
     </script>
 </body>
