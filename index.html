@@ -4,28 +4,49 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Mahallendeki Fırsatları Yakala</title>
+    <title>hoop go - Ortaköy Mahallendeki Fırsatları Yakala</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Derin Koyu Lacivert Arka Plan */
         body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
         .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
-        /* HEADER & LOGO ALANI */
-        .header-section { text-align: center; padding: 12px 0 16px 0; }
+        /* HEADER & BRANDING */
+        .header-section { text-align: center; padding: 10px 0 16px 0; }
         
-        /* SADECE ORİJİNAL HOOP LOGOSU */
-        .hoop-svg { height: 52px; width: auto; display: block; margin: 0 auto; }
-        .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; margin-top: 10px; }
+        .logo-wrapper { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            margin-bottom: 8px;
+        }
 
-        /* LOKASYON & İLANLAR */
-        .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 12px; font-weight: 700; color: #e2e8f0; margin-top: 10px; }
+        .main-logo-img { 
+            height: 48px; 
+            width: auto; 
+            object-fit: contain;
+        }
+
+        .go-text { 
+            font-size: 34px; 
+            font-weight: 900; 
+            color: #38bdf8; 
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+        
+        .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; }
+
+        /* LOKASYON BAR */
+        .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 12px; font-weight: 700; color: #e2e8f0; margin-top: 8px; }
         .badge-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; border: 1px solid rgba(34, 197, 94, 0.3); }
 
+        /* İLAN KARTLARI */
         .deals-list { display: flex; flex-direction: column; gap: 14px; flex: 1; margin-bottom: 20px; }
         .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 12px; display: flex; gap: 10px; align-items: center; }
         .deal-img { width: 75px; height: 75px; border-radius: 12px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
@@ -45,35 +66,19 @@
 
         .btn-claim { background: #38bdf8; color: #0f172a; border: none; padding: 8px 10px; border-radius: 10px; font-weight: 800; font-size: 11px; cursor: pointer; flex-shrink: 0; }
 
-        /* EN ALT ESNAF GİRİŞİ ALANI */
+        /* ESNAF GİRİŞİ */
         .footer-esnaf { margin-top: auto; padding-top: 12px; border-top: 1px solid #1e293b; text-align: center; }
-        .btn-esnaf-footer { background: #0f172a; color: #38bdf8; border: 1px solid #1e293b; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
-        .btn-esnaf-footer:hover { border-color: #38bdf8; background: #1e293b; }
+        .btn-esnaf-footer { background: #0f172a; color: #38bdf8; border: 1px solid #1e293b; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
     </style>
 </head>
 <body class="notranslate" translate="no">
     <div class="app-container">
         <!-- HEADER / LOGO ALANI -->
         <header class="header-section">
-            <!-- Birebir Orijinal Hoop Logosu -->
-            <svg class="hoop-svg" viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- h harfi -->
-                <path d="M20 20 C20 10, 32 10, 32 20 L32 75 C32 85, 20 85, 20 75 Z" fill="#ffffff"/>
-                <path d="M20 42 C20 30, 48 30, 48 44 L48 75 C48 85, 36 85, 36 75 L36 48 C36 40, 32 40, 32 48" fill="#ffffff"/>
-                
-                <!-- Mavi Halka -->
-                <circle cx="85" cy="52" r="20" stroke="#0070f3" stroke-width="12" fill="none"/>
-                
-                <!-- Yeşil Halka -->
-                <circle cx="118" cy="52" r="20" stroke="#70b62c" stroke-width="12" fill="none"/>
-                
-                <!-- 3D Kesişim Gölgesi -->
-                <path d="M98 38 A20 20 0 0 1 105 52" stroke="#0051ba" stroke-width="12" stroke-linecap="round" fill="none"/>
-
-                <!-- p harfi -->
-                <path d="M152 35 C152 25, 164 25, 164 35 L164 90 C164 100, 152 100, 152 90 Z" fill="#ffffff"/>
-                <circle cx="176" cy="52" r="13" stroke="#ffffff" stroke-width="10" fill="none"/>
-            </svg>
+            <div class="logo-wrapper">
+                <img src="logo.png.jpeg" alt="hoop logo" class="main-logo-img">
+                <span class="go-text">go</span>
+            </div>
             <p class="tagline">Mahallendeki Fırsatları Yakala</p>
         </header>
 
