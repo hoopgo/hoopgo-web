@@ -14,7 +14,7 @@
         body { background-color: #020617; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
         .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; position: relative; }
         
-        /* HEADER / LOGO ALANI (KİLİTLİ ALAN) */
+        /* HEADER / LOGO ALANI */
         .header-section { text-align: center; padding: 8px 0 16px 0; }
         
         .logo-crop-box {
@@ -36,7 +36,7 @@
         .portal-title { font-size: 20px; font-weight: 800; color: #f8fafc; margin-top: 10px; }
         .portal-subtitle { font-size: 13px; font-weight: 600; color: #94a3b8; margin-top: 4px; }
 
-        /* SEKMELER (Kayıt / Giriş) */
+        /* SEKMELER */
         .tab-box { display: flex; background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 4px; margin-top: 16px; margin-bottom: 20px; }
         .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 700; border-radius: 8px; border: none; background: transparent; color: #94a3b8; cursor: pointer; }
         .tab-btn.active { background: #1e293b; color: #38bdf8; }
@@ -47,11 +47,14 @@
         .form-input { width: 100%; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; outline: none; }
         .form-input:focus { border-color: #38bdf8; }
 
+        /* HATA UYARISI */
+        .error-message { color: #ef4444; font-size: 11px; font-weight: 700; margin-bottom: 10px; display: none; text-align: center; }
+
         .btn-submit { width: 100%; background: #38bdf8; color: #0f172a; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; }
         
         .btn-back { background: transparent; color: #64748b; border: none; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; width: 100%; margin-top: auto; }
 
-        /* ÖZEL KONTROL / ONAY KARTI (MODAL) */
+        /* ÖZEL ONAY KARTI (MODAL) */
         .modal-overlay {
             display: none;
             position: absolute;
@@ -124,6 +127,8 @@
 
         <!-- KAYIT FORMU -->
         <div id="registerForm">
+            <div id="regError" class="error-message"></div>
+
             <div class="form-group">
                 <label class="form-label">İŞLETME / DÜKKAN TİCARİ UNVANI</label>
                 <input type="text" id="regTitle" class="form-input" placeholder="Örn: Ortaköy Kasabı Gıda San. Tic. Ltd.">
@@ -135,8 +140,8 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">VERGİ NO / T.C. KİMLİK NO</label>
-                <input type="text" id="regTaxNo" class="form-input" placeholder="10 veya 11 haneli numara">
+                <label class="form-label">VERGİ NO / T.C. KİMLİK NO (10 VEYA 11 HANELİ)</label>
+                <input type="text" id="regTaxNo" maxlength="11" class="form-input" placeholder="10 haneli Vergi No veya 11 haneli T.C. No">
             </div>
 
             <div class="form-group">
@@ -151,11 +156,11 @@
 
             <div class="form-group">
                 <label class="form-label">TELEFON NUMARASI</label>
-                <input type="tel" id="regPhone" class="form-input" placeholder="05XX XXX XX XX">
+                <input type="tel" id="regPhone" maxlength="11" class="form-input" placeholder="Örn: 05321234567">
             </div>
 
             <div class="form-group">
-                <label class="form-label">4 HANELİ GİRİŞ PIN KODU (KENDİNİZ BELİRLEYİN)</label>
+                <label class="form-label">4 HANELİ GİRİŞ PIN KODU</label>
                 <input type="password" id="regPin" maxlength="4" class="form-input" placeholder="****">
             </div>
 
@@ -164,17 +169,19 @@
 
         <!-- GİRİŞ FORMU -->
         <div id="loginForm" style="display: none;">
+            <div id="loginError" class="error-message"></div>
+
             <div class="form-group">
                 <label class="form-label">VERGİ NO / T.C. KİMLİK NO</label>
-                <input type="text" class="form-input" placeholder="10 veya 11 haneli numara">
+                <input type="text" id="loginTaxNo" maxlength="11" class="form-input" placeholder="10 veya 11 haneli numara">
             </div>
 
             <div class="form-group">
                 <label class="form-label">4 HANELİ PIN KODU</label>
-                <input type="password" maxlength="4" class="form-input" placeholder="****">
+                <input type="password" id="loginPin" maxlength="4" class="form-input" placeholder="****">
             </div>
 
-            <button class="btn-submit" onclick="alert('Giriş yapıldı!')">PANELİME GİRİŞ YAP</button>
+            <button class="btn-submit" onclick="loginMerchant()">PANELİME GİRİŞ YAP</button>
         </div>
 
         <button class="btn-back" onclick="window.location.href='index.html'">← Ana Sayfaya Dön</button>
@@ -195,6 +202,7 @@
             const regForm = document.getElementById('registerForm');
             const loginForm = document.getElementById('loginForm');
             const tabs = document.querySelectorAll('.tab-btn');
+            hideErrors();
 
             if (tab === 'register') {
                 regForm.style.display = 'block';
@@ -209,22 +217,77 @@
             }
         }
 
-        function completeRegistration() {
-            const taxNo = document.getElementById('regTaxNo').value;
-            const pin = document.getElementById('regPin').value;
+        function hideErrors() {
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+        }
 
-            if (!taxNo || !pin) {
-                alert('Lütfen en az Vergi No ve 4 Haneli PIN Kodunu doldurunuz.');
+        function showError(elementId, text) {
+            const errEl = document.getElementById(elementId);
+            errEl.innerText = text;
+            errEl.style.display = 'block';
+        }
+
+        function completeRegistration() {
+            hideErrors();
+
+            const title = document.getElementById('regTitle').value.trim();
+            const taxOffice = document.getElementById('regTaxOffice').value.trim();
+            const taxNo = document.getElementById('regTaxNo').value.trim();
+            const address = document.getElementById('regAddress').value.trim();
+            const contact = document.getElementById('regContact').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const pin = document.getElementById('regPin').value.trim();
+
+            // SIKI DOĞRULAMA KONTROLLERİ
+            if (!title || !taxOffice || !taxNo || !address || !contact || !phone || !pin) {
+                showError('regError', 'Lütfen tüm alanları eksiksiz doldurunuz.');
                 return;
             }
 
-            // Özel Onay Kartını Aç
+            // Vergi No / TC Kimlik Kontrolü (Sadece rakam ve 10 veya 11 hane olmalı)
+            if (!/^\d+$/.test(taxNo) || (taxNo.length !== 10 && taxNo.length !== 11)) {
+                showError('regError', 'Vergi No 10 haneli, T.C. Kimlik No 11 haneli rakamlardan oluşmalıdır.');
+                return;
+            }
+
+            // Telefon Kontrolü (En az 10 haneli rakam olmalı)
+            if (!/^\d+$/.test(phone) || phone.length < 10) {
+                showError('regError', 'Lütfen geçerli bir telefon numarası giriniz (örn: 05321234567).');
+                return;
+            }
+
+            // PIN Kontrolü (Tam 4 hane rakam olmalı)
+            if (!/^\d{4}$/.test(pin)) {
+                showError('regError', 'Giriş PIN kodu tam 4 haneli rakamlardan oluşmalıdır.');
+                return;
+            }
+
+            // Başarılı ise Onay Kartını Aç
             document.getElementById('successModal').style.display = 'flex';
+        }
+
+        function loginMerchant() {
+            hideErrors();
+            const taxNo = document.getElementById('loginTaxNo').value.trim();
+            const pin = document.getElementById('loginPin').value.trim();
+
+            if (!taxNo || !pin) {
+                showError('loginError', 'Lütfen Vergi No ve PIN kodunu giriniz.');
+                return;
+            }
+
+            if (pin.length !== 4) {
+                showError('loginError', 'PIN kodu 4 haneli olmalıdır.');
+                return;
+            }
+
+            alert('Giriş bilgileri doğrulandı. Panel yükleniyor...');
         }
 
         function closeModal() {
             document.getElementById('successModal').style.display = 'none';
-            switchTab('login'); // Otomatik Giriş sekmesine yönlendir
+            switchTab('login');
         }
     </script>
 </body>
