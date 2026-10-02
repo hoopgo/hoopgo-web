@@ -12,7 +12,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         
         body { background-color: #020617; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
+        .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; position: relative; }
         
         /* HEADER / LOGO ALANI (KİLİTLİ ALAN) */
         .header-section { text-align: center; padding: 8px 0 16px 0; }
@@ -50,6 +50,59 @@
         .btn-submit { width: 100%; background: #38bdf8; color: #0f172a; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; }
         
         .btn-back { background: transparent; color: #64748b; border: none; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; width: 100%; margin-top: auto; }
+
+        /* ÖZEL KONTROL / ONAY KARTI (MODAL) */
+        .modal-overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 100%;
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 14px auto;
+            border: 1px solid #38bdf8;
+        }
+
+        .modal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 8px; }
+        .modal-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 20px; }
+        
+        .modal-btn {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+        }
     </style>
 </head>
 <body class="notranslate" translate="no">
@@ -125,6 +178,16 @@
         </div>
 
         <button class="btn-back" onclick="window.location.href='index.html'">← Ana Sayfaya Dön</button>
+
+        <!-- ÖZEL ONAY KARTI (POPUP) -->
+        <div id="successModal" class="modal-overlay">
+            <div class="modal-card">
+                <div class="modal-icon">✓</div>
+                <h3 class="modal-title">Kayıt Talebiniz Alındı!</h3>
+                <p class="modal-desc">İşletme kaydınız incelemeye alınmıştır. Yönetici onayının ardından Vergi Numaranız ve belirlediğiniz PIN kodu ile giriş yapabilirsiniz.</p>
+                <button class="modal-btn" onclick="closeModal()">Anladım</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -155,7 +218,13 @@
                 return;
             }
 
-            alert('🎉 Kayıt talebiniz başarıyla alındı!\n\nYönetici onayından sonra Vergi Numaranız ve belirlediğiniz PIN kodu ile giriş yapabilirsiniz.');
+            // Özel Onay Kartını Aç
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            switchTab('login'); // Otomatik Giriş sekmesine yönlendir
         }
     </script>
 </body>
