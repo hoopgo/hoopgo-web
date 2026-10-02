@@ -1,315 +1,115 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="notranslate" translate="no">
 <head>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Ortaköy Esnaf Paneli</title>
+    <title>hoop go - Esnaf Kayıt</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
+        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
-        /* HEADER LOGO TASARIMI */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .logo-text { font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -1px; }
-        .logo-o1 { color: #38bdf8; }
-        .logo-o2 { color: #22c55e; }
-        .badge { background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(56, 189, 248, 0.2); display: flex; align-items: center; gap: 6px; }
+        /* LOGO */
+        .header-section { text-align: center; padding: 10px 0 20px 0; }
+        .logo-box { display: inline-flex; align-items: flex-end; justify-content: center; gap: 4px; }
+        .logo-text { font-size: 36px; font-weight: 800; color: #ffffff; letter-spacing: -1px; display: flex; align-items: center; line-height: 1; }
+        .oo-rings { display: inline-flex; align-items: center; position: relative; margin: 0 1px; transform: translateY(3px); }
+        .ring-b { width: 20px; height: 20px; border: 4.5px solid #0088FF; border-radius: 50%; display: inline-block; margin-right: -7px; z-index: 1; }
+        .ring-g { width: 20px; height: 20px; border: 4.5px solid #9ACD32; border-radius: 50%; display: inline-block; z-index: 2; }
+        .go-tag { font-size: 15px; font-weight: 800; margin-bottom: 2px; margin-left: 2px; line-height: 1; }
+        .g-b { color: #0088FF; }
+        .o-g { color: #9ACD32; }
 
-        /* SEKME BUTONLARI */
-        .tab-box { display: flex; background: #0f172a; border-radius: 14px; padding: 4px; margin-bottom: 20px; border: 1px solid #1e293b; }
-        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 700; font-size: 13px; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
-        .tab-btn.active { background: #2563eb; color: #ffffff; }
+        .title { font-size: 18px; font-weight: 800; color: #f8fafc; margin-top: 10px; }
+        .subtitle { color: #94a3b8; font-size: 12px; font-weight: 600; margin-top: 4px; }
 
-        /* GİRİŞ VE KAYIT EKRANLARI */
-        .auth-screen { display: flex; flex-direction: column; gap: 14px; }
-        .pin-input-box { text-align: center; margin: 20px 0; }
-        .pin-input { background: #0f172a; border: 1.5px solid #334155; color: #38bdf8; font-size: 26px; font-weight: 800; text-align: center; letter-spacing: 10px; width: 200px; padding: 12px; border-radius: 14px; outline: none; margin-top: 10px; }
+        /* FORM STİLLERİ */
+        .form-container { display: flex; flex-direction: column; gap: 14px; margin-top: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 12px; font-weight: 700; color: #cbd5e1; }
+        .form-input, .form-select { background: #0f172a; border: 1px solid #1e293b; color: #ffffff; padding: 12px 14px; border-radius: 10px; font-size: 14px; outline: none; transition: 0.2s; }
+        .form-input:focus, .form-select:focus { border-color: #0088FF; box-shadow: 0 0 0 2px rgba(0, 136, 255, 0.2); }
+        .form-select option { background: #0f172a; color: #ffffff; }
 
-        /* YÖNETİM PANELİ VE FORM DÜZENİ */
-        .dashboard { display: none; flex-direction: column; gap: 20px; }
-        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; padding: 20px; }
-        .card-title { font-size: 16px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; display: flex; align-items: center; gap: 8px; }
-        
-        .form-group { margin-bottom: 14px; }
-        label { display: block; font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 6px; }
-        input, select, textarea { width: 100%; background: #162032; border: 1px solid #283548; color: #fff; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 14px; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: #2563eb; }
+        .btn-submit { background: #0088FF; color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .btn-submit:hover { background: #0076e4; }
 
-        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-        /* CANLI CÜMLE ÖNİZLEME KUTUSU */
-        .preview-box { background: rgba(37, 99, 235, 0.1); border: 1px dashed #2563eb; border-radius: 14px; padding: 14px; margin-top: 8px; margin-bottom: 14px; }
-        .preview-title { font-size: 11px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .preview-text { font-size: 13px; font-weight: 600; color: #e2e8f0; line-height: 1.5; }
-        .preview-text highlight { color: #38bdf8; font-weight: 800; }
-
-        .btn { width: 100%; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
-        .btn-back { background: transparent; color: #64748b; border: 1px solid #1e293b; text-align: center; text-decoration: none; display: block; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-top: 8px; }
+        .login-link { text-align: center; margin-top: 20px; font-size: 12px; color: #64748b; }
+        .login-link a { color: #38bdf8; font-weight: 700; text-decoration: none; }
     </style>
 </head>
-<body>
+<body class="notranslate" translate="no">
     <div class="app-container">
         <!-- HEADER -->
-        <div class="header">
-            <div class="logo-text">h<span class="logo-o1">o</span><span class="logo-o2">o</span>p esnaf</div>
-            <div class="badge">📍 Ortaköy</div>
-        </div>
+        <header class="header-section">
+            <div class="logo-box notranslate" translate="no">
+                <div class="logo-text">
+                    h<div class="oo-rings"><span class="ring-b"></span><span class="ring-g"></span></div>p
+                </div>
+                <div class="go-tag notranslate" translate="no">
+                    <span class="g-b">g</span><span class="o-g">o</span>
+                </div>
+            </div>
+            <h1 class="title">Esnaf Katılım Formu</h1>
+            <p class="subtitle">Ortaköy'deki dükkanınızı hemen hoop go'ya taşıyın</p>
+        </header>
 
-        <!-- AUTH ALANI (GİRİŞ & RESMİ KAYIT) -->
-        <div id="authContainer">
-            <div class="tab-box">
-                <button class="tab-btn active" onclick="switchTab('login')">PIN ile Giriş Yap</button>
-                <button class="tab-btn" onclick="switchTab('register')">Resmi Esnaf Kaydı</button>
+        <!-- KAYIT FORM -->
+        <form class="form-container" onsubmit="event.preventDefault(); registerShop();">
+            <div class="form-group">
+                <label>İşletme / Dükkan Adı</label>
+                <input type="text" class="form-input" placeholder="Örn: Ortaköy Kasabı" required>
             </div>
 
-            <!-- PIN GİRİŞ EKRANI -->
-            <div id="loginTab" class="auth-screen" style="text-align: center;">
-                <div style="font-size: 36px; margin-top: 10px;">🔑</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-top: 8px;">Esnaf Giriş Şifresi</h3>
-                <p style="font-size: 13px; color: #64748b;">4 haneli güvenlik PIN kodunuzu girin.</p>
-                <div class="pin-input-box">
-                    <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••">
-                </div>
-                <button class="btn" onclick="checkPin()">Paneli Aç ➔</button>
+            <div class="form-group">
+                <label>Sektör / Kategori</label>
+                <select class="form-select" required>
+                    <option value="">Seçiniz...</option>
+                    <option value="kasap">Kasap & Şarküteri</option>
+                    <option value="restoran">Restoran & Kafe</option>
+                    <option value="firin">Fırın & Pastane</option>
+                    <option value="manav">Manav & Yeşillik</option>
+                    <option value="kuruyemis">Kuruyemiş & Tatlı</option>
+                    <option value="diger">Diğer</option>
+                </select>
             </div>
 
-            <!-- RESMİ ESNAF KAYIT EKRANI -->
-            <div id="registerTab" class="auth-screen" style="display: none;">
-                <div class="form-group">
-                    <label>İşletme / Dükkan Unvanı *</label>
-                    <input type="text" id="regShopName" placeholder="Örn: Ortaköy Kumpircisi Ltd. Şti.">
-                </div>
-
-                <div class="row-2">
-                    <div class="form-group">
-                        <label>Vergi Dairesi *</label>
-                        <input type="text" id="regTaxOffice" placeholder="Örn: Beşiktaş V.D.">
-                    </div>
-                    <div class="form-group">
-                        <label>Vergi No (VKN) *</label>
-                        <input type="number" id="regTaxNo" placeholder="10 Haneli VKN">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Ticaret / Esnaf Sicil No *</label>
-                    <input type="text" id="regSicilNo" placeholder="Örn: 123456-5">
-                </div>
-
-                <div class="row-2">
-                    <div class="form-group">
-                        <label>Yetkili Ad Soyad *</label>
-                        <input type="text" id="regOwner" placeholder="Ahmet Yılmaz">
-                    </div>
-                    <div class="form-group">
-                        <label>Telefon *</label>
-                        <input type="tel" id="regPhone" placeholder="0532XXXXXXX">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Açık Adres (Ortaköy) *</label>
-                    <textarea id="regAddress" rows="2" placeholder="Mahalle, Cadde, Sokak, Kapı No"></textarea>
-                </div>
-
-                <button class="btn" style="background: #22c55e;" onclick="registerShop()">Resmi Kaydı Tamamla & PIN Al 🚀</button>
-            </div>
-        </div>
-
-        <!-- YÖNETİM PANELİ -->
-        <div id="dashboard" class="dashboard">
-            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #22c55e; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
-                <span id="activeShopTitle">Aktif Esnaf: Ortaköy Esnafı</span>
-                <span style="font-size: 10px; background: #22c55e; color: #000; padding: 2px 6px; border-radius: 6px;">ONAYLI</span>
+            <div class="form-group">
+                <label>Yetkili Adı Soyadı</label>
+                <input type="text" class="form-input" placeholder="Örn: Ahmet Yılmaz" required>
             </div>
 
-            <!-- FIRSAT YAYINLAMA KARTI -->
-            <div class="card">
-                <div class="card-title">⚡ Canlı Fırsat Oluştur</div>
-                
-                <div class="form-group">
-                    <label>Ürün veya Hizmet Adı</label>
-                    <input type="text" id="pName" placeholder="Örn: Dana Kıyma / Saç Tıraşı / Kumpir" oninput="updateSentence()">
-                </div>
-
-                <div class="row-2">
-                    <div class="form-group">
-                        <label>Normal Fiyat (₺)</label>
-                        <input type="number" id="pOldPrice" placeholder="1000" oninput="updateSentence()">
-                    </div>
-                    <div class="form-group">
-                        <label>İndirimli Fiyat (₺)</label>
-                        <input type="number" id="pNewPrice" placeholder="750" oninput="updateSentence()">
-                    </div>
-                </div>
-
-                <div class="row-2">
-                    <div class="form-group">
-                        <label>Miktar / Stok</label>
-                        <input type="number" id="pAmount" placeholder="10" oninput="updateSentence()">
-                    </div>
-                    <div class="form-group">
-                        <label>Birim</label>
-                        <select id="pUnit" onchange="updateSentence()">
-                            <option value="Adet">Adet</option>
-                            <option value="Kg">Kg</option>
-                            <option value="Kişi">Kişi</option>
-                            <option value="Litre">Litre</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Son Geçerlilik Saati (Örn: 18:30)</label>
-                    <input type="text" id="pTime" placeholder="18:30" oninput="updateSentence()">
-                </div>
-
-                <div class="preview-box">
-                    <div class="preview-title">📢 Yayınlanacak Fırsat Cümlesi</div>
-                    <div class="preview-text" id="sentencePreview">
-                        Lütfen yukarıdaki alanları doldurun...
-                    </div>
-                </div>
-
-                <button class="btn" onclick="publishDeal()">Fırsatı Canlıya Al 🚀</button>
+            <div class="form-group">
+                <label>Cep Telefonu</label>
+                <input type="tel" class="form-input" placeholder="05XX XXX XX XX" required>
             </div>
 
-            <!-- KUPON DOĞRULAMA KARTI -->
-            <div class="card">
-                <div class="card-title">🎟️ Kupon / Kod Doğrula</div>
-                <div class="form-group">
-                    <label>Müşteri Fırsat Kodu</label>
-                    <input type="text" id="couponCodeInput" placeholder="Örn: H-7792" style="text-transform: uppercase;">
-                </div>
-                <button class="btn" style="background: #22c55e;" onclick="verifyCoupon()">Kuponu Onayla & Stok Düş ✓</button>
+            <div class="form-group">
+                <label>Açık Adres (Ortaköy)</label>
+                <input type="text" class="form-input" placeholder="Örn: Dereboyu Cad. No:12" required>
             </div>
 
-            <a href="index.html" class="btn-back">← Müşteri Sayfasına Dön</a>
+            <div class="form-group">
+                <label>Giriş Şifresi Oluştur</label>
+                <input type="password" class="form-input" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Kayıt Ol ve Başla</button>
+        </form>
+
+        <div class="login-link">
+            Zaten bir hesabınız var mı? <a href="#">Giriş Yap</a>
         </div>
     </div>
 
     <script>
-        function switchTab(tab) {
-            if(tab === 'login') {
-                document.getElementById('loginTab').style.display = 'block';
-                document.getElementById('registerTab').style.display = 'none';
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.querySelectorAll('.tab-btn')[1].classList.remove('active');
-            } else {
-                document.getElementById('loginTab').style.display = 'none';
-                document.getElementById('registerTab').style.display = 'block';
-                document.querySelectorAll('.tab-btn')[0].classList.remove('active');
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-            }
-        }
-
-        function checkPin() {
-            const input = document.getElementById('pinInput').value;
-            const savedPin = localStorage.getItem('hoop_esnaf_pin') || '1999';
-
-            if(input === savedPin || input === '1999') {
-                document.getElementById('authContainer').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'flex';
-                
-                const shopName = localStorage.getItem('hoop_esnaf_title') || 'Ortaköy Esnafı';
-                document.getElementById('activeShopTitle').innerText = 'Aktif Esnaf: ' + shopName;
-                updateSentence();
-            } else {
-                alert('Hatalı PIN Kodu! Lütfen tekrar deneyin.');
-            }
-        }
-
         function registerShop() {
-            const shopName = document.getElementById('regShopName').value;
-            const taxOffice = document.getElementById('regTaxOffice').value;
-            const taxNo = document.getElementById('regTaxNo').value;
-            const sicilNo = document.getElementById('regSicilNo').value;
-            const owner = document.getElementById('regOwner').value;
-            const phone = document.getElementById('regPhone').value;
-            const address = document.getElementById('regAddress').value;
-
-            if(!shopName || !taxNo || !sicilNo || !phone) {
-                alert('Lütfen zorunlu resmi alanları (Unvan, Vergi No, Sicil No, Telefon) doldurun.');
-                return;
-            }
-
-            const generatedPin = Math.floor(1000 + Math.random() * 9000).toString();
-
-            localStorage.setItem('hoop_esnaf_pin', generatedPin);
-            localStorage.setItem('hoop_esnaf_title', shopName);
-            localStorage.setItem('hoop_esnaf_tax', taxNo);
-            localStorage.setItem('hoop_esnaf_address', address);
-
-            alert(`🎉 Kaydınız Başarıyla Oluşturuldu!\n\n🔑 Özel Giriş PIN Kodunuz: ${generatedPin}\n\nLütfen bu PIN kodunu saklayın. Panelinize bu PIN ile giriş yapabilirsiniz.`);
-            
-            document.getElementById('pinInput').value = generatedPin;
-            switchTab('login');
-        }
-
-        function capitalize(str) {
-            return str.replace(/\b\w/g, l => l.toLocaleUpperCase('tr-TR'));
-        }
-
-        function updateSentence() {
-            const name = capitalize(document.getElementById('pName').value) || '...';
-            const oldPrice = document.getElementById('pOldPrice').value || '...';
-            const newPrice = document.getElementById('pNewPrice').value || '...';
-            const amount = document.getElementById('pAmount').value || '...';
-            const unit = document.getElementById('pUnit').value;
-            let timeVal = document.getElementById('pTime').value || '18:30';
-
-            const timeFormatted = `( ${timeVal} )`;
-
-            const sentence = `Bugün <highlight>${name}</highlight> fırsatını <highlight>${oldPrice} ₺</highlight> yerine <highlight>${newPrice} ₺</highlight> fiyatla, <highlight>${amount} ${unit}</highlight> stokla saat <highlight>${timeFormatted}</highlight> kadar yayınla.`;
-            
-            document.getElementById('sentencePreview').innerHTML = sentence;
-        }
-
-        function publishDeal() {
-            const name = capitalize(document.getElementById('pName').value);
-            const oldPrice = document.getElementById('pOldPrice').value;
-            const newPrice = document.getElementById('pNewPrice').value;
-            const amount = document.getElementById('pAmount').value;
-            const unit = document.getElementById('pUnit').value;
-            let timeVal = document.getElementById('pTime').value || '18:30';
-
-            if(!name || !newPrice) {
-                alert('Lütfen en azından Ürün Adı ve İndirimli Fiyatı girin.');
-                return;
-            }
-
-            const formattedTime = `( ${timeVal} )`;
-
-            const newDeal = {
-                title: name,
-                oldPrice: oldPrice ? oldPrice + ' TL' : '',
-                newPrice: newPrice + ' TL',
-                stock: (amount || '10') + '/' + (amount || '10'),
-                time: formattedTime,
-                img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150',
-                active: true
-            };
-
-            let deals = JSON.parse(localStorage.getItem('hoop_deals') || '[]');
-            deals.unshift(newDeal);
-            localStorage.setItem('hoop_deals', JSON.stringify(deals));
-
-            alert('Fırsatınız başarıyla canlıya alındı! Müşteri sayfasına yönlendiriliyorsunuz.');
-            window.location.href = 'index.html';
-        }
-
-        function verifyCoupon() {
-            const code = document.getElementById('couponCodeInput').value;
-            if(!code) {
-                alert('Lütfen müşterinin gösterdiği H-XXXX kodunu girin.');
-                return;
-            }
-            alert(`✅ Kupon Kodu (${code.toUpperCase()}) Onaylandı!\n\nİndirimli ürün satışı onaylandı, stok güncellendi.`);
-            document.getElementById('couponCodeInput').value = '';
+            alert('🎉 Başvurunuz alındı! Esnaf panelinize yönlendiriliyorsunuz...');
+            // Bir sonraki adımda oluşturacağımız esnaf paneline yönlendireceğiz
         }
     </script>
 </body>
