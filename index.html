@@ -4,30 +4,23 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop go - Mahallendeki Fırsatları Yakala</title>
+    <title>hoop - Mahallendeki Fırsatları Yakala</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Tüm uygulamanın arka planı: Derin Koyu Lacivert */
-        body { background-color: #020817; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #020817; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
+        /* Derin Koyu Lacivert Arka Plan */
+        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
+        .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
         /* HEADER & LOGO ALANI */
         .header-section { text-align: center; padding: 12px 0 16px 0; }
-        .logo-box { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         
-        /* 3D HOOP LOGO */
-        .hoop-svg { height: 48px; width: auto; display: block; }
-        
-        /* GO YAZISI: G Mavi, O Yeşil */
-        .go-box { display: inline-flex; font-size: 24px; font-weight: 800; line-height: 1; align-self: flex-end; margin-bottom: 4px; margin-left: 2px; }
-        .go-g { color: #2563eb; } /* Mavi g */
-        .go-o { color: #84cc16; } /* Yeşil o */
-
-        .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; margin-top: 8px; }
+        /* SADECE ORİJİNAL HOOP LOGOSU */
+        .hoop-svg { height: 52px; width: auto; display: block; margin: 0 auto; }
+        .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; margin-top: 10px; }
 
         /* LOKASYON & İLANLAR */
         .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 12px; font-weight: 700; color: #e2e8f0; margin-top: 10px; }
@@ -62,32 +55,25 @@
     <div class="app-container">
         <!-- HEADER / LOGO ALANI -->
         <header class="header-section">
-            <div class="logo-box">
-                <!-- Birebir 3D Derinlikli Hoop Logosu -->
-                <svg class="hoop-svg" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- h harfi -->
-                    <path d="M25 25 C25 15, 38 15, 38 25 L38 85 C38 95, 25 95, 25 85 Z" fill="#ffffff"/>
-                    <path d="M25 50 C25 38, 55 38, 55 52 L55 85 C55 95, 42 95, 42 85 L42 56 C42 48, 38 48, 38 56" fill="#ffffff"/>
-                    
-                    <!-- Mavi Halka -->
-                    <circle cx="95" cy="62" r="22" stroke="#0070f3" stroke-width="14" fill="none"/>
-                    
-                    <!-- Yeşil Halka -->
-                    <circle cx="132" cy="62" r="22" stroke="#70b62c" stroke-width="14" fill="none"/>
-                    
-                    <!-- 3D Kesişim Gölgesi -->
-                    <path d="M110 46 A22 22 0 0 1 118 62" stroke="#0051ba" stroke-width="14" stroke-linecap="round" fill="none"/>
-
-                    <!-- p harfi -->
-                    <path d="M170 42 C170 32, 183 32, 183 42 L183 100 C183 110, 170 110, 170 100 Z" fill="#ffffff"/>
-                    <circle cx="196" cy="62" r="14" stroke="#ffffff" stroke-width="12" fill="none"/>
-                </svg>
+            <!-- Birebir Orijinal Hoop Logosu -->
+            <svg class="hoop-svg" viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- h harfi -->
+                <path d="M20 20 C20 10, 32 10, 32 20 L32 75 C32 85, 20 85, 20 75 Z" fill="#ffffff"/>
+                <path d="M20 42 C20 30, 48 30, 48 44 L48 75 C48 85, 36 85, 36 75 L36 48 C36 40, 32 40, 32 48" fill="#ffffff"/>
                 
-                <!-- g (Mavi) o (Yeşil) -->
-                <div class="go-box">
-                    <span class="go-g">g</span><span class="go-o">o</span>
-                </div>
-            </div>
+                <!-- Mavi Halka -->
+                <circle cx="85" cy="52" r="20" stroke="#0070f3" stroke-width="12" fill="none"/>
+                
+                <!-- Yeşil Halka -->
+                <circle cx="118" cy="52" r="20" stroke="#70b62c" stroke-width="12" fill="none"/>
+                
+                <!-- 3D Kesişim Gölgesi -->
+                <path d="M98 38 A20 20 0 0 1 105 52" stroke="#0051ba" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+                <!-- p harfi -->
+                <path d="M152 35 C152 25, 164 25, 164 35 L164 90 C164 100, 152 100, 152 90 Z" fill="#ffffff"/>
+                <circle cx="176" cy="52" r="13" stroke="#ffffff" stroke-width="10" fill="none"/>
+            </svg>
             <p class="tagline">Mahallendeki Fırsatları Yakala</p>
         </header>
 
