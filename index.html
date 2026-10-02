@@ -1,157 +1,94 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop - Mahallendeki Fırsatları Yakala</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 24px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
-        
-        /* HEADER LOGO TASARIMI */
-        .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-        .logo-img { height: 48px; width: auto; object-fit: contain; margin-bottom: 4px; }
-        
-        /* Orijinal içi içe O harfleri (Görsel yüklenmezse yedek) */
-        .logo-text { font-size: 42px; font-weight: 800; color: #ffffff; letter-spacing: -2px; display: flex; align-items: center; justify-content: center; }
-        .oo-container { display: inline-flex; align-items: center; position: relative; margin: 0 -2px; }
-        .ring-left { width: 28px; height: 28px; border: 6px solid #38bdf8; border-radius: 50%; display: inline-block; margin-right: -10px; z-index: 1; }
-        .ring-right { width: 28px; height: 28px; border: 6px solid #84cc16; border-radius: 50%; display: inline-block; z-index: 2; }
-        
-        .sub-title { font-size: 14px; color: #94a3b8; font-weight: 600; margin-top: 4px; }
+<!-- HEADER & LOGO ALANI (ISLEM 1) -->
+<header class="header-section">
+  <div class="logo-container">
+    <!-- hoop logosu (SVG İç İçe Geçen Mavi & Yeşil Halkalar) -->
+    <svg class="hoop-logo" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Mavi Halka Mavi-Lacivert Gradient -->
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0088FF" />
+          <stop offset="100%" stop-color="#0055FF" />
+        </linearGradient>
+        <!-- Yeşil Halka Yeşil-Zeytin Gradient -->
+        <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#9ACD32" />
+          <stop offset="100%" stop-color="#6B8E23" />
+        </linearGradient>
+      </defs>
 
-        .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px; font-weight: 700; color: #e2e8f0; }
-        .badge-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(34, 197, 94, 0.3); }
+      <!-- h harfi -->
+      <path d="M 30,30 L 30,90 M 30,55 C 30,45 45,45 50,55 L 50,90" 
+            fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+      
+      <!-- Yeşil Halka (Arka Kısım) -->
+      <circle cx="150" cy="65" r="24" fill="none" stroke="url(#greenGrad)" stroke-width="14" />
 
-        .deals-list { display: flex; flex-direction: column; gap: 16px; flex: 1; }
-        .deal-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; padding: 16px; display: flex; gap: 12px; align-items: center; position: relative; overflow: hidden; }
-        .deal-img { width: 84px; height: 84px; border-radius: 14px; object-fit: cover; border: 1px solid #334155; flex-shrink: 0; }
-        
-        .deal-info { flex: 1; min-width: 0; }
-        .shop-name { font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-        .deal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .shop-address { font-size: 11px; color: #64748b; margin-bottom: 6px; display: flex; align-items: center; gap: 2px; }
-        
-        .price-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
-        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
-        .new-price { font-size: 18px; color: #22c55e; font-weight: 800; }
-        
-        .meta-box { display: flex; gap: 6px; flex-wrap: wrap; }
-        .meta-tag { background: #1e293b; color: #38bdf8; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; }
-        .meta-time { background: #1e293b; color: #f59e0b; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; }
+      <!-- Mavi Halka (İçte Kesişen Tam Halka) -->
+      <circle cx="110" cy="65" r="24" fill="none" stroke="url(#blueGrad)" stroke-width="14" />
 
-        .btn-claim { background: #38bdf8; color: #0f172a; border: none; padding: 10px 12px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer; text-align: center; flex-shrink: 0; white-space: nowrap; }
+      <!-- Kesişim Yanılsaması İçin Yeşil Üst Yay -->
+      <path d="M 135,47 A 24 24 0 0 1 160,47" 
+            fill="none" stroke="url(#greenGrad)" stroke-width="14" stroke-linecap="round" />
 
-        /* ALT ETİKET VE KİLİT BÖLÜMÜ */
-        .footer-badges { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e293b; }
-        .badge-item { background: #0f172a; border: 1px solid #1e293b; color: #94a3b8; font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-    </style>
-</head>
-<body>
-    <div class="app-container">
-        <!-- HEADER -->
-        <div class="header">
-            <img src="logo.png" alt="hoop" class="logo-img" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='flex';">
-            
-            <div id="alt-logo" class="logo-text" style="display: none;">
-                h<div class="oo-container"><span class="ring-left"></span><span class="ring-right"></span></div>p
-            </div>
+      <!-- p harfi -->
+      <path d="M 200,45 L 200,105 M 200,45 C 220,45 220,85 200,85" 
+            fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
 
-            <div class="sub-title">Mahallendeki Fırsatları Yakala</div>
-        </div>
+    <!-- Yanındaki Ufak Renkli 'go' -->
+    <span class="go-text">
+      <span class="g-blue">g</span><span class="o-green">o</span>
+    </span>
+  </div>
 
-        <div class="location-bar">
-            <span>📍 Ortaköy, Beşiktaş</span>
-            <span class="badge-live">● CANLI FIRSATLAR</span>
-        </div>
+  <!-- Slogan -->
+  <p class="tagline">Mahallendeki Fırsatları Yakala</p>
+</header>
 
-        <!-- FIRSAT LİSTESİ -->
-        <div class="deals-list" id="dealsContainer">
-            <!-- JavaScript ile dinamik dolacak -->
-        </div>
+<style>
+  .header-section {
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #080e18; /* Koyu lacivert zemin */
+  }
 
-        <!-- ALT ETİKET VE KİLİT ROZETLERİ -->
-        <div class="footer-badges">
-            <div class="badge-item">🏷️ Canlı Fırsat</div>
-            <div class="badge-item">🔒 Güvenli Kod</div>
-        </div>
-    </div>
+  .logo-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    <script>
-        const defaultDeals = [
-            {
-                shop: 'Ortaköy Kasabı',
-                title: 'Kıyma (1 kg)',
-                address: 'Dereboyu Cde. No: 12',
-                oldPrice: '1000 TL',
-                newPrice: '750 TL',
-                stock: '15 Adet',
-                time: 'Saat 21.00\'e kadar',
-                img: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=200'
-            },
-            {
-                shop: 'Ortaköy Kumpircisi',
-                title: 'Ortaköy Kumpir',
-                address: 'Meydan Sk. No: 4',
-                oldPrice: '220 TL',
-                newPrice: '160 TL',
-                stock: '8/10',
-                time: '19:45',
-                img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200'
-            },
-            {
-                shop: 'Kasap Burger',
-                title: 'Kasap Hamburger',
-                address: 'Ortaköy Cd. No: 8',
-                oldPrice: '350 TL',
-                newPrice: '240 TL',
-                stock: '5/10',
-                time: '20:15',
-                img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200'
-            }
-        ];
+  .hoop-logo {
+    width: 170px;
+    height: 65px;
+  }
 
-        function loadDeals() {
-            const container = document.getElementById('dealsContainer');
-            let savedDeals = JSON.parse(localStorage.getItem('hoop_deals') || '[]');
-            
-            let allDeals = [...savedDeals, ...defaultDeals];
-            container.innerHTML = '';
+  /* Ufak renkli 'go' yazısı */
+  .go-text {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin-left: 4px;
+    margin-top: 5px;
+    letter-spacing: -0.5px;
+  }
 
-            allDeals.forEach((deal) => {
-                const card = document.createElement('div');
-                card.className = 'deal-card';
-                card.innerHTML = `
-                    <img src="${deal.img}" class="deal-img" alt="${deal.title}">
-                    <div class="deal-info">
-                        <div class="shop-name">${deal.shop}</div>
-                        <div class="deal-title">${deal.title}</div>
-                        <div class="shop-address">📍 ${deal.address}</div>
-                        <div class="price-box">
-                            ${deal.oldPrice ? `<span class="old-price">${deal.oldPrice}</span>` : ''}
-                            <span class="new-price">${deal.newPrice}</span>
-                        </div>
-                        <div class="meta-box">
-                            <span class="meta-tag">Stok: ${deal.stock}</span>
-                            <span class="meta-time">Saat: ${deal.time}</span>
-                        </div>
-                    </div>
-                    <button class="btn-claim" onclick="getCoupon('${deal.shop}', '${deal.title}')">Kupon Al</button>
-                `;
-                container.appendChild(card);
-            });
-        }
+  .g-blue {
+    color: #0088FF; /* Mavi halka rengi */
+  }
 
-        function getCoupon(shop, title) {
-            const code = 'H-' + Math.floor(1000 + Math.random() * 9000);
-            alert(`🎉 Tebrikler!\n\n${shop} - ${title} fırsatı için kodunuz: ${code}\n\nBu kodu 1 saat içinde esnafa göstererek indiriminizi alabilirsiniz.`);
-        }
+  .o-green {
+    color: #9ACD32; /* Yeşil halka rengi */
+  }
 
-        loadDeals();
-    </script>
-</body>
-</html>
+  /* Slogan */
+  .tagline {
+    color: #9ea8b6;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.2px;
+  }
+</style>
