@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>hoop go - Ortaköy Mahallendeki Fırsatları Yakala</title>
+    <title>hoop - Mahallendeki Fırsatları Yakala</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -14,33 +14,19 @@
         body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
         .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
-        /* HEADER & BRANDING */
-        .header-section { text-align: center; padding: 10px 0 16px 0; }
+        /* HEADER & LOGO ALANI */
+        .header-section { text-align: center; padding: 16px 0 20px 0; }
         
-        .logo-wrapper { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 12px; 
-            margin-bottom: 8px;
-        }
-
         .main-logo-img { 
-            height: 48px; 
-            width: auto; 
+            width: 210px; 
+            max-width: 80%;
+            height: auto; 
+            display: block; 
+            margin: 0 auto;
             object-fit: contain;
         }
-
-        .go-text { 
-            font-size: 34px; 
-            font-weight: 900; 
-            color: #38bdf8; 
-            letter-spacing: -1px;
-            line-height: 1;
-            margin-top: 4px;
-        }
         
-        .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; }
+        .tagline { color: #94a3b8; font-size: 14px; font-weight: 600; margin-top: 14px; }
 
         /* LOKASYON BAR */
         .location-bar { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 12px; font-weight: 700; color: #e2e8f0; margin-top: 8px; }
@@ -75,10 +61,7 @@
     <div class="app-container">
         <!-- HEADER / LOGO ALANI -->
         <header class="header-section">
-            <div class="logo-wrapper">
-                <img src="logo.png.jpeg" alt="hoop logo" class="main-logo-img">
-                <span class="go-text">go</span>
-            </div>
+            <img src="logo.png.jpeg" alt="hoop logo" class="main-logo-img">
             <p class="tagline">Mahallendeki Fırsatları Yakala</p>
         </header>
 
