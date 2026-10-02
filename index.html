@@ -10,16 +10,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #050b14; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
+        
+        /* Tüm uygulamanın arka planı: Derin Koyu Lacivert */
+        body { background-color: #020817; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
+        .app-container { width: 100%; max-width: 420px; background-color: #020817; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
         /* HEADER & LOGO ALANI */
         .header-section { text-align: center; padding: 12px 0 16px 0; }
-        .logo-box { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .logo-box { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         
         /* 3D HOOP LOGO */
-        .hoop-svg { height: 42px; width: auto; display: block; }
-        .go-text { font-size: 26px; font-weight: 800; color: #38bdf8; line-height: 1; align-self: flex-end; margin-bottom: 2px; }
+        .hoop-svg { height: 48px; width: auto; display: block; }
+        
+        /* GO YAZISI: G Mavi, O Yeşil */
+        .go-box { display: inline-flex; font-size: 24px; font-weight: 800; line-height: 1; align-self: flex-end; margin-bottom: 4px; margin-left: 2px; }
+        .go-g { color: #2563eb; } /* Mavi g */
+        .go-o { color: #84cc16; } /* Yeşil o */
+
         .tagline { color: #94a3b8; font-size: 13px; font-weight: 600; margin-top: 8px; }
 
         /* LOKASYON & İLANLAR */
@@ -56,26 +63,30 @@
         <!-- HEADER / LOGO ALANI -->
         <header class="header-section">
             <div class="logo-box">
-                <!-- Vektörel Birebir Orijinal Logo -->
+                <!-- Birebir 3D Derinlikli Hoop Logosu -->
                 <svg class="hoop-svg" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- h harfi -->
-                    <path d="M25 35 C25 26, 35 26, 35 35 L35 85 C35 94, 25 94, 25 85 Z" fill="#ffffff"/>
-                    <path d="M25 55 C25 45, 55 45, 55 60 L55 85 C55 94, 45 94, 45 85 L45 62 C45 54, 35 54, 35 62" fill="#ffffff"/>
+                    <path d="M25 25 C25 15, 38 15, 38 25 L38 85 C38 95, 25 95, 25 85 Z" fill="#ffffff"/>
+                    <path d="M25 50 C25 38, 55 38, 55 52 L55 85 C55 95, 42 95, 42 85 L42 56 C42 48, 38 48, 38 56" fill="#ffffff"/>
                     
                     <!-- Mavi Halka -->
-                    <circle cx="95" cy="65" r="22" stroke="#0088ff" stroke-width="12" fill="none"/>
+                    <circle cx="95" cy="62" r="22" stroke="#0070f3" stroke-width="14" fill="none"/>
                     
                     <!-- Yeşil Halka -->
-                    <circle cx="130" cy="65" r="22" stroke="#8cc63f" stroke-width="12" fill="none"/>
+                    <circle cx="132" cy="62" r="22" stroke="#70b62c" stroke-width="14" fill="none"/>
                     
-                    <!-- 3D İç içe geçiş kesimi -->
-                    <path d="M107 50 A22 22 0 0 1 117 65" stroke="#0088ff" stroke-width="12" stroke-linecap="round" fill="none"/>
+                    <!-- 3D Kesişim Gölgesi -->
+                    <path d="M110 46 A22 22 0 0 1 118 62" stroke="#0051ba" stroke-width="14" stroke-linecap="round" fill="none"/>
 
                     <!-- p harfi -->
-                    <path d="M170 45 C170 36, 180 36, 180 45 L180 100 C180 109, 170 109, 170 100 Z" fill="#ffffff"/>
-                    <circle cx="195" cy="65" r="14" stroke="#ffffff" stroke-width="10" fill="none"/>
+                    <path d="M170 42 C170 32, 183 32, 183 42 L183 100 C183 110, 170 110, 170 100 Z" fill="#ffffff"/>
+                    <circle cx="196" cy="62" r="14" stroke="#ffffff" stroke-width="12" fill="none"/>
                 </svg>
-                <span class="go-text">go</span>
+                
+                <!-- g (Mavi) o (Yeşil) -->
+                <div class="go-box">
+                    <span class="go-g">g</span><span class="go-o">o</span>
+                </div>
             </div>
             <p class="tagline">Mahallendeki Fırsatları Yakala</p>
         </header>
