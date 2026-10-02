@@ -11,9 +11,9 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: #030712; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
-        .app-container { width: 100%; max-width: 440px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
+        .app-container { width: 100%; max-width: 420px; background-color: #070a14; min-height: 100vh; padding: 20px 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
-        /* LOGO & HEADER */
+        /* HEADER */
         .header-section { text-align: center; padding: 10px 0 16px 0; }
         .logo-box { display: inline-flex; align-items: flex-end; justify-content: center; gap: 4px; }
         .logo-text { font-size: 36px; font-weight: 800; color: #ffffff; letter-spacing: -1px; display: flex; align-items: center; line-height: 1; }
@@ -27,20 +27,24 @@
         .title { font-size: 18px; font-weight: 800; color: #f8fafc; margin-top: 10px; }
         .subtitle { color: #94a3b8; font-size: 12px; font-weight: 600; margin-top: 4px; }
 
-        /* FORM */
-        .form-container { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
-        .form-group { display: flex; flex-direction: column; gap: 4px; }
+        /* TAB NAVIGATION (GİRİŞ / KAYIT) */
+        .tab-buttons { display: flex; background: #0f172a; padding: 4px; border-radius: 12px; border: 1px solid #1e293b; margin-top: 16px; gap: 4px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: #1e293b; color: #38bdf8; }
+
+        /* FORM ALANLARI */
+        .form-container { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .form-group label { font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-input, .form-select { background: #0f172a; border: 1px solid #1e293b; color: #ffffff; padding: 11px 13px; border-radius: 10px; font-size: 13px; outline: none; }
+        .form-input, .form-select { background: #0f172a; border: 1px solid #1e293b; color: #ffffff; padding: 12px; border-radius: 10px; font-size: 13px; outline: none; width: 100%; }
         .form-input:focus, .form-select:focus { border-color: #0088FF; }
         .form-select option { background: #0f172a; color: #ffffff; }
 
-        .form-row { display: flex; gap: 10px; }
-        .form-row .form-group { flex: 1; }
+        .info-note { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 12px; border-radius: 10px; font-size: 11px; font-weight: 600; line-height: 1.5; text-align: center; margin-top: 4px; }
 
-        .info-note { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 10px; border-radius: 10px; font-size: 11px; font-weight: 600; text-align: center; margin-top: 4px; }
+        .forgot-link { text-align: right; font-size: 11px; color: #38bdf8; text-decoration: none; font-weight: 700; margin-top: -4px; cursor: pointer; }
 
-        .btn-submit { background: #0088FF; color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; margin-top: 8px; }
+        .btn-submit { background: #0088FF; color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; margin-top: 8px; width: 100%; }
 
         .footer-nav { margin-top: auto; padding-top: 16px; text-align: center; }
         .btn-back { background: transparent; color: #64748b; border: 1px solid #1e293b; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; }
@@ -58,26 +62,31 @@
                     <span class="g-b">g</span><span class="o-g">o</span>
                 </div>
             </div>
-            <h1 class="title">Esnaf Katılım Formu</h1>
-            <p class="subtitle">Ortaköy'deki dükkanınızı hoop go'ya taşıyın</p>
+            <h1 class="title">Esnaf Portalı</h1>
+            <p class="subtitle">İşletmenizi hoop go ekosistemine taşıyın</p>
         </header>
 
-        <!-- BAŞVURU FORMU -->
-        <form class="form-container" onsubmit="event.preventDefault(); submitApplication();">
+        <!-- SEKMELER -->
+        <div class="tab-buttons">
+            <button class="tab-btn active" id="btnTabRegister" onclick="switchTab('register')">İşletme Kaydı</button>
+            <button class="tab-btn" id="btnTabLogin" onclick="switchTab('login')">Esnaf Girişi</button>
+        </div>
+
+        <!-- KAYIT FORMU -->
+        <form id="registerForm" class="form-container" onsubmit="event.preventDefault(); submitRegister();">
             <div class="form-group">
                 <label>İşletme / Dükkan Ticari Unvanı</label>
                 <input type="text" class="form-input" placeholder="Örn: Ortaköy Kasabı Gıda San. Tic. Ltd." required>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Vergi Dairesi</label>
-                    <input type="text" class="form-input" placeholder="Örn: Beşiktaş V.D." required>
-                </div>
-                <div class="form-group">
-                    <label>Vergi No / T.C. No</label>
-                    <input type="text" class="form-input" maxlength="11" placeholder="10 veya 11 haneli" required>
-                </div>
+            <div class="form-group">
+                <label>Vergi Dairesi</label>
+                <input type="text" class="form-input" placeholder="Örn: Beşiktaş Vergi Dairesi" required>
+            </div>
+
+            <div class="form-group">
+                <label>Vergi No / T.C. Kimlik No</label>
+                <input type="text" class="form-input" maxlength="11" placeholder="10 veya 11 haneli numara" required>
             </div>
 
             <div class="form-group">
@@ -93,20 +102,19 @@
                 </select>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Yetkili Adı Soyadı</label>
-                    <input type="text" class="form-input" placeholder="Örn: Ahmet Yılmaz" required>
-                </div>
-                <div class="form-group">
-                    <label>Cep Telefonu</label>
-                    <input type="tel" class="form-input" placeholder="05XX XXX XX XX" required>
-                </div>
+            <div class="form-group">
+                <label>Yetkili Adı Soyadı</label>
+                <input type="text" class="form-input" placeholder="Örn: Ahmet Yılmaz" required>
             </div>
 
             <div class="form-group">
-                <label>Açık Adres (Ortaköy)</label>
-                <input type="text" class="form-input" placeholder="Örn: Dereboyu Cad. No:12" required>
+                <label>Cep Telefonu</label>
+                <input type="tel" class="form-input" placeholder="05XX XXX XX XX" required>
+            </div>
+
+            <div class="form-group">
+                <label>Açık Adres</label>
+                <input type="text" class="form-input" placeholder="Mahalle, Cadde, Sokak ve No" required>
             </div>
 
             <div class="form-group">
@@ -115,22 +123,69 @@
             </div>
 
             <div class="info-note">
-                🔒 Vergi kimlik bilgileri saha ekibimiz tarafından doğrulanıp onaylandıktan sonra dükkanınız aktif edilecektir.
+                🔒 İşletme ve vergi bilgileriniz kontrol edildikten sonra hesabınız onaylanacaktır.
             </div>
 
             <button type="submit" class="btn-submit">Başvuruyu Gönder</button>
         </form>
 
+        <!-- GİRİŞ FORMU (VARSAYILAN GİZLİ) -->
+        <form id="loginForm" class="form-container" style="display: none;" onsubmit="event.preventDefault(); submitLogin();">
+            <div class="form-group">
+                <label>Cep Telefonu veya Vergi No</label>
+                <input type="text" class="form-input" placeholder="Kayıtlı numaranız" required>
+            </div>
+
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" class="form-input" placeholder="••••••••" required>
+            </div>
+
+            <a class="forgot-link" onclick="forgotPassword()">Şifremi Unuttum</a>
+
+            <button type="submit" class="btn-submit">Giriş Yap</button>
+        </form>
+
         <!-- GERİ DÖN -->
         <div class="footer-nav">
-            <button class="btn-back" onclick="window.location.href='index.html'">← Ana Sayfaya (Fırsatlara) Dön</button>
+            <button class="btn-back" onclick="window.location.href='index.html'">← Ana Sayfaya Dön</button>
         </div>
     </div>
 
     <script>
-        function submitApplication() {
-            alert('✅ Başvurunuz ve Vergi Bilgileriniz Alındı!\n\nOrtaköy saha ekibimiz kontrol ettikten sonra hesabınız onaylanacaktır.');
-            window.location.href = 'index.html';
+        function switchTab(tab) {
+            const regForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+            const btnReg = document.getElementById('btnTabRegister');
+            const btnLogin = document.getElementById('btnTabLogin');
+
+            if (tab === 'register') {
+                regForm.style.display = 'flex';
+                loginForm.style.display = 'none';
+                btnReg.classList.add('active');
+                btnLogin.classList.remove('active');
+            } else {
+                regForm.style.display = 'none';
+                loginForm.style.display = 'flex';
+                btnLogin.classList.add('active');
+                btnReg.classList.remove('active');
+            }
+        }
+
+        function submitRegister() {
+            alert('✅ Başvurunuz Alındı!\n\nVergi ve işletme bilgileriniz doğrulandıktan sonra hesabınız aktif edilecek ve SMS ile bilgilendirileceksiniz.');
+            switchTab('login');
+        }
+
+        function submitLogin() {
+            alert('🔑 İşletme paneline yönlendiriliyorsunuz...');
+        }
+
+        function forgotPassword() {
+            const phone = prompt('Lütfen sistemde kayıtlı Cep Telefonu numaranızı giriniz:');
+            if (phone) {
+                alert('📲 Doğrulama kodu ' + phone + ' numaralı telefona gönderilmiştir.');
+            }
         }
     </script>
 </body>
