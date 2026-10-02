@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hoop - Yönetici & Analiz Paneli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { background-color: #020617; color: #ffffff; min-height: 100vh; padding: 20px; }
+        .admin-container { max-width: 1100px; margin: 0 auto; }
+
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 16px; margin-bottom: 24px; }
+        .logo-box { display: flex; align-items: center; gap: 12px; }
+        .logo-box img { height: 40px; width: auto; }
+        .admin-title { font-size: 20px; font-weight: 800; color: #38bdf8; }
+        .region-badge { background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; }
+
+        /* KPI METRİK KARTLARI (RAPORLAR) */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px; }
+        .stat-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 20px; }
+        .stat-label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-value { font-size: 24px; font-weight: 900; color: #f8fafc; margin-top: 8px; }
+        .stat-sub { font-size: 11px; color: #10b981; font-weight: 700; margin-top: 6px; }
+
+        /* SEKTÖR & TABLO BÖLÜMLERİ */
+        .section-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+        
+        .card-panel { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 20px; margin-bottom: 30px; overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; padding: 12px; border-bottom: 1px solid #1e293b; }
+        td { font-size: 13px; padding: 14px 12px; border-bottom: 1px solid #0f172a; color: #e2e8f0; }
+        tr:last-child td { border-bottom: none; }
+
+        /* BUTONLAR VE BADGE'LER */
+        .btn-approve { background: #10b981; color: #020617; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; }
+        .btn-reject { background: #ef4444; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; margin-left: 6px; }
+        .badge-pending { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid #f59e0b; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .badge-active { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid #10b981; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    </style>
+</head>
+<body class="notranslate" translate="no">
+    <div class="admin-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo-box">
+                <img src="logo.png.jpeg" alt="hoop logo">
+                <span class="admin-title">Yönetici Paneli</span>
+            </div>
+            <span class="region-badge">📍 Pilot Bölge: Ortaköy</span>
+        </header>
+
+        <!-- CANLI CANLI RAPORLAR / METRİKLER -->
+        <div class="section-title">📊 Pilot Saha Genel Raporları</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">İşlem Hacmi (Piyasa)</div>
+                <div class="stat-value">₺184,500</div>
+                <div class="stat-sub">↑ Dükkanlarda dönen sıcak para</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Fiziki Müşteri Trafiği</div>
+                <div class="stat-value">1,240 Kişi</div>
+                <div class="stat-sub">↑ Dükkana gidip teklif kullanan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Çıkılan İlan Sayısı</div>
+                <div class="stat-value">312 İlan</div>
+                <div class="stat-sub">Aktif & Geçmiş Kampanyalar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Aktif Onaylı Esnaf</div>
+                <div class="stat-value">28 İşletme</div>
+                <div class="stat-sub">Ortaköy Bölgesi</div>
+            </div>
+        </div>
+
+        <!-- ONAY BEKLEYEN ESNAFLAR -->
+        <div class="section-title">⏳ Onay Bekleyen Esnaf Başvuruları</div>
+        <div class="card-panel">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>İşletme Unvanı</th>
+                        <th>Vergi No / TC</th>
+                        <th>Yetkili / Tel</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="pendingList">
+                    <tr>
+                        <td>Bugün 19:40</td>
+                        <td>Ortaköy Kasabı Ltd. Şti.</td>
+                        <td>2345678901</td>
+                        <td>Ahmet Yılmaz <br><small style="color:#64748b">05321234567</small></td>
+                        <td><span class="badge-pending">Onay Bekliyor</span></td>
+                        <td>
+                            <button class="btn-approve" onclick="approveMerchant(this, 'Ortaköy Kasabı')">Onayla</button>
+                            <button class="btn-reject" onclick="rejectMerchant(this)">Reddet</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ESNAF BAZLI PERFORMANS & RAPOR TABLOSU -->
+        <div class="section-title">🏬 Esnaf İlan & Performans Raporu</div>
+        <div class="card-panel">
+            <table>
+                <thead>
+                    <tr>
+                        <th>İşletme</th>
+                        <th>Vergi No</th>
+                        <th>Açılan İlan</th>
+                        <th>Müşteri Ziyareti</th>
+                        <th>Üretilen Hacim (TL)</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ortaköy Fırını</td>
+                        <td>1234567890</td>
+                        <td>42 İlan</td>
+                        <td>380 Kişi</td>
+                        <td>₺45,200</td>
+                        <td><span class="badge-active">Aktif</span></td>
+                    </tr>
+                    <tr>
+                        <td>Boğaz Kafe & Bistro</td>
+                        <td>9876543210</td>
+                        <td>28 İlan</td>
+                        <td>210 Kişi</td>
+                        <td>₺68,900</td>
+                        <td><span class="badge-active">Aktif</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ortaköy Kumpasçısı</td>
+                        <td>5544332211</td>
+                        <td>15 İlan</td>
+                        <td>145 Kişi</td>
+                        <td>₺22,400</td>
+                        <td><span class="badge-active">Aktif</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function approveMerchant(btn, name) {
+            if(confirm(name + ' işletmesini onaylamak istiyor musunuz?')) {
+                let row = btn.closest('tr');
+                row.remove();
+                alert(name + ' başarıyla onaylandı! Esnaf artık Vergi No ve PIN kodu ile giriş yapabilir.');
+            }
+        }
+
+        function rejectMerchant(btn) {
+            if(confirm('Başvuruyu reddetmek istediğinize emin misiniz?')) {
+                let row = btn.closest('tr');
+                row.remove();
+            }
+        }
+    </script>
+</body>
+</html>
