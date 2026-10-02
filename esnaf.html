@@ -48,13 +48,13 @@
         .form-input:focus { border-color: #38bdf8; }
 
         /* HATA UYARISI */
-        .error-message { color: #ef4444; font-size: 11px; font-weight: 700; margin-bottom: 10px; display: none; text-align: center; }
+        .error-message { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-bottom: 12px; display: none; text-align: center; }
 
         .btn-submit { width: 100%; background: #38bdf8; color: #0f172a; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; }
         
         .btn-back { background: transparent; color: #64748b; border: none; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; width: 100%; margin-top: auto; }
 
-        /* ÖZEL ONAY KARTI (MODAL) */
+        /* POPUP */
         .modal-overlay {
             display: none;
             position: absolute;
@@ -228,6 +228,45 @@
             errEl.style.display = 'block';
         }
 
+        // Akıllı Metin Kontrolü (Sesli Harf & Tekrar Kontrolü)
+        function isValidText(str) {
+            if (str.length < 3) return false;
+            // Sesli harf kontrolü (Sadece rastgele ünsüz harf basılmasını engeller)
+            const hasVowel = /[aeıioöuüAEIİOÖUÜ]/.test(str);
+            // Peş peşe 3 aynı harf engeli (Örn: AAA, kkkk)
+            const hasRepeat = /(.)\1\1/.test(str);
+            return hasVowel && !hasRepeat;
+        }
+
+        // Vergi No Algoritması (VKN Algoritma Kontrolü)
+        function isValidVKN(vkn) {
+            if (vkn.length !== 10) return false;
+            if (/^(\d)\1{9}$/.test(vkn)) return false; // 1111111111 engeli
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                let d = (parseInt(vkn[i]) + 9 - i) % 10;
+                if (d !== 9) {
+                    d = (d * Math.pow(2, 9 - i)) % 9;
+                    if (d === 0) d = 9;
+                }
+                sum += d;
+            }
+            let lastDigit = (10 - (sum % 10)) % 10;
+            return lastDigit === parseInt(vkn[9]);
+        }
+
+        // T.C. No Algoritması (TCKN Kontrolü)
+        function isValidTCKN(tckn) {
+            if (tckn.length !== 11 || tckn[0] === '0') return false;
+            let digits = tckn.split('').map(Number);
+            let sumOdd = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+            let sumEven = digits[1] + digits[3] + digits[5] + digits[7];
+            let d10 = ((sumOdd * 7) - sumEven) % 10;
+            if (d10 < 0) d10 += 10;
+            let d11 = (digits.slice(0, 10).reduce((a, b) => a + b, 0)) % 10;
+            return d10 === digits[9] && d11 === digits[10];
+        }
+
         function completeRegistration() {
             hideErrors();
 
@@ -239,31 +278,43 @@
             const phone = document.getElementById('regPhone').value.trim();
             const pin = document.getElementById('regPin').value.trim();
 
-            // SIKI DOĞRULAMA KONTROLLERİ
             if (!title || !taxOffice || !taxNo || !address || !contact || !phone || !pin) {
                 showError('regError', 'Lütfen tüm alanları eksiksiz doldurunuz.');
                 return;
             }
 
-            // Vergi No / TC Kimlik Kontrolü (Sadece rakam ve 10 veya 11 hane olmalı)
-            if (!/^\d+$/.test(taxNo) || (taxNo.length !== 10 && taxNo.length !== 11)) {
-                showError('regError', 'Vergi No 10 haneli, T.C. Kimlik No 11 haneli rakamlardan oluşmalıdır.');
+            // Metin Uygunluk Kontrolleri
+            if (!isValidText(title)) {
+                showError('regError', 'Lütfen geçerli bir İşletme Unvanı giriniz.');
                 return;
             }
 
-            // Telefon Kontrolü (En az 10 haneli rakam olmalı)
-            if (!/^\d+$/.test(phone) || phone.length < 10) {
-                showError('regError', 'Lütfen geçerli bir telefon numarası giriniz (örn: 05321234567).');
+            if (!isValidText(contact)) {
+                showError('regError', 'Lütfen geçerli bir Yetkili Adı Soyadı giriniz.');
                 return;
             }
 
-            // PIN Kontrolü (Tam 4 hane rakam olmalı)
+            // Vergi No / TC No Algoritma Kontrolü
+            let isVknValid = (taxNo.length === 10 && isValidVKN(taxNo));
+            let isTcknValid = (taxNo.length === 11 && isValidTCKN(taxNo));
+
+            if (!isVknValid && !isTcknValid) {
+                showError('regError', 'Girilen Vergi No / T.C. Kimlik No resmi formata uygun değil.');
+                return;
+            }
+
+            // Telefon Kontrolü (Türkiye formatı)
+            if (!/^(05\d{9})$/.test(phone)) {
+                showError('regError', 'Lütfen 05 ile başlayan 11 haneli geçerli bir cep telefonu giriniz.');
+                return;
+            }
+
+            // PIN Kontrolü
             if (!/^\d{4}$/.test(pin)) {
-                showError('regError', 'Giriş PIN kodu tam 4 haneli rakamlardan oluşmalıdır.');
+                showError('regError', 'Giriş PIN kodu 4 haneli rakam olmalıdır.');
                 return;
             }
 
-            // Başarılı ise Onay Kartını Aç
             document.getElementById('successModal').style.display = 'flex';
         }
 
@@ -277,12 +328,7 @@
                 return;
             }
 
-            if (pin.length !== 4) {
-                showError('loginError', 'PIN kodu 4 haneli olmalıdır.');
-                return;
-            }
-
-            alert('Giriş bilgileri doğrulandı. Panel yükleniyor...');
+            alert('Giriş bilgileri doğrulandı. Yönetici onayı kontrol ediliyor...');
         }
 
         function closeModal() {
