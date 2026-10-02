@@ -14,7 +14,7 @@
         body { background-color: #020617; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
         .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; }
         
-        /* HEADER / LOGO ALANI (ANA EKRANLA BİREBİR AYNI) */
+        /* HEADER / LOGO ALANI (KİLİTLİ ALAN) */
         .header-section { text-align: center; padding: 8px 0 16px 0; }
         
         .logo-crop-box {
@@ -46,7 +46,6 @@
         .form-label { display: block; font-size: 10px; font-weight: 800; color: #64748b; letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase; }
         .form-input { width: 100%; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; outline: none; }
         .form-input:focus { border-color: #38bdf8; }
-        select.form-input { color: #94a3b8; }
 
         .btn-submit { width: 100%; background: #38bdf8; color: #0f172a; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; }
         
@@ -88,15 +87,8 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">SEKTÖR / KATEGORİ</label>
-                <select class="form-input">
-                    <option value="" disabled selected>Seçiniz...</option>
-                    <option value="kasab">Kasab / Şarküteri</option>
-                    <option value="restoran">Restoran / Kafe</option>
-                    <option value="firin">Fırın / Pastane</option>
-                    <option value="manav">Manav / Market</option>
-                    <option value="diger">Diğer</option>
-                </select>
+                <label class="form-label">İŞLETME ADRESİ</label>
+                <input type="text" class="form-input" placeholder="Örn: Dereboyu Cad. No: 12 Ortaköy">
             </div>
 
             <div class="form-group">
@@ -105,14 +97,14 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">4 HANELİ GİRİŞ PIN KODU</label>
+                <label class="form-label">4 HANELİ GİRİŞ PIN KODU (KENDİNİZ BELİRLEYİN)</label>
                 <input type="password" maxlength="4" class="form-input" placeholder="****">
             </div>
 
             <button class="btn-submit" onclick="alert('Kayıt oluşturuldu!')">KAYDI TAMAMLA</button>
         </div>
 
-        <!-- GİRİŞ FORMU (Gizli Başlar) -->
+        <!-- GİRİŞ FORMU -->
         <div id="loginForm" style="display: none;">
             <div class="form-group">
                 <label class="form-label">VERGİ NO / T.C. KİMLİK NO</label>
