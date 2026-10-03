@@ -123,10 +123,23 @@
 <script>
     document.getElementById('esnafForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        const inputs = this.querySelectorAll('input, select');
+        const yeniBasvuru = {
+            isletmeAdi: inputs[0].value,
+            kategori: inputs[1].options[inputs[1].selectedIndex].text,
+            adres: inputs[2].value,
+            yetkili: inputs[3].value,
+            telefon: inputs[4].value,
+            status: 'Beklemede',
+            tarih: new Date().toLocaleString('tr-TR')
+        };
+
+        let basvurular = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
+        basvurular.push(yeniBasvuru);
+        localStorage.setItem('hoop_esnaf_basvurulari', JSON.stringify(basvurular));
+
         document.getElementById('esnafForm').style.display = 'none';
         document.getElementById('successCard').style.display = 'block';
     });
 </script>
-
-</body>
-</html>
