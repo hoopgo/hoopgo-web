@@ -9,8 +9,9 @@
         body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 32px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         
-        /* Orijinal Logo Görsel Alanı */
-        .logo-img { width: 180px; height: auto; margin: 0 auto 16px auto; display: block; }
+        /* Hizalanmış Orijinal Logo */
+        .logo-wrapper { width: 100%; max-width: 180px; margin: 0 auto 16px auto; display: flex; justify-content: center; align-items: center; }
+        .logo-wrapper img { width: 100%; height: auto; object-fit: contain; display: block; }
         
         .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
         .desc { font-size: 13px; color: #8a99ad; margin-bottom: 24px; }
@@ -29,7 +30,6 @@
         .btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
         .btn:hover { background: #1d4ed8; }
 
-        /* Başvuru Tamamlandığında Açılan Yeşil Kart */
         .success-card {
             display: none;
             background: rgba(16, 185, 129, 0.12);
@@ -47,8 +47,9 @@
 <body>
 
 <div class="card">
-    <!-- ORİJİNAL LOGO DOSYASI -->
-    <img src="logo.png" alt="hoop" class="logo-img">
+    <div class="logo-wrapper">
+        <img src="logo.png" alt="hoop">
+    </div>
 
     <div class="subtitle">Esnaf Portalı</div>
     <div class="desc">İşletmenizi hoop go ekosistemine taşıyın</div>
@@ -58,7 +59,6 @@
         <button class="tab inactive">Esnaf Girişi</button>
     </div>
 
-    <!-- Başvuru Formu -->
     <form id="esnafForm">
         <div class="form-group">
             <label>İŞLETME / DÜKKAN TİCARİ ÜNVANI</label>
@@ -95,7 +95,6 @@
         <button type="submit" class="btn">Başvuruyu Tamamla</button>
     </form>
 
-    <!-- Gönderim Sonrası Açılan Onay Kartı -->
     <div class="success-card" id="successCard">
         <div class="icon">✓</div>
         <div class="title">Başvurunuz Alındı</div>
