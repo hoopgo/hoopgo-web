@@ -9,11 +9,11 @@
         body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         
-        /* LOGONUN DIŞINDAKİ SİYAH KUTUYU YOK EDEN KIRPMA PENCERESİ */
+        /* LOGO KUTUSU - EKSİKSİZ VE TAM BATIŞ */
         .logo-crop-box {
-            width: 140px;
-            height: 50px;
-            margin: 0 auto 16px auto;
+            width: 190px;
+            height: 65px;
+            margin: 0 auto 12px auto;
             overflow: hidden;
             position: relative;
             display: flex;
@@ -21,15 +21,14 @@
             align-items: center;
         }
 
-        /* RESMİ ORTALAYIP SADECE YAZIYI GÖSTEREN AYAR */
         .logo-crop-box img {
-            width: 220px;
+            width: 250px;
             height: auto;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            mix-blend-mode: screen; /* Resimdeki koyu fonu kartın arka planına tamamen eritir */
+            mix-blend-mode: screen;
         }
         
         .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
@@ -66,7 +65,6 @@
 <body>
 
 <div class="card">
-    <!-- Kırpılmış ve Arka Planı Temizlenmiş Logo -->
     <div class="logo-crop-box">
         <img src="logo.png" alt="hoop">
     </div>
