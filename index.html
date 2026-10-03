@@ -3,75 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Ortaköy, Beşiktaş</title>
+    <title>hoop Ortaköy - Mahallendeki Fırsatları Yakala</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 16px; }
-        .container { width: 100%; max-width: 440px; }
+        body { background-color: #0d1322; color: #ffffff; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px; }
+        .container { width: 100%; max-width: 420px; }
         
-        .header { text-align: center; margin-bottom: 16px; }
-        
-        /* LOGO KUTUSU - ESNAF SAYFASIYLA BİREBİR AYNI */
-        .logo-crop-box {
-            width: 220px;
-            height: 65px;
-            margin: 0 auto 4px auto;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .logo-crop-box img {
-            width: 250px;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-        }
-
+        .header { text-align: center; margin-bottom: 20px; }
+        .logo-img { width: 150px; height: auto; display: block; margin: 0 auto 8px auto; }
         .tagline { font-size: 13px; color: #8a99ad; }
 
-        /* KONUM BAR */
-        .location-bar { background: #111c38; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; margin-top: 10px; }
-        .location { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color: #ffffff; }
+        .location-bar { background: #131c31; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .location { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
         .badge { background: rgba(16, 185, 129, 0.15); color: #10b981; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-        /* FIRSAT KARTLARI */
-        .deal-card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 16px; margin-bottom: 16px; }
-        .shop-title { color: #3b82f6; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
-        .product-name { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #ffffff; }
-        
-        .deal-content { display: flex; gap: 12px; align-items: center; }
-        .deal-img { width: 95px; height: 95px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
-        
-        .deal-details { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .address { font-size: 12px; color: #8a99ad; display: flex; align-items: center; gap: 4px; }
-        
-        .price-row { display: flex; align-items: center; gap: 10px; margin: 4px 0; }
-        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; }
-        .new-price { font-size: 18px; font-weight: 800; color: #10b981; }
-        
-        .meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-top: 2px; }
-        .stock-info { color: #3b82f6; font-weight: 600; }
-        .time-info { color: #f59e0b; font-weight: 600; }
-
-        .btn-coupon { width: 100%; background: #2563eb; color: #ffffff; border: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 12px; text-align: center; }
-        .btn-coupon:hover { background: #1d4ed8; }
-        
-        .footer-link { text-align: center; margin-top: 24px; margin-bottom: 20px; }
-        .footer-link a { color: #3b82f6; text-decoration: none; font-size: 13px; font-weight: 600; background: #111c38; padding: 10px 20px; border-radius: 8px; border: 1px solid #1f2d5a; display: inline-block; }
+        .esnaf-btn-wrapper { margin-top: 20px; }
+        .esnaf-btn { width: 100%; background: #131c31; border: 1px solid #1f2d5a; color: #3b82f6; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <div class="logo-crop-box">
-            <img src="logo.png" alt="hoop">
-        </div>
+        <img src="logo.png" alt="hoop" class="logo-img">
         <div class="tagline">Mahallendeki Fırsatları Yakala</div>
     </div>
 
@@ -80,50 +34,10 @@
         <div class="badge">• CANLI FIRSATLAR</div>
     </div>
 
-    <!-- Ortaköy Kasabı Card -->
-    <div class="deal-card">
-        <div class="shop-title">ORTAKÖY KASABI</div>
-        <div class="product-name">Kıyma (1 kg)</div>
-        <div class="deal-content">
-            <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=300" class="deal-img" alt="Kıyma">
-            <div class="deal-details">
-                <div class="address">📍 Dereboyu Cde. No: 12</div>
-                <div class="price-row">
-                    <span class="old-price">1000 TL</span>
-                    <span class="new-price">750 TL</span>
-                </div>
-                <div class="meta-row">
-                    <span class="stock-info">Stok: 15 Adet</span>
-                    <span class="time-info">Saat: 21:00</span>
-                </div>
-            </div>
-        </div>
-        <button class="btn-coupon">KUPON AL</button>
-    </div>
+    <!-- İlan Kartları Alanı Temizlendi -->
 
-    <!-- Ortaköy Kumpircisi Card -->
-    <div class="deal-card">
-        <div class="shop-title">ORTAKÖY KUMPİRCİSİ</div>
-        <div class="product-name">Ortaköy Kumpir</div>
-        <div class="deal-content">
-            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=300" class="deal-img" alt="Kumpir">
-            <div class="deal-details">
-                <div class="address">📍 Meydan Sk. No: 4</div>
-                <div class="price-row">
-                    <span class="old-price">220 TL</span>
-                    <span class="new-price">160 TL</span>
-                </div>
-                <div class="meta-row">
-                    <span class="stock-info">Stok: 8/10</span>
-                    <span class="time-info">Saat: 19:45</span>
-                </div>
-            </div>
-        </div>
-        <button class="btn-coupon">KUPON AL</button>
-    </div>
-
-    <div class="footer-link">
-        <a href="esnaf.html">Esnaf Girişi / Kayıt</a>
+    <div class="esnaf-btn-wrapper">
+        <a href="esnaf.html" class="esnaf-btn">🏷️ Esnaf Girişi / Kayıt</a>
     </div>
 </div>
 
