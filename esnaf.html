@@ -9,12 +9,9 @@
         body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 32px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         
-        /* Logo Alanı */
-        .logo-container { margin-bottom: 8px; display: flex; justify-content: center; align-items: center; }
-        .logo-text { font-size: 48px; font-weight: 900; letter-spacing: -1.5px; color: #ffffff; display: flex; align-items: center; }
-        .logo-o1 { color: #ffffff; }
-        .logo-o2 { color: #10b981; } /* hoop yeşili */
-        .location-tag { font-size: 13px; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+        /* Orijinal Tam Onaylı Logo Yapısı */
+        .logo { font-size: 42px; font-weight: 800; color: #ffffff; margin-bottom: 4px; letter-spacing: -1px; }
+        .logo span { color: #10b981; }
         
         .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
         .desc { font-size: 13px; color: #8a99ad; margin-bottom: 24px; }
@@ -33,7 +30,7 @@
         .btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
         .btn:hover { background: #1d4ed8; }
 
-        /* Başarı Kartı (Hoop Yeşilinde Bilgi Kartı) */
+        /* Başvuruyu Tamamlayınca Açılan Yeşil Kart */
         .success-card {
             display: none;
             background: rgba(16, 185, 129, 0.12);
@@ -43,36 +40,20 @@
             margin-top: 10px;
             text-align: center;
         }
-        .success-card .icon {
-            font-size: 36px;
-            color: #10b981;
-            margin-bottom: 10px;
-        }
-        .success-card .title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #10b981;
-            margin-bottom: 6px;
-        }
-        .success-card .msg {
-            font-size: 13px;
-            color: #d1fae5;
-            line-height: 1.5;
-        }
+        .success-card .icon { font-size: 36px; color: #10b981; margin-bottom: 10px; }
+        .success-card .title { font-size: 17px; font-weight: 700; color: #10b981; margin-bottom: 6px; }
+        .success-card .msg { font-size: 13px; color: #d1fae5; line-height: 1.5; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <!-- Onaylı Logo Yapısı -->
-    <div class="logo-container">
-        <span class="logo-text">h<span class="logo-o1">o</span><span class="logo-o2">o</span>p</span>
-    </div>
-    <div class="location-tag">Ortaköy</div>
+    <!-- Orijinal Logo -->
+    <div class="logo">ho<span>o</span>p</div>
     <div class="subtitle">Esnaf Portalı</div>
     <div class="desc">İşletmenizi hoop go ekosistemine taşıyın</div>
 
-    <div class="tab-group" id="tabGroup">
+    <div class="tab-group">
         <button class="tab active">İşletme Kaydı</button>
         <button class="tab inactive">Esnaf Girişi</button>
     </div>
@@ -81,12 +62,12 @@
     <form id="esnafForm">
         <div class="form-group">
             <label>İŞLETME / DÜKKAN TİCARİ ÜNVANI</label>
-            <input type="text" id="unvan" placeholder="Örn: Ortaköy Fırını" required>
+            <input type="text" placeholder="Örn: Ortaköy Fırını" required>
         </div>
 
         <div class="form-group">
             <label>İŞLETME KATEGORİSİ</label>
-            <select id="kategori" required>
+            <select required>
                 <option value="" disabled selected>Kategori Seçiniz</option>
                 <option value="restoran">Restoran / Kafe</option>
                 <option value="firin">Fırın / Pastane</option>
@@ -98,23 +79,23 @@
 
         <div class="form-group">
             <label>İŞLETME ADRESİ VE NİRENGİ NOKTASI</label>
-            <input type="text" id="adres" placeholder="Örn: Dereboyu Cad. No: 12 (Cami Karşısı)" required>
+            <input type="text" placeholder="Örn: Dereboyu Cad. No: 12 (Cami Karşısı)" required>
         </div>
 
         <div class="form-group">
             <label>YETKİLİ ADI SOYADI</label>
-            <input type="text" id="yetkili" placeholder="Ad Soyad" required>
+            <input type="text" placeholder="Ad Soyad" required>
         </div>
 
         <div class="form-group">
             <label>TELEFON NUMARASI</label>
-            <input type="tel" id="telefon" placeholder="05XX XXX XX XX" required>
+            <input type="tel" placeholder="05XX XXX XX XX" required>
         </div>
 
         <button type="submit" class="btn">Başvuruyu Tamamla</button>
     </form>
 
-    <!-- Gönderim Sonrası Açılan Yeşil Kart -->
+    <!-- Başvuru Sonrası Açılan Yeşil Kart -->
     <div class="success-card" id="successCard">
         <div class="icon">✓</div>
         <div class="title">Başvurunuz Alındı</div>
@@ -125,11 +106,7 @@
 <script>
     document.getElementById('esnafForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Formu gizle
         document.getElementById('esnafForm').style.display = 'none';
-        
-        // Yeşil Bilgi Kartını Göster
         document.getElementById('successCard').style.display = 'block';
     });
 </script>
