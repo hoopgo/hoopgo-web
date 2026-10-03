@@ -7,16 +7,26 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: #0d1322; color: #ffffff; padding: 24px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 900px; }
+        .container { width: 100%; max-width: 1000px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid #1f2d5a; padding-bottom: 16px; }
-        .title { font-size: 20px; font-weight: 700; color: #ffffff; }
-        .badge-count { background: #2563eb; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid #1f2d5a; padding-bottom: 16px; }
+        .brand { font-size: 22px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+        .pilot-badge { background: #2563eb; color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; }
 
-        .table-wrapper { background: #131c31; border: 1px solid #1f2d5a; border-radius: 12px; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-        th { background: #0b1329; color: #8a99ad; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 14px 16px; border-bottom: 1px solid #1f2d5a; }
-        td { padding: 14px 16px; border-bottom: 1px solid #1f2d5a; color: #e2e8f0; vertical-align: middle; }
+        .section-title { font-size: 14px; font-weight: 700; color: #8a99ad; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        
+        /* İstatistik Kartları */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+        .stat-card { background: #131c31; border: 1px solid #1f2d5a; border-radius: 10px; padding: 16px; }
+        .stat-label { font-size: 11px; color: #8a99ad; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+        .stat-value { font-size: 20px; font-weight: 800; color: #ffffff; }
+        .stat-sub { font-size: 10px; color: #10b981; margin-top: 4px; }
+
+        /* Tablo Stilleri */
+        .table-wrapper { background: #131c31; border: 1px solid #1f2d5a; border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { background: #0b1329; color: #8a99ad; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; border-bottom: 1px solid #1f2d5a; }
+        td { padding: 12px 16px; border-bottom: 1px solid #1f2d5a; color: #e2e8f0; vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
 
         .status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
@@ -24,23 +34,48 @@
         .status-approved { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
         .status-rejected { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
 
-        .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; margin-right: 4px; transition: 0.2s; }
+        .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; border: none; cursor: pointer; margin-right: 4px; }
         .btn-approve { background: #10b981; color: #fff; }
-        .btn-approve:hover { background: #059669; }
         .btn-reject { background: #ef4444; color: #fff; }
-        .btn-reject:hover { background: #dc2626; }
 
-        .empty-state { text-align: center; padding: 40px; color: #8a99ad; font-size: 14px; }
+        .empty-state { text-align: center; padding: 30px; color: #8a99ad; font-size: 13px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <div class="title">🔑 hoop Yönetici - Esnaf Başvuruları</div>
-        <div class="badge-count" id="totalCount">0 Başvuru</div>
+    <div class="top-header">
+        <div class="brand">🔑 hoop - Yönetici Paneli</div>
+        <div class="pilot-badge">📍 Pilot Bölge: Ortaköy</div>
     </div>
 
+    <!-- İstatistik Alanları -->
+    <div class="section-title">📊 Pilot Saha Genel Raporları</div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">İşlem Hacmi (Piyasa)</div>
+            <div class="stat-value">₺184,500</div>
+            <div class="stat-sub">+ Dükkanlarda dönen sıcak para</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Fiziki Müşteri Trafiği</div>
+            <div class="stat-value">1,240 Kişi</div>
+            <div class="stat-sub">+ Dükkana girip teklif kullanan</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Çıkılan İlan Sayısı</div>
+            <div class="stat-value">312 İlan</div>
+            <div class="stat-sub">Aktif & Geçerli Kampanyalar</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Aktif Onaylı Esnaf</div>
+            <div class="stat-value">28 İşletme</div>
+            <div class="stat-sub">Ortaköy Bölgesi</div>
+        </div>
+    </div>
+
+    <!-- Başvuru Yönetimi Tablosu -->
+    <div class="section-title">⏳ Onay Bekleyen Esnaf Başvuruları</div>
     <div class="table-wrapper">
         <table>
             <thead>
@@ -57,7 +92,34 @@
             <tbody id="applicationList">
             </tbody>
         </table>
-        <div id="emptyState" class="empty-state" style="display: none;">Henüz başvuru bulunmuyor.</div>
+        <div id="emptyState" class="empty-state" style="display: none;">Henüz yeni başvuru bulunmuyor.</div>
+    </div>
+
+    <!-- Esnaf İlan & Performans Raporu -->
+    <div class="section-title">📊 Esnaf İlan & Performans Raporu</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>İşletme</th>
+                    <th>Vergi No</th>
+                    <th>Açılan İlan</th>
+                    <th>Müşteri Ziyareti</th>
+                    <th>Üretilen Hacim (TL)</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: 600;">Ortaköy Fırın</td>
+                    <td>1234567890</td>
+                    <td>42 İlan</td>
+                    <td>380 Kişi</td>
+                    <td>₺45,200</td>
+                    <td><span class="status-badge status-approved">Aktif</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -66,10 +128,8 @@
         const applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
         const tbody = document.getElementById('applicationList');
         const emptyState = document.getElementById('emptyState');
-        const totalCount = document.getElementById('totalCount');
 
         tbody.innerHTML = '';
-        totalCount.textContent = `${applications.length} Başvuru`;
 
         if (applications.length === 0) {
             emptyState.style.display = 'block';
