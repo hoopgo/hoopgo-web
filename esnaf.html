@@ -1,340 +1,77 @@
 <!DOCTYPE html>
-<html lang="tr" class="notranslate" translate="no">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="google" content="notranslate">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hoop - Esnaf Portalı</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        body { background-color: #020617; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 12px; }
-        .app-container { width: 100%; max-width: 420px; background-color: #030712; min-height: 100vh; padding: 16px; border-radius: 20px; border: 1px solid #1e293b; display: flex; flex-direction: column; position: relative; }
-        
-        /* HEADER / LOGO ALANI */
-        .header-section { text-align: center; padding: 8px 0 16px 0; }
-        
-        .logo-crop-box {
-            width: 170px;
-            height: 55px;
-            margin: 0 auto;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .main-logo-img { 
-            width: 220px; 
-            height: auto; 
-            object-fit: cover;
-        }
-        
-        .portal-title { font-size: 20px; font-weight: 800; color: #f8fafc; margin-top: 10px; }
-        .portal-subtitle { font-size: 13px; font-weight: 600; color: #94a3b8; margin-top: 4px; }
-
-        /* SEKMELER */
-        .tab-box { display: flex; background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 4px; margin-top: 16px; margin-bottom: 20px; }
-        .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 700; border-radius: 8px; border: none; background: transparent; color: #94a3b8; cursor: pointer; }
-        .tab-btn.active { background: #1e293b; color: #38bdf8; }
-
-        /* FORM ALANLARI */
-        .form-group { margin-bottom: 14px; }
-        .form-label { display: block; font-size: 10px; font-weight: 800; color: #64748b; letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase; }
-        .form-input { width: 100%; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; outline: none; }
-        .form-input:focus { border-color: #38bdf8; }
-
-        /* HATA UYARISI */
-        .error-message { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-bottom: 12px; display: none; text-align: center; }
-
-        .btn-submit { width: 100%; background: #38bdf8; color: #0f172a; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; }
-        
-        .btn-back { background: transparent; color: #64748b; border: none; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; width: 100%; margin-top: auto; }
-
-        /* POPUP */
-        .modal-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(2, 6, 23, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            border-radius: 20px;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: #0f172a;
-            border: 1px solid #38bdf8;
-            border-radius: 16px;
-            padding: 24px 20px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            width: 100%;
-        }
-
-        .modal-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 14px auto;
-            border: 1px solid #38bdf8;
-        }
-
-        .modal-title { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 8px; }
-        .modal-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 20px; }
-        
-        .modal-btn {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 32px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .logo { font-size: 42px; font-weight: 800; color: #ffffff; margin-bottom: 4px; letter-spacing: -1px; }
+        .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
+        .desc { font-size: 13px; color: #8a99ad; margin-bottom: 24px; }
+        .tab-group { display: flex; background: #0b1329; border-radius: 8px; padding: 4px; margin-bottom: 24px; }
+        .tab { flex: 1; padding: 10px; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .tab.active { background: #1e3a8a; color: #ffffff; }
+        .tab.inactive { background: transparent; color: #8a99ad; }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+        input, select { width: 100%; padding: 12px 14px; background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; color: #ffffff; font-size: 14px; outline: none; }
+        input::placeholder { color: #4a5b73; }
+        select { color: #ffffff; appearance: none; }
+        .btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .btn:hover { background: #1d4ed8; }
     </style>
 </head>
-<body class="notranslate" translate="no">
-    <div class="app-container">
-        <!-- HEADER / LOGO ALANI -->
-        <header class="header-section">
-            <div class="logo-crop-box">
-                <img src="logo.png.jpeg" alt="hoop logo" class="main-logo-img">
-            </div>
-            <h1 class="portal-title">Esnaf Portalı</h1>
-            <p class="portal-subtitle">İşletmenizi hoop go ekosistemine taşıyın</p>
-        </header>
+<body>
 
-        <!-- SEKMELER -->
-        <div class="tab-box">
-            <button class="tab-btn active" onclick="switchTab('register')">İşletme Kaydı</button>
-            <button class="tab-btn" onclick="switchTab('login')">Esnaf Girişi</button>
-        </div>
+<div class="card">
+    <div class="logo">hoop</div>
+    <div class="subtitle">Esnaf Portalı</div>
+    <div class="desc">İşletmenizi hoop go ekosistemine taşıyın</div>
 
-        <!-- KAYIT FORMU -->
-        <div id="registerForm">
-            <div id="regError" class="error-message"></div>
-
-            <div class="form-group">
-                <label class="form-label">İŞLETME / DÜKKAN TİCARİ UNVANI</label>
-                <input type="text" id="regTitle" class="form-input" placeholder="Örn: Ortaköy Kasabı Gıda San. Tic. Ltd.">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">VERGİ DAİRESİ</label>
-                <input type="text" id="regTaxOffice" class="form-input" placeholder="Örn: Beşiktaş Vergi Dairesi">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">VERGİ NO / T.C. KİMLİK NO (10 VEYA 11 HANELİ)</label>
-                <input type="text" id="regTaxNo" maxlength="11" class="form-input" placeholder="10 haneli Vergi No veya 11 haneli T.C. No">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">İŞLETME ADRESİ</label>
-                <input type="text" id="regAddress" class="form-input" placeholder="Örn: Dereboyu Cad. No: 12 Ortaköy">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">YETKİLİ ADI SOYADI</label>
-                <input type="text" id="regContact" class="form-input" placeholder="Ad Soyad">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">TELEFON NUMARASI</label>
-                <input type="tel" id="regPhone" maxlength="11" class="form-input" placeholder="Örn: 05321234567">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">4 HANELİ GİRİŞ PIN KODU</label>
-                <input type="password" id="regPin" maxlength="4" class="form-input" placeholder="****">
-            </div>
-
-            <button class="btn-submit" onclick="completeRegistration()">KAYDI TAMAMLA</button>
-        </div>
-
-        <!-- GİRİŞ FORMU -->
-        <div id="loginForm" style="display: none;">
-            <div id="loginError" class="error-message"></div>
-
-            <div class="form-group">
-                <label class="form-label">VERGİ NO / T.C. KİMLİK NO</label>
-                <input type="text" id="loginTaxNo" maxlength="11" class="form-input" placeholder="10 veya 11 haneli numara">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">4 HANELİ PIN KODU</label>
-                <input type="password" id="loginPin" maxlength="4" class="form-input" placeholder="****">
-            </div>
-
-            <button class="btn-submit" onclick="loginMerchant()">PANELİME GİRİŞ YAP</button>
-        </div>
-
-        <button class="btn-back" onclick="window.location.href='index.html'">← Ana Sayfaya Dön</button>
-
-        <!-- ÖZEL ONAY KARTI (POPUP) -->
-        <div id="successModal" class="modal-overlay">
-            <div class="modal-card">
-                <div class="modal-icon">✓</div>
-                <h3 class="modal-title">Kayıt Talebiniz Alındı!</h3>
-                <p class="modal-desc">İşletme kaydınız incelemeye alınmıştır. Yönetici onayının ardından Vergi Numaranız ve belirlediğiniz PIN kodu ile giriş yapabilirsiniz.</p>
-                <button class="modal-btn" onclick="closeModal()">Anladım</button>
-            </div>
-        </div>
+    <div class="tab-group">
+        <button class="tab active">İşletme Kaydı</button>
+        <button class="tab inactive">Esnaf Girişi</button>
     </div>
 
-    <script>
-        function switchTab(tab) {
-            const regForm = document.getElementById('registerForm');
-            const loginForm = document.getElementById('loginForm');
-            const tabs = document.querySelectorAll('.tab-btn');
-            hideErrors();
+    <form id="esnafForm">
+        <div class="form-group">
+            <label>İŞLETME / DÜKKAN TİCARİ ÜNVANI</label>
+            <input type="text" placeholder="Örn: Ortaköy Fırını" required>
+        </div>
 
-            if (tab === 'register') {
-                regForm.style.display = 'block';
-                loginForm.style.display = 'none';
-                tabs[0].classList.add('active');
-                tabs[1].classList.remove('active');
-            } else {
-                regForm.style.display = 'none';
-                loginForm.style.display = 'block';
-                tabs[0].classList.remove('active');
-                tabs[1].classList.add('active');
-            }
-        }
+        <div class="form-group">
+            <label>İŞLETME KATEGORİSİ</label>
+            <select required>
+                <option value="" disabled selected>Kategori Seçiniz</option>
+                <option value="restoran">Restoran / Kafe</option>
+                <option value="firin">Fırın / Pastane</option>
+                <option value="market">Market / Şarküteri</option>
+                <option value="kasap">Kasap / Manav</option>
+                <option value="diger">Diğer Hizmetler</option>
+            </select>
+        </div>
 
-        function hideErrors() {
-            document.getElementById('regError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-        }
+        <div class="form-group">
+            <label>İŞLETME ADRESİ VE NİRENGİ NOKTASI</label>
+            <input type="text" placeholder="Örn: Dereboyu Cad. No: 12 (Cami Karşısı)" required>
+        </div>
 
-        function showError(elementId, text) {
-            const errEl = document.getElementById(elementId);
-            errEl.innerText = text;
-            errEl.style.display = 'block';
-        }
+        <div class="form-group">
+            <label>YETKİLİ ADI SOYADI</label>
+            <input type="text" placeholder="Ad Soyad" required>
+        </div>
 
-        // Akıllı Metin Kontrolü (Sesli Harf & Tekrar Kontrolü)
-        function isValidText(str) {
-            if (str.length < 3) return false;
-            // Sesli harf kontrolü (Sadece rastgele ünsüz harf basılmasını engeller)
-            const hasVowel = /[aeıioöuüAEIİOÖUÜ]/.test(str);
-            // Peş peşe 3 aynı harf engeli (Örn: AAA, kkkk)
-            const hasRepeat = /(.)\1\1/.test(str);
-            return hasVowel && !hasRepeat;
-        }
+        <div class="form-group">
+            <label>TELEFON NUMARASI</label>
+            <input type="tel" placeholder="05XX XXX XX XX" required>
+        </div>
 
-        // Vergi No Algoritması (VKN Algoritma Kontrolü)
-        function isValidVKN(vkn) {
-            if (vkn.length !== 10) return false;
-            if (/^(\d)\1{9}$/.test(vkn)) return false; // 1111111111 engeli
-            let sum = 0;
-            for (let i = 0; i < 9; i++) {
-                let d = (parseInt(vkn[i]) + 9 - i) % 10;
-                if (d !== 9) {
-                    d = (d * Math.pow(2, 9 - i)) % 9;
-                    if (d === 0) d = 9;
-                }
-                sum += d;
-            }
-            let lastDigit = (10 - (sum % 10)) % 10;
-            return lastDigit === parseInt(vkn[9]);
-        }
+        <button type="submit" class="btn">Başvuruyu Tamamla</button>
+    </form>
+</div>
 
-        // T.C. No Algoritması (TCKN Kontrolü)
-        function isValidTCKN(tckn) {
-            if (tckn.length !== 11 || tckn[0] === '0') return false;
-            let digits = tckn.split('').map(Number);
-            let sumOdd = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
-            let sumEven = digits[1] + digits[3] + digits[5] + digits[7];
-            let d10 = ((sumOdd * 7) - sumEven) % 10;
-            if (d10 < 0) d10 += 10;
-            let d11 = (digits.slice(0, 10).reduce((a, b) => a + b, 0)) % 10;
-            return d10 === digits[9] && d11 === digits[10];
-        }
-
-        function completeRegistration() {
-            hideErrors();
-
-            const title = document.getElementById('regTitle').value.trim();
-            const taxOffice = document.getElementById('regTaxOffice').value.trim();
-            const taxNo = document.getElementById('regTaxNo').value.trim();
-            const address = document.getElementById('regAddress').value.trim();
-            const contact = document.getElementById('regContact').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const pin = document.getElementById('regPin').value.trim();
-
-            if (!title || !taxOffice || !taxNo || !address || !contact || !phone || !pin) {
-                showError('regError', 'Lütfen tüm alanları eksiksiz doldurunuz.');
-                return;
-            }
-
-            // Metin Uygunluk Kontrolleri
-            if (!isValidText(title)) {
-                showError('regError', 'Lütfen geçerli bir İşletme Unvanı giriniz.');
-                return;
-            }
-
-            if (!isValidText(contact)) {
-                showError('regError', 'Lütfen geçerli bir Yetkili Adı Soyadı giriniz.');
-                return;
-            }
-
-            // Vergi No / TC No Algoritma Kontrolü
-            let isVknValid = (taxNo.length === 10 && isValidVKN(taxNo));
-            let isTcknValid = (taxNo.length === 11 && isValidTCKN(taxNo));
-
-            if (!isVknValid && !isTcknValid) {
-                showError('regError', 'Girilen Vergi No / T.C. Kimlik No resmi formata uygun değil.');
-                return;
-            }
-
-            // Telefon Kontrolü (Türkiye formatı)
-            if (!/^(05\d{9})$/.test(phone)) {
-                showError('regError', 'Lütfen 05 ile başlayan 11 haneli geçerli bir cep telefonu giriniz.');
-                return;
-            }
-
-            // PIN Kontrolü
-            if (!/^\d{4}$/.test(pin)) {
-                showError('regError', 'Giriş PIN kodu 4 haneli rakam olmalıdır.');
-                return;
-            }
-
-            document.getElementById('successModal').style.display = 'flex';
-        }
-
-        function loginMerchant() {
-            hideErrors();
-            const taxNo = document.getElementById('loginTaxNo').value.trim();
-            const pin = document.getElementById('loginPin').value.trim();
-
-            if (!taxNo || !pin) {
-                showError('loginError', 'Lütfen Vergi No ve PIN kodunu giriniz.');
-                return;
-            }
-
-            alert('Giriş bilgileri doğrulandı. Yönetici onayı kontrol ediliyor...');
-        }
-
-        function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
-            switchTab('login');
-        }
-    </script>
 </body>
 </html>
