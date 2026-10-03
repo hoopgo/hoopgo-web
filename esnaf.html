@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Esnaf Portalı</title>
+    <title>hoop - Ortaköy Esnaf Portalı</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 32px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         
-        /* Gerçek İç İçe Halka Logosu (SVG) */
-        .logo-box { margin: 0 auto 12px auto; width: 180px; display: block; }
-        .logo-box svg { width: 100%; height: auto; display: block; }
-        
+        /* Orijinal Logo Alanı */
+        .logo-wrapper { margin: 0 auto 16px auto; width: 180px; display: flex; justify-content: center; align-items: center; }
+        .logo-wrapper img { width: 100%; height: auto; display: block; }
+
         .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
         .desc { font-size: 13px; color: #8a99ad; margin-bottom: 24px; }
         
@@ -30,7 +30,7 @@
         .btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
         .btn:hover { background: #1d4ed8; }
 
-        /* Gönderim Sonrası Yeşil Onay Kartı */
+        /* Başvuru Tamamlandığında Açılan Yeşil Kart */
         .success-card {
             display: none;
             background: rgba(16, 185, 129, 0.12);
@@ -48,24 +48,9 @@
 <body>
 
 <div class="card">
-    <!-- GERÇEK İÇ İÇE GEÇEN HALKA LOGOSU -->
-    <div class="logo-box">
-        <svg viewBox="0 0 340 120" xmlns="http://www.w3.org/2000/svg">
-            <!-- h harfi -->
-            <path d="M 25 25 C 33 25 40 32 40 40 L 40 55 C 47 47 57 43 68 43 C 85 43 95 54 95 72 L 95 95 C 95 103 88 110 80 110 C 72 110 65 103 65 95 L 65 75 C 65 67 60 62 52 62 C 44 62 40 67 40 75 L 40 95 C 40 103 33 110 25 110 C 17 110 10 103 10 95 L 10 40 C 10 32 17 25 25 25 Z" fill="#ffffff"/>
-            
-            <!-- Sol Mavi Halka (Mavi 'o') -->
-            <circle cx="120" cy="76" r="32" fill="none" stroke="#0072ff" stroke-width="16" stroke-linecap="round"/>
-            
-            <!-- Sağ Yeşil Halka (Yeşil 'o' - Kesişen) -->
-            <circle cx="168" cy="76" r="32" fill="none" stroke="#8cb863" stroke-width="16" stroke-linecap="round"/>
-            
-            <!-- Kesişim / İç İçe Geçme Efekti (Mavi halkanın üst parçası) -->
-            <path d="M 136 48 A 32 32 0 0 1 152 60" fill="none" stroke="#0072ff" stroke-width="16" stroke-linecap="round"/>
-            
-            <!-- p harfi -->
-            <path d="M 215 45 C 223 45 230 52 230 60 L 230 63 C 237 53 248 45 262 45 C 285 45 300 62 300 82 C 300 102 285 119 262 119 C 248 119 237 111 230 101 L 230 115 C 230 123 223 130 215 130 C 207 130 200 123 200 115 L 200 60 C 200 52 207 45 215 45 Z M 250 63 C 239 63 230 71 230 82 C 230 93 239 101 250 101 C 261 101 270 93 270 82 C 270 71 261 63 250 63 Z" fill="#ffffff"/>
-        </svg>
+    <!-- Kayıtlı Orijinal Logo Yolu -->
+    <div class="logo-wrapper">
+        <img src="logo.svg" alt="hoop" onerror="this.onerror=null; this.src='logo.png';">
     </div>
 
     <div class="subtitle">Esnaf Portalı</div>
@@ -113,7 +98,7 @@
         <button type="submit" class="btn">Başvuruyu Tamamla</button>
     </form>
 
-    <!-- Başvuru Sonrası Açılan Yeşil Kart -->
+    <!-- Gönderim Sonrası Açılan Onay Kartı -->
     <div class="success-card" id="successCard">
         <div class="icon">✓</div>
         <div class="title">Başvurunuz Alındı</div>
