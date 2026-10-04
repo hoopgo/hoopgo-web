@@ -9,9 +9,10 @@
         body { background-color: #0b1329; color: #ffffff; min-height: 100vh; padding: 16px; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 420px; }
         
-        .header { text-align: center; margin-bottom: 20px; padding-top: 10px; }
-        .logo-img { height: 45px; width: auto; object-fit: contain; }
-        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 6px; }
+        /* LOGO ALANI DÜZELTMESİ */
+        .header { text-align: center; margin-bottom: 20px; padding-top: 10px; display: flex; flex-direction: column; align-items: center; }
+        .logo-img { height: 65px; width: auto; max-width: 220px; object-fit: contain; display: block; margin: 0 auto; }
+        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 8px; font-weight: 500; }
 
         .location-bar { background: #0f1a36; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .loc-title { font-size: 13px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 6px; }
@@ -19,7 +20,7 @@
 
         .feed-container { display: flex; flex-direction: column; gap: 14px; }
 
-        /* ORIJINAL ILAN KARTI YAPISI */
+        /* ILAN KARTI YAPISI */
         .deal-card { background: #0f1a36; border: 1px solid #1f2d5a; border-radius: 16px; padding: 14px; position: relative; }
         .card-top { display: flex; gap: 12px; }
         
@@ -34,7 +35,7 @@
         .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
         .new-price { font-size: 20px; font-weight: 900; color: #10b981; }
 
-        .card-footer-info { display: flex; gap: 12px; font-size: 10px; font-weight: 700; margin-top: 8px; }
+        .card-footer-info { display: flex; gap: 12px; font-size: 10px; font-weight: 700; margin-top: 10px; }
         .stok-text { color: #3b82f6; }
         .saat-text { color: #f59e0b; }
 
@@ -59,30 +60,31 @@
     </div>
 
     <div class="feed-container" id="publicVitrinFeed">
-        <!-- Canlı veriler buraya yüklenecek -->
+        <!-- İlanlar JS ile yüklenecek -->
     </div>
 </div>
 
 <script>
+    const defaultAd = {
+        shopName: 'EFE KASAP',
+        title: 'dana kıyma',
+        address: 'dereboyu cd no 22',
+        oldPrice: '1000',
+        newPrice: '750',
+        stok: '15 Adet',
+        saat: '21:00'
+    };
+
     function loadPublicVitrin() {
         const feedContainer = document.getElementById('publicVitrinFeed');
-        
         let ads = JSON.parse(localStorage.getItem('hoop_esnaf_ilanlari')) || [];
-        let applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
-
+        
+        // Eğer cihazda henüz ilan yoksa varsayılan ilanı göster
         if (ads.length === 0) {
-            feedContainer.innerHTML = `
-                <div class="empty-feed">
-                    Ortaköy bölgesinde şu an aktif yayınlanan bir fırsat bulunmuyor.<br>Esnaflarımız yeni indirimler hazırlıyor!
-                </div>
-            `;
-            return;
+            ads = [defaultAd];
         }
 
         feedContainer.innerHTML = ads.slice().reverse().map(ad => {
-            const shopInfo = applications.find(a => a.telefon === ad.shopPhone) || {};
-            const addressText = shopInfo.adres || 'Dereboyu Cde. No: 22';
-
             return `
                 <div class="deal-card">
                     <div class="card-top">
@@ -90,8 +92,8 @@
                         <div class="card-info">
                             <div>
                                 <div class="shop-name">${ad.shopName || 'EFE KASAP'}</div>
-                                <div class="deal-title">${ad.title}</div>
-                                <div class="shop-address">📍 ${addressText}</div>
+                                <div class="deal-title">${ad.title || 'dana kıyma'}</div>
+                                <div class="shop-address">📍 ${ad.address || 'dereboyu cd no 22'}</div>
                             </div>
                             <div class="price-row">
                                 <span class="old-price">${ad.oldPrice} TL</span>
@@ -100,8 +102,8 @@
                         </div>
                     </div>
                     <div class="card-footer-info">
-                        <span class="stok-text">Stok: 15 Adet</span>
-                        <span class="saat-text">Saat: (21:00)</span>
+                        <span class="stok-text">Stok: ${ad.stok || '15 Adet'}</span>
+                        <span class="saat-text">Saat: (${ad.saat || '21:00'})</span>
                     </div>
                     <button class="coupon-btn" onclick="alert('Kuponunuz tanımlandı!')">KUPON AL</button>
                 </div>
