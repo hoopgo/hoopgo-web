@@ -29,7 +29,7 @@
         
         .input-group { margin-bottom: 14px; text-align: left; }
         .input-group label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; }
-        .input-group input { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
+        .input-group input, .input-group select { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
 
         .btn-primary { width: 100%; background: #2563eb; color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; }
         .btn-primary:hover { background: #1d4ed8; }
@@ -46,7 +46,7 @@
         <div class="subtitle">Ortaköy Esnaf Portalı</div>
     </div>
 
-    <div class="tabs">
+    <div class="tabs" id="tabHeader">
         <div class="tab active" id="tabKayit" onclick="switchTab('kayit')">İşletme Kaydı</div>
         <div class="tab" id="tabGiris" onclick="switchTab('giris')">Esnaf Girişi</div>
     </div>
@@ -68,8 +68,40 @@
             <label>GİRİŞ ŞİFRENİZ</label>
             <input type="text" id="esnafSifreInput" placeholder="1314" value="1314" maxlength="6">
         </div>
-        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve İlan Ekle</button>
+        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve İlan Ver</button>
         <div class="error-msg" id="errorMsg">Lütfen geçerli bir şifre girin!</div>
+    </div>
+
+    <!-- ESNAF İLAN VERME EKRANI -->
+    <div class="form-section" id="sectionIlanVer">
+        <div style="text-align:center; margin-bottom: 16px; color:#10b981; font-weight:800; font-size:14px;">
+            🏪 DÜKKAN İLAN PANELİ
+        </div>
+        <div class="input-group">
+            <label>ÜBÜN / FIRSAT BAŞLIĞI</label>
+            <input type="text" placeholder="Örn: Dana Kıyma">
+        </div>
+        <div style="display:flex; gap:10px;">
+            <div class="input-group" style="flex:1;">
+                <label>ESKİ FİYAT (TL)</label>
+                <input type="number" placeholder="1000">
+            </div>
+            <div class="input-group" style="flex:1;">
+                <label>İNDİRİMLİ FİYAT (TL)</label>
+                <input type="number" placeholder="750">
+            </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <div class="input-group" style="flex:1;">
+                <label>STOK ADEDİ</label>
+                <input type="number" placeholder="15">
+            </div>
+            <div class="input-group" style="flex:1;">
+                <label>GEÇERLİLİK SAATİ</label>
+                <input type="text" placeholder="21:00">
+            </div>
+        </div>
+        <button class="btn-primary" style="background:#10b981; margin-top:8px;" onclick="alert('İlan başarıyla yayınlandı!')">İLANİ VİTRİNE YAYINLA</button>
     </div>
 </div>
 
@@ -79,11 +111,13 @@
             document.getElementById('tabKayit').classList.remove('active');
             document.getElementById('tabGiris').classList.add('active');
             document.getElementById('sectionKayit').classList.remove('active');
+            document.getElementById('sectionIlanVer').classList.remove('active');
             document.getElementById('sectionGiris').classList.add('active');
         } else {
             document.getElementById('tabGiris').classList.remove('active');
             document.getElementById('tabKayit').classList.add('active');
             document.getElementById('sectionGiris').classList.remove('active');
+            document.getElementById('sectionIlanVer').classList.remove('active');
             document.getElementById('sectionKayit').classList.add('active');
         }
     }
@@ -91,8 +125,9 @@
     function girisYap() {
         var inputVal = document.getElementById('esnafSifreInput').value.trim();
         if(inputVal !== "") {
-            // Doğrudan esnafın ilan vereceği dükkan/ilan sayfasına yönlendirir
-            window.location.href = "esnaf-panel.html";
+            document.getElementById('sectionGiris').classList.remove('active');
+            document.getElementById('tabHeader').style.display = 'none';
+            document.getElementById('sectionIlanVer').classList.add('active');
         } else {
             document.getElementById('errorMsg').style.display = "block";
         }
