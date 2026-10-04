@@ -6,140 +6,248 @@
     <title>hoop - Ortaköy Esnaf Portalı</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0b1329; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .card { background: #111c38; border: 1px solid #1f2d5a; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        body { background-color: #0d1322; color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 440px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        /* LOGO KUTUSU - EKSİKSİZ VE TAM BATIŞ */
-        .logo-crop-box {
-            width: 190px;
-            height: 65px;
-            margin: 0 auto 12px auto;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .logo-area { text-align: center; margin-bottom: 20px; }
+        .logo-title { font-size: 32px; font-weight: 900; color: #ffffff; letter-spacing: -1px; }
+        .logo-title span { color: #2563eb; }
+        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 4px; }
 
-        .logo-crop-box img {
-            width: 250px;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-        }
-        
-        .subtitle { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
-        .desc { font-size: 13px; color: #8a99ad; margin-bottom: 24px; }
-        
-        .tab-group { display: flex; background: #0b1329; border-radius: 8px; padding: 4px; margin-bottom: 24px; }
-        .tab { flex: 1; padding: 10px; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        .tab.active { background: #1e3a8a; color: #ffffff; }
-        .tab.inactive { background: transparent; color: #8a99ad; }
-        
-        .form-group { margin-bottom: 16px; text-align: left; }
-        label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
-        input, select { width: 100%; padding: 12px 14px; background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; color: #ffffff; font-size: 14px; outline: none; }
-        input::placeholder { color: #4a5b73; }
-        select { color: #ffffff; appearance: none; }
-        
-        .btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
-        .btn:hover { background: #1d4ed8; }
+        .tabs { display: flex; background: #0b1329; padding: 4px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #1f2d5a; }
+        .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 700; color: #8a99ad; border: none; background: transparent; cursor: pointer; border-radius: 8px; transition: all 0.2s; }
+        .tab-btn.active { background: #2563eb; color: #ffffff; }
 
-        .success-card {
-            display: none;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid #10b981;
-            border-radius: 12px;
-            padding: 24px 16px;
-            margin-top: 10px;
-            text-align: center;
-        }
-        .success-card .icon { font-size: 36px; color: #10b981; margin-bottom: 10px; }
-        .success-card .title { font-size: 17px; font-weight: 700; color: #10b981; margin-bottom: 6px; }
-        .success-card .msg { font-size: 13px; color: #d1fae5; line-height: 1.5; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
+        input, select { width: 100%; padding: 12px 14px; background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; transition: border-color 0.2s; }
+        input:focus, select:focus { border-color: #2563eb; }
+
+        .submit-btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+        .submit-btn:hover { background: #1d4ed8; }
+
+        .info-card { background: rgba(37, 99, 235, 0.1); border: 1px solid #2563eb; border-radius: 12px; padding: 20px; text-align: center; margin-top: 10px; }
+        .info-card.success { background: rgba(16, 185, 129, 0.1); border-color: #10b981; }
+        .info-card h4 { font-size: 16px; margin-bottom: 8px; color: #ffffff; }
+        .info-card p { font-size: 12px; color: #8a99ad; line-height: 1.5; }
+        .pass-box { background: #0b1329; border: 1px dashed #10b981; padding: 10px; border-radius: 8px; font-size: 18px; font-weight: 800; color: #10b981; margin: 12px 0; letter-spacing: 2px; }
+
+        .forgot-link { display: block; text-align: right; font-size: 11px; color: #2563eb; text-decoration: none; margin-top: 6px; cursor: pointer; }
+        .forgot-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="logo-crop-box">
-        <img src="logo.png" alt="hoop">
+<div class="container">
+    <div class="logo-area">
+        <div class="logo-title">hoop<span>.</span></div>
+        <div class="subtitle">Ortaköy Esnaf Portalı</div>
     </div>
 
-    <div class="subtitle">Esnaf Portalı</div>
-    <div class="desc">İşletmenizi hoop go ekosistemine taşıyın</div>
-
-    <div class="tab-group">
-        <button class="tab active">İşletme Kaydı</button>
-        <button class="tab inactive">Esnaf Girişi</button>
+    <div class="tabs">
+        <button class="tab-btn active" id="btnTabRegister" onclick="switchTab('register')">İşletme Kaydı</button>
+        <button class="tab-btn" id="btnTabLogin" onclick="switchTab('login')">Esnaf Girişi</button>
     </div>
 
-    <form id="esnafForm">
-        <div class="form-group">
-            <label>İŞLETME / DÜKKAN TİCARİ ÜNVANI</label>
-            <input type="text" placeholder="Örn: Ortaköy Fırını" required>
+    <!-- KAYIT FORMU VE DURUM EKRANI -->
+    <div id="sectionRegister">
+        <div id="registerFormView">
+            <div class="form-group">
+                <label>İşletme / Dükkan Ticari Ünvanı</label>
+                <input type="text" id="regIsletme" placeholder="Örn: Ortaköy Fırını">
+            </div>
+            <div class="form-group">
+                <label>İşletme Kategorisi</label>
+                <select id="regKategori">
+                    <option value="">Kategori Seçiniz</option>
+                    <option value="Restoran / Kafe">Restoran / Kafe</option>
+                    <option value="Kasap / Manav">Kasap / Manav</option>
+                    <option value="Fırın / Pastane">Fırın / Pastane</option>
+                    <option value="Tekstil / Giyim">Tekstil / Giyim</option>
+                    <option value="Hizmet / Diğer">Hizmet / Diğer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>İşletme Adresi ve Nirengi Noktası</label>
+                <input type="text" id="regAdres" placeholder="Örn: Dereboyu Cad. No: 12 (Cami Karşısı)">
+            </div>
+            <div class="form-group">
+                <label>Yetkili Adı Soyadı</label>
+                <input type="text" id="regYetkili" placeholder="Ad Soyad">
+            </div>
+            <div class="form-group">
+                <label>Telefon Numarası</label>
+                <input type="tel" id="regTelefon" placeholder="05XX XXX XX XX">
+            </div>
+            <button class="submit-btn" onclick="submitApplication()">Başvuruyu Gönder</button>
         </div>
 
-        <div class="form-group">
-            <label>İŞLETME KATEGORİSİ</label>
-            <select required>
-                <option value="" disabled selected>Kategori Seçiniz</option>
-                <option value="restoran">Restoran / Kafe</option>
-                <option value="firin">Fırın / Pastane</option>
-                <option value="market">Market / Şarküteri</option>
-                <option value="kasap">Kasap / Manav</option>
-                <option value="diger">Diğer Hizmetler</option>
-            </select>
+        <!-- KAYIT DURUM KARTI (F5 YAPILSA DA KAYBOLMAZ) -->
+        <div id="statusCardView" style="display: none;">
+            <div class="info-card" id="statusCardBox">
+                <h4 id="statusTitle">⏳ Başvurunuz Alındı</h4>
+                <p id="statusDesc">İşletme kaydınız incelemeye alınmıştır. Admin onayının ardından hesabınız aktif edilecek ve şifreniz oluşturulacaktır.</p>
+                <div id="passDisplay" style="display: none;">
+                    <div style="font-size: 11px; color: #8a99ad; margin-top: 6px;">SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:</div>
+                    <div class="pass-box" id="generatedPass">0000</div>
+                    <button class="submit-btn" onclick="switchTab('login')" style="margin-top: 6px;">Esnaf Girişine Git</button>
+                </div>
+            </div>
         </div>
+    </div>
 
+    <!-- GİRİŞ FORMU -->
+    <div id="sectionLogin" style="display: none;">
         <div class="form-group">
-            <label>İŞLETME ADRESİ VE NİRENGİ NOKTASI</label>
-            <input type="text" placeholder="Örn: Dereboyu Cad. No: 12 (Cami Karşısı)" required>
+            <label>Telefon Numarası</label>
+            <input type="tel" id="loginPhone" placeholder="05XX XXX XX XX">
         </div>
-
         <div class="form-group">
-            <label>YETKİLİ ADI SOYADI</label>
-            <input type="text" placeholder="Ad Soyad" required>
+            <label>Giriş Şifresi</label>
+            <input type="password" id="loginPass" placeholder="****">
+            <span class="forgot-link" onclick="handleForgotPassword()">Şifremi Unuttum (SMS Gönder)</span>
         </div>
+        <button class="submit-btn" onclick="handleLogin()">Giriş Yap</button>
 
-        <div class="form-group">
-            <label>TELEFON NUMARASI</label>
-            <input type="tel" placeholder="05XX XXX XX XX" required>
+        <!-- ŞİFREMİ UNUTTUM BİLDİRİM KARTI -->
+        <div id="forgotCard" class="info-card success" style="display: none; margin-top: 14px;">
+            <h4>📩 SMS Doğrulama Simülasyonu</h4>
+            <p>Yeni giriş şifreniz telefonunuza gönderilmiştir:</p>
+            <div class="pass-box" id="forgotPassDisplay">0000</div>
         </div>
-
-        <button type="submit" class="btn">Başvuruyu Tamamla</button>
-    </form>
-
-    <div class="success-card" id="successCard">
-        <div class="icon">✓</div>
-        <div class="title">Başvurunuz Alındı</div>
-        <div class="msg">İşletme kaydınız incelemeye alınmıştır. Admin onayının ardından hesabınız aktif edilecek ve iletişim numaranıza bilgi iletilecektir.</div>
     </div>
 </div>
 
 <script>
-    document.getElementById('esnafForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    function switchTab(tab) {
+        document.getElementById('btnTabRegister').classList.remove('active');
+        document.getElementById('btnTabLogin').classList.remove('active');
+        document.getElementById('sectionRegister').style.display = 'none';
+        document.getElementById('sectionLogin').style.display = 'none';
+
+        if (tab === 'register') {
+            document.getElementById('btnTabRegister').classList.add('active');
+            document.getElementById('sectionRegister').style.display = 'block';
+            checkApplicationStatus();
+        } else {
+            document.getElementById('btnTabLogin').classList.add('active');
+            document.getElementById('sectionLogin').style.display = 'block';
+        }
+    }
+
+    function submitApplication() {
+        const isletmeAdi = document.getElementById('regIsletme').value.trim();
+        const kategori = document.getElementById('regKategori').value;
+        const adres = document.getElementById('regAdres').value.trim();
+        const yetkili = document.getElementById('regYetkili').value.trim();
+        const telefon = document.getElementById('regTelefon').value.trim();
+
+        if (!isletmeAdi || !kategori || !adres || !yetkili || !telefon) {
+            alert('Lütfen tüm alanları doldurunuz.');
+            return;
+        }
+
+        let applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
         
-        const inputs = this.querySelectorAll('input, select');
-        const yeniBasvuru = {
-            isletmeAdi: inputs[0].value,
-            kategori: inputs[1].options[inputs[1].selectedIndex].text,
-            adres: inputs[2].value,
-            yetkili: inputs[3].value,
-            telefon: inputs[4].value,
+        const newApp = {
+            isletmeAdi,
+            kategori,
+            adres,
+            yetkili,
+            telefon,
             status: 'Beklemede',
-            tarih: new Date().toLocaleString('tr-TR')
+            password: null
         };
 
-        let basvurular = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
-        basvurular.push(yeniBasvuru);
-        localStorage.setItem('hoop_esnaf_basvurulari', JSON.stringify(basvurular));
+        applications.push(newApp);
+        localStorage.setItem('hoop_esnaf_basvurulari', JSON.stringify(applications));
+        localStorage.setItem('hoop_son_basvuru_tel', telefon);
 
-        document.getElementById('esnafForm').style.display = 'none';
-        document.getElementById('successCard').style.display = 'block';
-    });
+        checkApplicationStatus();
+    }
+
+    function checkApplicationStatus() {
+        const lastTel = localStorage.getItem('hoop_son_basvuru_tel');
+        if (!lastTel) return;
+
+        const applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
+        const myApp = applications.find(a => a.telefon === lastTel);
+
+        if (myApp) {
+            document.getElementById('registerFormView').style.display = 'none';
+            document.getElementById('statusCardView').style.display = 'block';
+
+            const cardBox = document.getElementById('statusCardBox');
+            const title = document.getElementById('statusTitle');
+            const desc = document.getElementById('statusDesc');
+            const passDisplay = document.getElementById('passDisplay');
+
+            if (myApp.status === 'Beklemede') {
+                cardBox.className = 'info-card';
+                title.innerText = '⏳ Başvurunuz Alındı';
+                desc.innerText = 'İşletme kaydınız incelemeye alınmıştır. Admin onayının ardından hesabınız aktif edilecek ve şifreniz oluşturulacaktır.';
+                passDisplay.style.display = 'none';
+            } else if (myApp.status === 'Onaylandı') {
+                cardBox.className = 'info-card success';
+                title.innerText = '✅ Başvurunuz Onaylandı!';
+                desc.innerText = 'Tebrikler! İşletmeniz hoop ekosistemine dahil edildi. Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.';
+                passDisplay.style.display = 'block';
+                document.getElementById('generatedPass').innerText = myApp.password || '1234';
+            } else if (myApp.status === 'Reddedildi') {
+                cardBox.className = 'info-card';
+                title.innerText = '❌ Başvuru Onaylanmadı';
+                desc.innerText = 'Başvurunuz yapılan inceleme sonucunda onaylanmamıştır. Detaylı bilgi için yönetici ile iletişime geçebilirsiniz.';
+                passDisplay.style.display = 'none';
+            }
+        }
+    }
+
+    function handleLogin() {
+        const phone = document.getElementById('loginPhone').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+
+        if (!phone || !pass) {
+            alert('Lütfen telefon numarası ve şifrenizi giriniz.');
+            return;
+        }
+
+        const applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
+        const user = applications.find(a => a.telefon === phone && a.password === pass && a.status === 'Onaylandı');
+
+        if (user) {
+            alert('Giriş Başarılı! Esnaf İlan Paneline Yönlendiriliyorsunuz.');
+            // Gelecek adım: Esnaf İlan Oluşturma Paneline geçiş
+        } else {
+            alert('Hatalı telefon numarası, şifre veya henüz onaylanmamış başvuru!');
+        }
+    }
+
+    function handleForgotPassword() {
+        const phone = document.getElementById('loginPhone').value.trim();
+        if (!phone) {
+            alert('Lütfen önce telefon numaranızı giriniz.');
+            return;
+        }
+
+        let applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
+        let userIndex = applications.findIndex(a => a.telefon === phone && a.status === 'Onaylandı');
+
+        if (userIndex !== -1) {
+            const newPass = Math.floor(1000 + Math.random() * 9000).toString();
+            applications[userIndex].password = newPass;
+            localStorage.setItem('hoop_esnaf_basvurulari', JSON.stringify(applications));
+
+            document.getElementById('forgotPassDisplay').innerText = newPass;
+            document.getElementById('forgotCard').style.display = 'block';
+            document.getElementById('loginPass').value = newPass;
+        } else {
+            alert('Bu telefon numarasına ait onaylanmış bir esnaf kaydı bulunamadı.');
+        }
+    }
+
+    // Sayfa yüklendiğinde durumu kontrol et
+    checkApplicationStatus();
 </script>
+
+</body>
+</html>
