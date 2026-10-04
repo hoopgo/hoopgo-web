@@ -7,7 +7,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: #0d1322; color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .container { width: 100%; max-width: 440px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .container { width: 100%; max-width: 480px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
         .logo-area { text-align: center; margin-bottom: 20px; }
         .logo-title { font-size: 32px; font-weight: 900; color: #ffffff; letter-spacing: -1px; }
@@ -20,8 +20,8 @@
 
         .form-group { margin-bottom: 14px; }
         label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
-        input, select { width: 100%; padding: 12px 14px; background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; transition: border-color 0.2s; }
-        input:focus, select:focus { border-color: #2563eb; }
+        input, select, textarea { width: 100%; padding: 12px 14px; background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; transition: border-color 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #2563eb; }
 
         .submit-btn { width: 100%; padding: 14px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
         .submit-btn:hover { background: #1d4ed8; }
@@ -34,6 +34,26 @@
 
         .forgot-link { display: block; text-align: right; font-size: 11px; color: #2563eb; text-decoration: none; margin-top: 6px; cursor: pointer; }
         .forgot-link:hover { text-decoration: underline; }
+
+        /* ESNAF ÖZEL PANELİ STİLLERİ */
+        .shop-header { background: #0b1329; border: 1px solid #1f2d5a; border-radius: 10px; padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .shop-title { font-size: 16px; font-weight: 800; color: #ffffff; }
+        .shop-cat { font-size: 11px; color: #8a99ad; margin-top: 2px; }
+        .logout-btn { background: #dc2626; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+        .stat-card { background: #0b1329; border: 1px solid #1f2d5a; padding: 10px; border-radius: 8px; text-align: center; }
+        .stat-val { font-size: 16px; font-weight: 800; color: #10b981; }
+        .stat-lbl { font-size: 9px; color: #8a99ad; margin-top: 2px; text-transform: uppercase; }
+
+        .price-row { display: flex; gap: 10px; }
+        .price-row .form-group { flex: 1; }
+
+        .ad-item { background: #0b1329; border: 1px solid #1f2d5a; border-radius: 8px; padding: 12px; margin-top: 10px; }
+        .ad-title { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+        .ad-price-box { margin-top: 6px; display: flex; align-items: center; gap: 10px; }
+        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; }
+        .new-price { font-size: 18px; font-weight: 800; color: #10b981; }
     </style>
 </head>
 <body>
@@ -44,7 +64,8 @@
         <div class="subtitle">Ortaköy Esnaf Portalı</div>
     </div>
 
-    <div class="tabs">
+    <!-- GİRİŞ ÖNCESİ SEKME BUTONLARI -->
+    <div class="tabs" id="authTabs">
         <button class="tab-btn active" id="btnTabRegister" onclick="switchTab('register')">İşletme Kaydı</button>
         <button class="tab-btn" id="btnTabLogin" onclick="switchTab('login')">Esnaf Girişi</button>
     </div>
@@ -82,7 +103,6 @@
             <button class="submit-btn" onclick="submitApplication()">Başvuruyu Gönder</button>
         </div>
 
-        <!-- KAYIT DURUM KARTI (F5 YAPILSA DA KAYBOLMAZ) -->
         <div id="statusCardView" style="display: none;">
             <div class="info-card" id="statusCardBox">
                 <h4 id="statusTitle">⏳ Başvurunuz Alındı</h4>
@@ -109,16 +129,73 @@
         </div>
         <button class="submit-btn" onclick="handleLogin()">Giriş Yap</button>
 
-        <!-- ŞİFREMİ UNUTTUM BİLDİRİM KARTI -->
         <div id="forgotCard" class="info-card success" style="display: none; margin-top: 14px;">
             <h4>📩 SMS Doğrulama Simülasyonu</h4>
             <p>Yeni giriş şifreniz telefonunuza gönderilmiştir:</p>
             <div class="pass-box" id="forgotPassDisplay">0000</div>
         </div>
     </div>
+
+    <!-- ESNAF İLAN & KAMPANYA YÖNETİM PANELİ (GİRİŞ SONRASI) -->
+    <div id="sectionDashboard" style="display: none;">
+        <div class="shop-header">
+            <div>
+                <div class="shop-title" id="dashShopName">Dükkan Adı</div>
+                <div class="shop-cat" id="dashShopCat">Kategori | Ortaköy</div>
+            </div>
+            <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+        </div>
+
+        <!-- SADECE O ESNAFA ÖZEL İSTATİSTİK -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val">248</div>
+                <div class="stat-lbl">Görüntüleme</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">34</div>
+                <div class="stat-lbl">Müşteri Trafiği</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">₺4.850</div>
+                <div class="stat-lbl">Tahmini Ciro</div>
+            </div>
+        </div>
+
+        <!-- İLAN VE KAMPANYA OLUŞTURMA FORMU -->
+        <div style="background: #0b1329; border: 1px solid #1f2d5a; padding: 16px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Yeni İlan / İndirimli Ürün Ekle</div>
+            
+            <div class="form-group">
+                <label>İlan / Ürün Başlığı</label>
+                <input type="text" id="adTitle" placeholder="Örn: Yerli Dana Kıyma (Kg)">
+            </div>
+
+            <div class="price-row">
+                <div class="form-group">
+                    <label>Normal Fiyat (TL)</label>
+                    <input type="number" id="adOldPrice" placeholder="500">
+                </div>
+                <div class="form-group">
+                    <label>İndirimli Fiyat (TL)</label>
+                    <input type="number" id="adNewPrice" placeholder="400">
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="publishAd()">İlanı Ortaköy'de Yayınla</button>
+        </div>
+
+        <!-- AKTİF İLANLAR -->
+        <div style="font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Yayındaki İlanlarınız</div>
+        <div id="activeAdsList">
+            <!-- İlanlar JS ile buraya yüklenecek -->
+        </div>
+    </div>
 </div>
 
 <script>
+    let currentLoggedInUser = null;
+
     function switchTab(tab) {
         document.getElementById('btnTabRegister').classList.remove('active');
         document.getElementById('btnTabLogin').classList.remove('active');
@@ -215,11 +292,30 @@
         const user = applications.find(a => a.telefon === phone && a.password === pass && a.status === 'Onaylandı');
 
         if (user) {
-            alert('Giriş Başarılı! Esnaf İlan Paneline Yönlendiriliyorsunuz.');
-            // Gelecek adım: Esnaf İlan Oluşturma Paneline geçiş
+            currentLoggedInUser = user;
+            openDashboard();
         } else {
             alert('Hatalı telefon numarası, şifre veya henüz onaylanmamış başvuru!');
         }
+    }
+
+    function openDashboard() {
+        document.getElementById('authTabs').style.display = 'none';
+        document.getElementById('sectionRegister').style.display = 'none';
+        document.getElementById('sectionLogin').style.display = 'none';
+        document.getElementById('sectionDashboard').style.display = 'block';
+
+        document.getElementById('dashShopName').innerText = currentLoggedInUser.isletmeAdi;
+        document.getElementById('dashShopCat').innerText = currentLoggedInUser.kategori + ' | Ortaköy';
+
+        renderAds();
+    }
+
+    function logout() {
+        currentLoggedInUser = null;
+        document.getElementById('authTabs').style.display = 'flex';
+        document.getElementById('sectionDashboard').style.display = 'none';
+        switchTab('login');
     }
 
     function handleForgotPassword() {
@@ -245,7 +341,61 @@
         }
     }
 
-    // Sayfa yüklendiğinde durumu kontrol et
+    function publishAd() {
+        const title = document.getElementById('adTitle').value.trim();
+        const oldPrice = document.getElementById('adOldPrice').value.trim();
+        const newPrice = document.getElementById('adNewPrice').value.trim();
+
+        if (!title || !oldPrice || !newPrice) {
+            alert('Lütfen ilan başlığı ve fiyat bilgilerini eksiksiz giriniz.');
+            return;
+        }
+
+        let ads = JSON.parse(localStorage.getItem('hoop_esnaf_ilanlari')) || [];
+        
+        const newAd = {
+            id: Date.now(),
+            shopPhone: currentLoggedInUser.telefon,
+            shopName: currentLoggedInUser.isletmeAdi,
+            title,
+            oldPrice,
+            newPrice
+        };
+
+        ads.push(newAd);
+        localStorage.setItem('hoop_esnaf_ilanlari', JSON.stringify(ads));
+
+        document.getElementById('adTitle').value = '';
+        document.getElementById('adOldPrice').value = '';
+        document.getElementById('adNewPrice').value = '';
+
+        renderAds();
+        alert('İlanınız Ortaköy ekosisteminde canlıya alındı!');
+    }
+
+    function renderAds() {
+        if (!currentLoggedInUser) return;
+
+        let ads = JSON.parse(localStorage.getItem('hoop_esnaf_ilanlari')) || [];
+        const myAds = ads.filter(a => a.shopPhone === currentLoggedInUser.telefon);
+
+        const adsContainer = document.getElementById('activeAdsList');
+        if (myAds.length === 0) {
+            adsContainer.innerHTML = '<div style="font-size: 12px; color: #8a99ad; text-align: center; padding: 10px;">Henüz aktif bir ilanınız bulunmuyor.</div>';
+            return;
+        }
+
+        adsContainer.innerHTML = myAds.map(ad => `
+            <div class="ad-item">
+                <div class="ad-title">${ad.title}</div>
+                <div class="ad-price-box">
+                    <span class="old-price">${ad.oldPrice} TL</span>
+                    <span class="new-price">${ad.newPrice} TL</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
     checkApplicationStatus();
 </script>
 
