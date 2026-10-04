@@ -9,7 +9,6 @@
         body { background-color: #0b1329; color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .container { width: 100%; max-width: 480px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         
-        /* LOGO ALANI */
         .logo-area { text-align: center; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
         .logo-box { width: 100%; max-width: 220px; height: 75px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .logo-box img { width: 280px; height: auto; object-fit: cover; }
@@ -29,11 +28,11 @@
         
         .input-group { margin-bottom: 14px; text-align: left; }
         .input-group label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; }
-        .input-group input, .input-group select { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
+        .input-group input { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
 
         .btn-primary { width: 100%; background: #2563eb; color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; }
         .btn-primary:hover { background: #1d4ed8; }
-        .error-msg { color: #ef4444; font-size: 11px; margin-top: 8px; text-align: center; display: none; }
+        .back-link { display: block; text-align: center; font-size: 11px; color: #8a99ad; margin-top: 15px; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -51,7 +50,7 @@
         <div class="tab" id="tabGiris" onclick="switchTab('giris')">Esnaf Girişi</div>
     </div>
 
-    <!-- KAYIT / ONAY EKRANI -->
+    <!-- KAYIT EKRANI -->
     <div class="form-section active" id="sectionKayit">
         <div class="success-box">
             <div class="success-title">✅ Başvurunuz Onaylandı</div>
@@ -69,16 +68,15 @@
             <input type="text" id="esnafSifreInput" placeholder="1314" value="1314" maxlength="6">
         </div>
         <button class="btn-primary" onclick="girisYap()">Giriş Yap ve İlan Ver</button>
-        <div class="error-msg" id="errorMsg">Lütfen geçerli bir şifre girin!</div>
     </div>
 
-    <!-- ESNAF İLAN VERME EKRANI -->
+    <!-- İLAN VERME EKRANI (Aynı Sayfada Açılır) -->
     <div class="form-section" id="sectionIlanVer">
         <div style="text-align:center; margin-bottom: 16px; color:#10b981; font-weight:800; font-size:14px;">
             🏪 DÜKKAN İLAN PANELİ
         </div>
         <div class="input-group">
-            <label>ÜBÜN / FIRSAT BAŞLIĞI</label>
+            <label>ÜRÜN / FIRSAT BAŞLIĞI</label>
             <input type="text" placeholder="Örn: Dana Kıyma">
         </div>
         <div style="display:flex; gap:10px;">
@@ -103,6 +101,8 @@
         </div>
         <button class="btn-primary" style="background:#10b981; margin-top:8px;" onclick="alert('İlan başarıyla yayınlandı!')">İLANİ VİTRİNE YAYINLA</button>
     </div>
+
+    <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
 </div>
 
 <script>
@@ -123,14 +123,9 @@
     }
 
     function girisYap() {
-        var inputVal = document.getElementById('esnafSifreInput').value.trim();
-        if(inputVal !== "") {
-            document.getElementById('sectionGiris').classList.remove('active');
-            document.getElementById('tabHeader').style.display = 'none';
-            document.getElementById('sectionIlanVer').classList.add('active');
-        } else {
-            document.getElementById('errorMsg').style.display = "block";
-        }
+        document.getElementById('sectionGiris').classList.remove('active');
+        document.getElementById('tabHeader').style.display = 'none';
+        document.getElementById('sectionIlanVer').classList.add('active');
     }
 </script>
 
