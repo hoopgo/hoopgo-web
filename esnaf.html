@@ -9,7 +9,7 @@
         body { background-color: #0b1329; color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .container { width: 100%; max-width: 480px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         
-        /* LOGO ALANI DÜZELTMESİ */
+        /* LOGO ALANI */
         .logo-area { text-align: center; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
         .logo-box { width: 100%; max-width: 220px; height: 75px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .logo-box img { width: 280px; height: auto; object-fit: cover; }
@@ -19,13 +19,21 @@
         .tab { flex: 1; text-align: center; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 8px; color: #8a99ad; transition: 0.2s; }
         .tab.active { background: #2563eb; color: #ffffff; }
 
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+
         .success-box { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 20px; }
         .success-title { color: #10b981; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 6px; }
         .success-desc { font-size: 11px; color: #cbd5e1; line-height: 1.4; margin-bottom: 12px; }
         .sifre-box { background: #0b1329; border: 1px solid #1f2d5a; padding: 10px; border-radius: 8px; font-size: 18px; font-weight: 900; letter-spacing: 2px; color: #ffffff; text-align: center; margin-bottom: 12px; }
         
+        .input-group { margin-bottom: 14px; text-align: left; }
+        .input-group label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; }
+        .input-group input { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
+
         .btn-primary { width: 100%; background: #2563eb; color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; }
         .btn-primary:hover { background: #1d4ed8; }
+        .error-msg { color: #ef4444; font-size: 11px; margin-top: 8px; text-align: center; display: none; }
     </style>
 </head>
 <body>
@@ -39,18 +47,57 @@
     </div>
 
     <div class="tabs">
-        <div class="tab active">İşletme Kaydı</div>
-        <div class="tab">Esnaf Girişi</div>
+        <div class="tab active" id="tabKayit" onclick="switchTab('kayit')">İşletme Kaydı</div>
+        <div class="tab" id="tabGiris" onclick="switchTab('giris')">Esnaf Girişi</div>
     </div>
 
-    <div class="success-box">
-        <div class="success-title">✅ Başvurunuz Onaylandı</div>
-        <div class="success-desc">Tebrikler! İşletmeniz hoop ekosistemine dahil edildi. Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.</div>
-        <div style="font-size: 10px; color: #8a99ad; margin-bottom: 4px;">SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:</div>
-        <div class="sifre-box">1314</div>
-        <button class="btn-primary">Esnaf Girişine Git</button>
+    <!-- KAYIT / ONAY EKRANI -->
+    <div class="form-section active" id="sectionKayit">
+        <div class="success-box">
+            <div class="success-title">✅ Başvurunuz Onaylandı</div>
+            <div class="success-desc">Tebrikler! İşletmeniz hoop ekosistemine dahil edildi. Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.</div>
+            <div style="font-size: 10px; color: #8a99ad; margin-bottom: 4px;">SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:</div>
+            <div class="sifre-box">1314</div>
+            <button class="btn-primary" onclick="switchTab('giris')">Esnaf Girişine Git</button>
+        </div>
+    </div>
+
+    <!-- GİRİŞ EKRANI -->
+    <div class="form-section" id="sectionGiris">
+        <div class="input-group">
+            <label>GİRİŞ ŞİFRENİZ</label>
+            <input type="text" id="esnafSifreInput" placeholder="1314" value="1314" maxlength="6">
+        </div>
+        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve Paneli Aç</button>
+        <div class="error-msg" id="errorMsg">Lütfen geçerli bir şifre girin!</div>
     </div>
 </div>
+
+<script>
+    function switchTab(tab) {
+        if(tab === 'giris') {
+            document.getElementById('tabKayit').classList.remove('active');
+            document.getElementById('tabGiris').classList.add('active');
+            document.getElementById('sectionKayit').classList.remove('active');
+            document.getElementById('sectionGiris').classList.add('active');
+        } else {
+            document.getElementById('tabGiris').classList.remove('active');
+            document.getElementById('tabKayit').classList.add('active');
+            document.getElementById('sectionGiris').classList.remove('active');
+            document.getElementById('sectionKayit').classList.add('active');
+        }
+    }
+
+    function girisYap() {
+        var inputVal = document.getElementById('esnafSifreInput').value.trim();
+        if(inputVal !== "") {
+            // Şifre girildiğinde doğrudan ilan verme / yönetici ekranına yönlendirir
+            window.location.href = "yonetici.html";
+        } else {
+            document.getElementById('errorMsg').style.display = "block";
+        }
+    }
+</script>
 
 </body>
 </html>
