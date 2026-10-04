@@ -3,43 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop Ortaköy - Mahallendeki Fırsatları Yakala</title>
+    <title>hoop. - Mahallendeki Fırsatları Yakala</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0d1322; color: #ffffff; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px; }
-        .container { width: 100%; max-width: 420px; }
+        body { background-color: #080d1a; color: #ffffff; min-height: 100vh; padding: 16px; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 420px; }
         
-        .header { text-align: center; margin-bottom: 20px; }
-        .logo-img { width: 150px; height: auto; display: block; margin: 0 auto 8px auto; }
-        .tagline { font-size: 13px; color: #8a99ad; }
+        .header { text-align: center; margin-bottom: 20px; padding-top: 10px; }
+        .logo { font-size: 36px; font-weight: 900; color: #ffffff; letter-spacing: -1px; }
+        .logo span { color: #2563eb; }
+        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 4px; }
 
-        .location-bar { background: #131c31; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .location { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-        .badge { background: rgba(16, 185, 129, 0.15); color: #10b981; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .location-bar { background: #0b1329; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .loc-title { font-size: 13px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 6px; }
+        .live-badge { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid #10b981; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 20px; }
 
-        .esnaf-btn-wrapper { margin-top: 20px; }
-        .esnaf-btn { width: 100%; background: #131c31; border: 1px solid #1f2d5a; color: #3b82f6; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; }
+        .feed-container { display: flex; flex-direction: column; gap: 14px; }
+
+        /* ORİJİNAL İLAN KARTI TASARIMI */
+        .deal-card { background: #0b1329; border: 1px solid #1f2d5a; border-radius: 16px; padding: 14px; position: relative; }
+        .card-top { display: flex; gap: 12px; }
+        
+        .card-img { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; background: #131c31; flex-shrink: 0; }
+
+        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .shop-name { font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px; }
+        .deal-title { font-size: 15px; font-weight: 800; color: #ffffff; margin: 2px 0; }
+        .shop-address { font-size: 11px; color: #8a99ad; margin-bottom: 6px; }
+
+        .price-row { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
+        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
+        .new-price { font-size: 20px; font-weight: 900; color: #10b981; }
+
+        .card-footer-info { display: flex; gap: 12px; font-size: 10px; font-weight: 700; margin-top: 8px; }
+        .stok-text { color: #3b82f6; }
+        .saat-text { color: #f59e0b; }
+
+        .coupon-btn { position: absolute; right: 14px; bottom: 14px; background: #2563eb; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
+        .coupon-btn:hover { background: #1d4ed8; }
+
+        .empty-feed { text-align: center; padding: 40px 20px; color: #8a99ad; font-size: 13px; background: #0b1329; border: 1px dashed #1f2d5a; border-radius: 16px; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
     <div class="header">
-        <img src="logo.png" alt="hoop" class="logo-img">
-        <div class="tagline">Mahallendeki Fırsatları Yakala</div>
+        <div class="logo">hoop<span>.</span></div>
+        <div class="subtitle">Mahallendeki Fırsatları Yakala</div>
     </div>
 
     <div class="location-bar">
-        <div class="location">📍 Ortaköy, Beşiktaş</div>
-        <div class="badge">• CANLI FIRSATLAR</div>
+        <div class="loc-title">📍 Ortaköy, Beşiktaş</div>
+        <div class="live-badge">• CANLI FIRSATLAR</div>
     </div>
 
-    <!-- İlan Kartları Alanı Temizlendi -->
-
-    <div class="esnaf-btn-wrapper">
-        <a href="esnaf.html" class="esnaf-btn">🏷️ Esnaf Girişi / Kayıt</a>
+    <div class="feed-container" id="publicVitrinFeed">
+        <!-- Canlı esnaf ilanları buraya dinamik dolacak -->
     </div>
 </div>
+
+<script>
+    function loadPublicVitrin() {
+        const feedContainer = document.getElementById('publicVitrinFeed');
+        
+        let ads = JSON.parse(localStorage.getItem('hoop_esnaf_ilanlari')) || [];
+        let applications = JSON.parse(localStorage.getItem('hoop_esnaf_basvurulari')) || [];
+
+        if (ads.length === 0) {
+            feedContainer.innerHTML = `
+                <div class="empty-feed">
+                    Ortaköy bölgesinde şu an aktif yayınlanan bir fırsat bulunmuyor.<br>Esnaflarımız yeni indirimler hazırlıyor!
+                </div>
+            `;
+            return;
+        }
+
+        feedContainer.innerHTML = ads.slice().reverse().map(ad => {
+            // Esnaf adres bilgisine erişim
+            const shopInfo = applications.find(a => a.telefon === ad.shopPhone) || {};
+            const addressText = shopInfo.adres || 'Dereboyu Cde. No: 12';
+
+            return `
+                <div class="deal-card">
+                    <div class="card-top">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop" class="card-img" alt="Ürün Görseli">
+                        <div class="card-info">
+                            <div>
+                                <div class="shop-name">${ad.shopName || 'ORTAKÖY ESNAFI'}</div>
+                                <div class="deal-title">${ad.title}</div>
+                                <div class="shop-address">📍 ${addressText}</div>
+                            </div>
+                            <div class="price-row">
+                                <span class="old-price">${ad.oldPrice} TL</span>
+                                <span class="new-price">${ad.newPrice} TL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer-info">
+                        <span class="stok-text">Stok: 15 Adet</span>
+                        <span class="saat-text">Saat: (21:00)</span>
+                    </div>
+                    <button class="coupon-btn" onclick="alert('Kuponunuz başarıyla tanımlandı! Dükkanda telefon numaranızı söylemeniz yeterlidir.')">KUPON AL</button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    loadPublicVitrin();
+</script>
 
 </body>
 </html>
