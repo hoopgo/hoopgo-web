@@ -9,12 +9,11 @@
         body { background-color: #0b1329; color: #ffffff; min-height: 100vh; padding: 16px; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 420px; }
         
-        /* ORİJİNAL LOGO ALANI DÜZELTMESİ */
+        /* KESİNTİSİZ ORİJİNAL LOGO HEADER */
         .header { text-align: center; margin-bottom: 20px; padding-top: 10px; }
-        .logo-text { font-size: 42px; font-weight: 900; letter-spacing: -1.5px; color: #ffffff; line-height: 1; }
-        .logo-text span { color: #2563eb; }
-        .logo-img { height: 50px; width: auto; object-fit: contain; margin: 0 auto; display: block; }
-        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 6px; font-weight: 500; }
+        .logo-title { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; color: #ffffff; line-height: 1; margin-bottom: 6px; }
+        .logo-title span { color: #2563eb; }
+        .subtitle { font-size: 13px; color: #8a99ad; font-weight: 500; }
 
         .location-bar { background: #0f1a36; border: 1px solid #1f2d5a; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .loc-title { font-size: 13px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 6px; }
@@ -22,29 +21,33 @@
 
         .feed-container { display: flex; flex-direction: column; gap: 14px; }
 
-        .deal-card { background: #0f1a36; border: 1px solid #1f2d5a; border-radius: 16px; padding: 14px; position: relative; }
+        /* DÜZELTİLMİŞ İLAN KARTI YAPISI */
+        .deal-card { background: #0f1a36; border: 1px solid #1f2d5a; border-radius: 16px; padding: 14px; }
         .card-top { display: flex; gap: 12px; }
-        .card-img { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; background: #131c31; flex-shrink: 0; }
-        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-img { width: 85px; height: 85px; border-radius: 12px; object-fit: cover; background: #131c31; flex-shrink: 0; }
+        
+        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
         .shop-name { font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px; }
-        .deal-title { font-size: 15px; font-weight: 800; color: #ffffff; margin: 2px 0; }
-        .shop-address { font-size: 11px; color: #8a99ad; margin-bottom: 6px; }
-        .price-row { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
-        .old-price { font-size: 13px; color: #64748b; text-decoration: line-through; font-weight: 600; }
-        .new-price { font-size: 20px; font-weight: 900; color: #10b981; }
-        .card-footer-info { display: flex; gap: 12px; font-size: 10px; font-weight: 700; margin-top: 10px; }
+        .deal-title { font-size: 15px; font-weight: 800; color: #ffffff; margin: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .shop-address { font-size: 11px; color: #8a99ad; margin-bottom: 4px; }
+
+        .price-and-btn { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6px; }
+        .price-row { display: flex; align-items: baseline; gap: 6px; }
+        .old-price { font-size: 12px; color: #64748b; text-decoration: line-through; font-weight: 600; }
+        .new-price { font-size: 18px; font-weight: 900; color: #10b981; }
+
+        .coupon-btn { background: #2563eb; color: #ffffff; border: none; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+
+        .card-footer-info { display: flex; gap: 12px; font-size: 10px; font-weight: 700; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; }
         .stok-text { color: #3b82f6; }
         .saat-text { color: #f59e0b; }
-        .coupon-btn { position: absolute; right: 14px; bottom: 14px; background: #2563eb; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <div class="header">
-        <!-- Orijinal Görsel Varsa Yükler, Yoksa Doğrudan Orijinal "hoop." Başlığını Gösterir -->
-        <img src="logo.png" alt="hoop." class="logo-img" onerror="this.style.display='none'; document.getElementById('main-logo-text').style.display='block';">
-        <div id="main-logo-text" class="logo-text" style="display:none;">hoop<span>.</span></div>
+        <div class="logo-title">hoop<span>.</span></div>
         <div class="subtitle">Mahallendeki Fırsatları Yakala</div>
     </div>
 
@@ -63,9 +66,12 @@
                         <div class="deal-title">dana kıyma</div>
                         <div class="shop-address">📍 dereboyu cd no 22</div>
                     </div>
-                    <div class="price-row">
-                        <span class="old-price">1000 TL</span>
-                        <span class="new-price">750 TL</span>
+                    <div class="price-and-btn">
+                        <div class="price-row">
+                            <span class="old-price">1000 TL</span>
+                            <span class="new-price">750 TL</span>
+                        </div>
+                        <button class="coupon-btn">KUPON AL</button>
                     </div>
                 </div>
             </div>
@@ -73,7 +79,6 @@
                 <span class="stok-text">Stok: 15 Adet</span>
                 <span class="saat-text">Saat: (21:00)</span>
             </div>
-            <button class="coupon-btn">KUPON AL</button>
         </div>
     </div>
 </div>
