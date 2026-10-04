@@ -68,7 +68,7 @@
             <label>GİRİŞ ŞİFRENİZ</label>
             <input type="text" id="esnafSifreInput" placeholder="1314" value="1314" maxlength="6">
         </div>
-        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve Paneli Aç</button>
+        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve İlan Ekle</button>
         <div class="error-msg" id="errorMsg">Lütfen geçerli bir şifre girin!</div>
     </div>
 </div>
@@ -91,8 +91,8 @@
     function girisYap() {
         var inputVal = document.getElementById('esnafSifreInput').value.trim();
         if(inputVal !== "") {
-            // Şifre girildiğinde doğrudan ilan verme / yönetici ekranına yönlendirir
-            window.location.href = "yonetici.html";
+            // Doğrudan esnafın ilan vereceği dükkan/ilan sayfasına yönlendirir
+            window.location.href = "esnaf-panel.html";
         } else {
             document.getElementById('errorMsg').style.display = "block";
         }
