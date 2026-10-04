@@ -28,8 +28,9 @@
         .new-price { font-size: 16px; font-weight: 900; color: #ffffff; }
         .action-btn { background: #00d2ff; color: #0b1329; border: none; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; flex-shrink: 0; text-transform: uppercase; }
 
-        .footer-esnaf-btn { width: 100%; margin-top: 15px; background: transparent; border: 1px solid #1f2d5a; color: #8a99ad; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; display: block; }
-        .footer-esnaf-btn:hover { background: #131c31; color: #ffffff; border-color: #2563eb; }
+        .footer-divider { width: 100%; height: 1px; background-color: #1f2d5a; margin: 20px 0 16px 0; }
+        .footer-esnaf-btn { width: 100%; background: #1a294d; border: 1px solid #2563eb; color: #ffffff; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .footer-esnaf-btn:hover { background: #2563eb; }
     </style>
 </head>
 <body>
@@ -47,24 +48,25 @@
         <div class="live-tag">CANLI FIRSATLAR</div>
     </div>
 
-    <!-- FIRSAT KARTI -->
+    <!-- FIRSAT KARTLARI -->
     <div class="card">
         <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=300" class="card-img" alt="Dana Kıyma">
         <div class="card-content">
-            <div class="shop-name">EFE KASAP</div>
-            <div class="product-title">dana kıyma</div>
-            <div class="address-text">📍 dereboyu cd no 22</div>
+            <div class="shop-name">ORTAKÖY KASABI</div>
+            <div class="product-title">Kıyma (1 kg)</div>
+            <div class="address-text">📍 Dereboyu Cde. No: 12</div>
             <div class="price-container">
                 <span class="old-price">1000 TL</span>
                 <span class="new-price">750 TL</span>
             </div>
             <div style="font-size: 9px; color: #38bdf8; margin-top: 4px; font-weight: 700;">Stok: 15 Adet | Saat: (21:00)</div>
         </div>
-        <button class="action-btn">HEMEN AL</button>
+        <button class="action-btn">KUPON AL</button>
     </div>
 
-    <!-- ESNAF GİRİŞİ BUTONU (GERİ EKLENDİ) -->
-    <a href="esnaf.html" class="footer-esnaf-btn">🏪 Esnaf mısınız? Giriş Yapın veya Kaydolun</a>
+    <!-- AYRIÇ ÇİZGİSİ VE İKONLU ESNAF BUTONU -->
+    <div class="footer-divider"></div>
+    <a href="esnaf.html" class="footer-esnaf-btn">🏷️ Esnaf Girişi / Kayıt</a>
 </div>
 
 </body>
