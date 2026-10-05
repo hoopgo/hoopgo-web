@@ -1,171 +1,554 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hoop - Ortaköy Esnaf Portalı</title>
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0b1329; color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .container { width: 100%; max-width: 480px; background: #131c31; border: 1px solid #1f2d5a; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        
-        .logo-area { text-align: center; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
-        .logo-box { width: 100%; max-width: 220px; height: 75px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .logo-box img { width: 280px; height: auto; object-fit: cover; }
-        .subtitle { font-size: 13px; color: #8a99ad; margin-top: 6px; font-weight: 500; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
 
-        .tabs { display: flex; background: #0b1329; padding: 4px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #1f2d5a; }
-        .tab { flex: 1; text-align: center; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 8px; color: #8a99ad; transition: 0.2s; }
-        .tab.active { background: #2563eb; color: #ffffff; }
+        body {
+            background-color: #0b1329;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-        .form-section { display: none; }
-        .form-section.active { display: block; }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: #131c31;
+            border: 1px solid #1f2d5a;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
 
-        .success-box { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 20px; }
-        .success-title { color: #10b981; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 6px; }
-        .success-desc { font-size: 11px; color: #cbd5e1; line-height: 1.4; margin-bottom: 12px; }
-        .sifre-box { background: #0b1329; border: 1px solid #1f2d5a; padding: 10px; border-radius: 8px; font-size: 18px; font-weight: 900; letter-spacing: 2px; color: #ffffff; text-align: center; margin-bottom: 12px; }
-        
-        .input-group { margin-bottom: 14px; text-align: left; }
-        .input-group label { display: block; font-size: 11px; font-weight: 700; color: #8a99ad; margin-bottom: 6px; }
-        .input-group input { width: 100%; background: #0b1329; border: 1px solid #1f2d5a; padding: 12px; border-radius: 8px; color: #ffffff; font-size: 13px; outline: none; }
+        .logo-area {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        .image-upload-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #0b1329; border: 1px dashed #2563eb; padding: 12px; border-radius: 8px; color: #38bdf8; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; }
-        .image-upload-btn:hover { background: #132247; }
+        .logo-box {
+            width: 100%;
+            max-width: 220px;
+            height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-        .btn-primary { width: 100%; background: #2563eb; color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .back-link { display: block; text-align: center; font-size: 11px; color: #8a99ad; margin-top: 15px; text-decoration: none; }
+        .logo-box img {
+            width: 280px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #8a99ad;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            background: #0b1329;
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #1f2d5a;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            color: #8a99ad;
+            transition: 0.2s;
+        }
+
+        .tab.active {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .success-box {
+            background: rgba(16,185,129,0.1);
+            border: 1px solid #10b981;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .success-desc {
+            font-size: 11px;
+            color: #cbd5e1;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .sifre-box {
+            background: #0b1329;
+            border: 1px solid #1f2d5a;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #8a99ad;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: #0b1329;
+            border: 1px solid #1f2d5a;
+            padding: 12px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .image-upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: #0b1329;
+            border: 1px dashed #2563eb;
+            padding: 12px;
+            border-radius: 8px;
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .image-upload-btn:hover {
+            background: #132247;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            font-size: 11px;
+            color: #8a99ad;
+            margin-top: 15px;
+            text-decoration: none;
+        }
     </style>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
 <div class="container">
+
     <div class="logo-area">
         <div class="logo-box">
             <img src="logo.png" alt="hoop">
         </div>
-        <div class="subtitle">Ortaköy Esnaf Portalı</div>
+
+        <div class="subtitle">
+            Ortaköy Esnaf Portalı
+        </div>
     </div>
 
     <div class="tabs" id="tabHeader">
-        <div class="tab active" id="tabKayit" onclick="switchTab('kayit')">İşletme Kaydı</div>
-        <div class="tab" id="tabGiris" onclick="switchTab('giris')">Esnaf Girişi</div>
+
+        <div class="tab active"
+             id="tabKayit"
+             onclick="switchTab('kayit')">
+            İşletme Kaydı
+        </div>
+
+        <div class="tab"
+             id="tabGiris"
+             onclick="switchTab('giris')">
+            Esnaf Girişi
+        </div>
+
     </div>
 
-    <!-- KAYIT EKRANI -->
+    <!-- İŞLETME KAYDI -->
+
     <div class="form-section active" id="sectionKayit">
+
         <div class="success-box">
-            <div class="success-title">✅ Başvurunuz Onaylandı</div>
-            <div class="success-desc">Tebrikler! İşletmeniz hoop ekosistemine dahil edildi. Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.</div>
-            <div style="font-size: 10px; color: #8a99ad; margin-bottom: 4px;">SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:</div>
-            <div class="sifre-box">1314</div>
-            <button class="btn-primary" onclick="switchTab('giris')">Esnaf Girişine Git</button>
+
+            <div class="success-title">
+                ✅ Başvurunuz Onaylandı
+            </div>
+
+            <div class="success-desc">
+                Tebrikler! İşletmeniz hoop ekosistemine dahil edildi.
+                Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.
+            </div>
+
+            <div style="font-size:10px;color:#8a99ad;margin-bottom:4px;">
+                SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:
+            </div>
+
+            <div class="sifre-box">
+                1314
+            </div>
+
+            <button class="btn-primary"
+                    onclick="switchTab('giris')">
+                Esnaf Girişine Git
+            </button>
+
         </div>
+
     </div>
 
-    <!-- GİRİŞ EKRANI -->
+    <!-- ESNAF GİRİŞİ -->
+
     <div class="form-section" id="sectionGiris">
+
         <div class="input-group">
-            <label>GİRİŞ ŞİFRENİZ</label>
-            <input type="text" id="esnafSifreInput" placeholder="1314" value="1314" maxlength="6">
+
+            <label>
+                GİRİŞ ŞİFRENİZ
+            </label>
+
+            <input
+                type="text"
+                id="esnafSifreInput"
+                placeholder="1314"
+                value="1314"
+                maxlength="6"
+            >
+
         </div>
-        <button class="btn-primary" onclick="girisYap()">Giriş Yap ve İlan Ver</button>
+
+        <button class="btn-primary"
+                onclick="girisYap()">
+            Giriş Yap ve İlan Ver
+        </button>
+
     </div>
 
-    <!-- İLAN VERME EKRANI (Fotoğraf Ekleme Alanı Dahil Edildi) -->
+    <!-- İLAN VER -->
+
     <div class="form-section" id="sectionIlanVer">
-        <div style="text-align:center; margin-bottom: 16px; color:#10b981; font-weight:800; font-size:14px;">
+
+        <div style="text-align:center;margin-bottom:16px;color:#10b981;font-weight:800;font-size:14px;">
             🛒 DÜKKAN İLAN PANELİ
         </div>
-        
+
         <div class="input-group">
-            <label>ÜRÜN / FIRSAT BAŞLIĞI</label>
-            <input type="text" placeholder="Örn: Dana Kıyma">
+
+            <label>
+                ÜRÜN / FIRSAT BAŞLIĞI
+            </label>
+
+            <input
+                type="text"
+                id="productTitleInput"
+                placeholder="Örn: Dana Kıyma"
+            >
+
         </div>
 
         <div class="input-group">
-            <label>ÜRÜN FOTOĞRAFI</label>
-            <label for="productImageInput" class="image-upload-btn">
+
+            <label>
+                ÜRÜN FOTOĞRAFI
+            </label>
+
+            <label for="productImageInput"
+                   class="image-upload-btn">
                 📸 Fotoğraf Seç veya Çek
             </label>
-            <input type="file" id="productImageInput" accept="image/*" capture="environment" style="display: none;" onchange="showFileName(this)">
-            <div id="fileNameDisplay" style="font-size: 10px; color: #10b981; margin-top: 4px; display: none;"></div>
-            <img id="imagePreview" style="display:none; width:100%; max-height:220px; object-fit:cover; border-radius:12px; margin-top:10px;">
+
+            <input
+                type="file"
+                id="productImageInput"
+                accept="image/*"
+                capture="environment"
+                style="display:none;"
+                onchange="showFileName(this)"
+            >
+
+            <div
+                id="fileNameDisplay"
+                style="font-size:10px;color:#10b981;margin-top:4px;display:none;">
+            </div>
+
+            <img
+                id="imagePreview"
+                style="display:none;width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:10px;"
+            >
+
         </div>
 
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex;gap:10px;">
+
             <div class="input-group" style="flex:1;">
-                <label>ESKİ FİYAT (TL)</label>
-                <input type="number" placeholder="1000">
+
+                <label>
+                    ESKİ FİYAT (TL)
+                </label>
+
+                <input
+                    type="number"
+                    id="oldPriceInput"
+                    placeholder="1000"
+                >
+
             </div>
+
             <div class="input-group" style="flex:1;">
-                <label>İNDİRİMLİ FİYAT (TL)</label>
-                <input type="number" placeholder="750">
+
+                <label>
+                    İNDİRİMLİ FİYAT (TL)
+                </label>
+
+                <input
+                    type="number"
+                    id="salePriceInput"
+                    placeholder="750"
+                >
+
             </div>
+
         </div>
-        
-        <div style="display:flex; gap:10px;">
+
+        <div style="display:flex;gap:10px;">
+
             <div class="input-group" style="flex:1;">
-                <label>STOK ADEDİ</label>
-                <input type="number" placeholder="15">
+
+                <label>
+                    STOK ADEDİ
+                </label>
+
+                <input
+                    type="number"
+                    id="stockInput"
+                    placeholder="15"
+                >
+
             </div>
+
             <div class="input-group" style="flex:1;">
-                <label>GEÇERLİLİK SAATİ</label>
-                <input type="text" placeholder="21:00">
+
+                <label>
+                    GEÇERLİLİK SAATİ
+                </label>
+
+                <input
+                    type="text"
+                    id="validUntilInput"
+                    placeholder="21:00"
+                >
+
             </div>
+
         </div>
-        <button class="btn-primary" style="background:#10b981; margin-top:8px;" onclick="ilanYayinla()">İLANI VİTRİNE YAYINLA</button>
+
+        <button
+            class="btn-primary"
+            style="background:#10b981;margin-top:8px;"
+            onclick="ilanYayinla()">
+            İLANI VİTRİNE YAYINLA
+        </button>
+
     </div>
 
-    <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+    <a href="index.html" class="back-link">
+        ← Ana Sayfaya Dön
+    </a>
+
 </div>
 
 <script>
-    function switchTab(tab) {
-        if(tab === 'giris') {
-            document.getElementById('tabKayit').classList.remove('active');
-            document.getElementById('tabGiris').classList.add('active');
-            document.getElementById('sectionKayit').classList.remove('active');
-            document.getElementById('sectionIlanVer').classList.remove('active');
-            document.getElementById('sectionGiris').classList.add('active');
-        } else {
-            document.getElementById('tabGiris').classList.remove('active');
-            document.getElementById('tabKayit').classList.add('active');
-            document.getElementById('sectionGiris').classList.remove('active');
-            document.getElementById('sectionIlanVer').classList.remove('active');
-            document.getElementById('sectionKayit').classList.add('active');
-        }
+
+function switchTab(tab) {
+
+    if (tab === 'giris') {
+
+        document.getElementById('tabKayit')
+            .classList.remove('active');
+
+        document.getElementById('tabGiris')
+            .classList.add('active');
+
+        document.getElementById('sectionKayit')
+            .classList.remove('active');
+
+        document.getElementById('sectionIlanVer')
+            .classList.remove('active');
+
+        document.getElementById('sectionGiris')
+            .classList.add('active');
+
+    } else {
+
+        document.getElementById('tabGiris')
+            .classList.remove('active');
+
+        document.getElementById('tabKayit')
+            .classList.add('active');
+
+        document.getElementById('sectionGiris')
+            .classList.remove('active');
+
+        document.getElementById('sectionIlanVer')
+            .classList.remove('active');
+
+        document.getElementById('sectionKayit')
+            .classList.add('active');
+    }
+}
+
+
+function girisYap() {
+
+    const sifre =
+        document.getElementById('esnafSifreInput').value;
+
+    if (sifre !== '1314') {
+
+        alert('Giriş şifresi yanlış.');
+
+        return;
     }
 
-    function girisYap() {
-        document.getElementById('sectionGiris').classList.remove('active');
-        document.getElementById('tabHeader').style.display = 'none';
-        document.getElementById('sectionIlanVer').classList.add('active');
+    document.getElementById('sectionGiris')
+        .classList.remove('active');
+
+    document.getElementById('tabHeader')
+        .style.display = 'none';
+
+    document.getElementById('sectionIlanVer')
+        .classList.add('active');
+}
+
+
+function showFileName(input) {
+
+    const display =
+        document.getElementById('fileNameDisplay');
+
+    const preview =
+        document.getElementById('imagePreview');
+
+    if (input.files && input.files[0]) {
+
+        const file = input.files[0];
+
+        display.innerText =
+            '✓ Seçilen Görsel: ' + file.name;
+
+        display.style.display = 'block';
+
+        preview.src =
+            URL.createObjectURL(file);
+
+        preview.style.display = 'block';
     }
-    const SUPABASE_URL = 'https://ussqxddgtaflqkgqpcnf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_1xxm0cRtO425-jC3dS-oRg_rh9Q6WrL';
+}
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-    function showFileName(input) {
-  const display = document.getElementById('fileNameDisplay');
-  const preview = document.getElementById('imagePreview');
 
-  if (input.files && input.files[0]) {
-    const file = input.files[0];
+function ilanYayinla() {
 
-    display.innerText = '✓ Seçilen Görsel: ' + file.name;
-    display.style.display = 'block';
+    const baslik =
+        document.getElementById('productTitleInput').value.trim();
 
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = 'block';
-  }
+    const foto =
+        document.getElementById('productImageInput').files[0];
+
+    if (!baslik) {
+
+        alert('Lütfen ürün / fırsat başlığını yazın.');
+
+        return;
     }
-    
+
+    if (!foto) {
+
+        alert('Lütfen ürün fotoğrafını seçin.');
+
+        return;
+    }
+
+    alert('İlan bilgileri hazır! Bir sonraki adımda Supabase’e kaydedeceğiz.');
+}
+
 </script>
 
 </body>
