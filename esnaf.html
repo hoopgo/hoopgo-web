@@ -37,6 +37,7 @@
         .btn-primary:hover { background: #1d4ed8; }
         .back-link { display: block; text-align: center; font-size: 11px; color: #8a99ad; margin-top: 15px; text-decoration: none; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -114,8 +115,7 @@
                 <input type="text" placeholder="21:00">
             </div>
         </div>
-        
-        <button class="btn-primary" style="background:#10b981; margin-top:8px;" onclick="alert('İlan başarıyla yayınlandı!')">İLANİ VİTRİNE YAYINLA</button>
+        <button class="btn-primary" style="background:#10b981; margin-top:8px;" onclick="ilanYayinla()">İLANI VİTRİNE YAYINLA</button>
     </div>
 
     <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
@@ -143,14 +143,22 @@
         document.getElementById('tabHeader').style.display = 'none';
         document.getElementById('sectionIlanVer').classList.add('active');
     }
+    const SUPABASE_URL = 'https://ussqxddgtaflqkgqpcnf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_1xxm0cRtO425-jC3dS-oRg_rh9Q6WrL';
 
-    function showFileName(input) {
-        const display = document.getElementById('fileNameDisplay');
-        if (input.files && input.files[0]) {
-            display.innerText = '✓ Seçilen Görsel: ' + input.files[0].name;
-            display.style.display = 'block';
-        }
-    }
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+function showFileName(input) {
+  const display = document.getElementById('fileNameDisplay');
+
+  if (input.files && input.files[0]) {
+    display.innerText = '✓ Seçilen Görsel: ' + input.files[0].name;
+    display.style.display = 'block';
+  }
+}
+    
 </script>
 
 </body>
