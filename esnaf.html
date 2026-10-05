@@ -1,553 +1,889 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoop - Ortaköy Esnaf Portalı</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoopGo - Esnaf</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        body {
-            background-color: #0b1329;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+<style>
+*{box-sizing:border-box}
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: #131c31;
-            border: 1px solid #1f2d5a;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#222;
+}
 
-        .logo-area {
-            text-align: center;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.container{
+  width:92%;
+  max-width:600px;
+  margin:30px auto;
+}
 
-        .logo-box {
-            width: 100%;
-            max-width: 220px;
-            height: 75px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+.header{
+  background:#111827;
+  color:white;
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  margin-bottom:20px;
+}
 
-        .logo-box img {
-            width: 280px;
-            height: auto;
-            object-fit: cover;
-        }
+.header h1{
+  margin:0 0 8px;
+  font-size:28px;
+}
 
-        .subtitle {
-            font-size: 13px;
-            color: #8a99ad;
-            margin-top: 6px;
-            font-weight: 500;
-        }
+.header p{
+  margin:0;
+  opacity:.8;
+}
 
-        .tabs {
-            display: flex;
-            background: #0b1329;
-            padding: 4px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #1f2d5a;
-        }
+.panel{
+  background:white;
+  padding:24px;
+  border-radius:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
 
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 8px;
-            color: #8a99ad;
-            transition: 0.2s;
-        }
+.hidden{
+  display:none!important;
+}
 
-        .tab.active {
-            background: #2563eb;
-            color: #ffffff;
-        }
+.input-group{
+  margin-bottom:18px;
+}
 
-        .form-section {
-            display: none;
-        }
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+  font-size:14px;
+}
 
-        .form-section.active {
-            display: block;
-        }
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:16px;
+}
 
-        .success-box {
-            background: rgba(16,185,129,0.1);
-            border: 1px solid #10b981;
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+button{
+  width:100%;
+  border:0;
+  padding:15px;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:8px;
+}
 
-        .success-title {
-            color: #10b981;
-            font-size: 14px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 6px;
-        }
+.login-btn{
+  background:#111827;
+  color:white;
+}
 
-        .success-desc {
-            font-size: 11px;
-            color: #cbd5e1;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
+.publish-btn{
+  background:#16a34a;
+  color:white;
+}
 
-        .sifre-box {
-            background: #0b1329;
-            border: 1px solid #1f2d5a;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 12px;
-        }
+.logout-btn{
+  background:#dc2626;
+  color:white;
+}
 
-        .input-group {
-            margin-bottom: 14px;
-            text-align: left;
-        }
+button:disabled{
+  opacity:.5;
+}
 
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #8a99ad;
-            margin-bottom: 6px;
-        }
+.status{
+  display:none;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-size:14px;
+}
 
-        .input-group input {
-            width: 100%;
-            background: #0b1329;
-            border: 1px solid #1f2d5a;
-            padding: 12px;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-        }
+.status.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
 
-        .image-upload-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            background: #0b1329;
-            border: 1px dashed #2563eb;
-            padding: 12px;
-            border-radius: 8px;
-            color: #38bdf8;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-        }
+.status.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
 
-        .image-upload-btn:hover {
-            background: #132247;
-        }
+.status.info{
+  display:block;
+  background:#dbeafe;
+  color:#1e40af;
+}
 
-        .btn-primary {
-            width: 100%;
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-        }
+.user-box{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
 
-        .btn-primary:hover {
-            background: #1d4ed8;
-        }
+.image-box{
+  border:2px dashed #ccc;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+}
 
-        .back-link {
-            display: block;
-            text-align: center;
-            font-size: 11px;
-            color: #8a99ad;
-            margin-top: 15px;
-            text-decoration: none;
-        }
-    </style>
+#fileNameDisplay{
+  display:none;
+  margin-top:8px;
+  color:#16a34a;
+  font-size:13px;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+#imagePreview{
+  display:none;
+  width:100%;
+  max-height:250px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-top:12px;
+}
+
+.price-row{
+  display:flex;
+  gap:10px;
+}
+
+.price-row .input-group{
+  flex:1;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="logo-area">
-        <div class="logo-box">
-            <img src="logo.png" alt="hoop">
-        </div>
+<div class="header">
+<h1>HOOPGO</h1>
+<p>Esnaf Paneli</p>
+</div>
 
-        <div class="subtitle">
-            Ortaköy Esnaf Portalı
-        </div>
-    </div>
 
-    <div class="tabs" id="tabHeader">
+<!-- GİRİŞ -->
 
-        <div class="tab active"
-             id="tabKayit"
-             onclick="switchTab('kayit')">
-            İşletme Kaydı
-        </div>
+<div id="loginPanel" class="panel">
 
-        <div class="tab"
-             id="tabGiris"
-             onclick="switchTab('giris')">
-            Esnaf Girişi
-        </div>
+<h2>Esnaf Girişi</h2>
 
-    </div>
+<div id="loginStatus" class="status"></div>
 
-    <!-- İŞLETME KAYDI -->
+<div class="input-group">
+<label>E-POSTA</label>
+<input
+  type="email"
+  id="emailInput"
+  placeholder="E-posta adresiniz">
+</div>
 
-    <div class="form-section active" id="sectionKayit">
+<div class="input-group">
+<label>ŞİFRE</label>
+<input
+  type="password"
+  id="passwordInput"
+  placeholder="Şifreniz">
+</div>
 
-        <div class="success-box">
-
-            <div class="success-title">
-                ✅ Başvurunuz Onaylandı
-            </div>
-
-            <div class="success-desc">
-                Tebrikler! İşletmeniz hoop ekosistemine dahil edildi.
-                Aşağıdaki şifreyi kullanarak giriş yapabilirsiniz.
-            </div>
-
-            <div style="font-size:10px;color:#8a99ad;margin-bottom:4px;">
-                SİSTEM TARAFINDAN ATANAN GİRİŞ ŞİFRENİZ:
-            </div>
-
-            <div class="sifre-box">
-                1314
-            </div>
-
-            <button class="btn-primary"
-                    onclick="switchTab('giris')">
-                Esnaf Girişine Git
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- ESNAF GİRİŞİ -->
-
-    <div class="form-section" id="sectionGiris">
-
-        <div class="input-group">
-
-            <label>
-                GİRİŞ ŞİFRENİZ
-            </label>
-
-            <input
-                type="text"
-                id="esnafSifreInput"
-                placeholder="1314"
-                value="1314"
-                maxlength="6"
-            >
-
-        </div>
-
-        <button class="btn-primary"
-                onclick="girisYap()">
-            Giriş Yap ve İlan Ver
-        </button>
-
-    </div>
-
-    <!-- İLAN VER -->
-
-    <div class="form-section" id="sectionIlanVer">
-
-        <div style="text-align:center;margin-bottom:16px;color:#10b981;font-weight:800;font-size:14px;">
-            🛒 DÜKKAN İLAN PANELİ
-        </div>
-
-        <div class="input-group">
-
-            <label>
-                ÜRÜN / FIRSAT BAŞLIĞI
-            </label>
-
-            <input
-                type="text"
-                id="productTitleInput"
-                placeholder="Örn: Dana Kıyma"
-            >
-
-        </div>
-
-        <div class="input-group">
-
-            <label>
-                ÜRÜN FOTOĞRAFI
-            </label>
-
-            <label for="productImageInput"
-                   class="image-upload-btn">
-                📸 Fotoğraf Seç veya Çek
-            </label>
-
-            <input
-                type="file"
-                id="productImageInput"
-                accept="image/*"
-                capture="environment"
-                style="display:none;"
-                onchange="showFileName(this)"
-            >
-
-            <div
-                id="fileNameDisplay"
-                style="font-size:10px;color:#10b981;margin-top:4px;display:none;">
-            </div>
-
-            <img
-                id="imagePreview"
-                style="display:none;width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:10px;"
-            >
-
-        </div>
-
-        <div style="display:flex;gap:10px;">
-
-            <div class="input-group" style="flex:1;">
-
-                <label>
-                    ESKİ FİYAT (TL)
-                </label>
-
-                <input
-                    type="number"
-                    id="oldPriceInput"
-                    placeholder="1000"
-                >
-
-            </div>
-
-            <div class="input-group" style="flex:1;">
-
-                <label>
-                    İNDİRİMLİ FİYAT (TL)
-                </label>
-
-                <input
-                    type="number"
-                    id="salePriceInput"
-                    placeholder="750"
-                >
-
-            </div>
-
-        </div>
-
-        <div style="display:flex;gap:10px;">
-
-            <div class="input-group" style="flex:1;">
-
-                <label>
-                    STOK ADEDİ
-                </label>
-
-                <input
-                    type="number"
-                    id="stockInput"
-                    placeholder="15"
-                >
-
-            </div>
-
-            <div class="input-group" style="flex:1;">
-
-                <label>
-                    GEÇERLİLİK SAATİ
-                </label>
-
-                <input
-                    type="text"
-                    id="validUntilInput"
-                    placeholder="21:00"
-                >
-
-            </div>
-
-        </div>
-
-        <button
-            class="btn-primary"
-            style="background:#10b981;margin-top:8px;"
-            onclick="ilanYayinla()">
-            İLANI VİTRİNE YAYINLA
-        </button>
-
-    </div>
-
-    <a href="index.html" class="back-link">
-        ← Ana Sayfaya Dön
-    </a>
+<button
+  class="login-btn"
+  id="loginButton"
+  onclick="girisYap()">
+Giriş Yap
+</button>
 
 </div>
 
+
+<!-- İLAN PANELİ -->
+
+<div id="listingPanel" class="panel hidden">
+
+<div class="user-box">
+<strong>Esnaf Paneli</strong><br>
+<span id="userEmail"></span>
+</div>
+
+<h2>Yeni İlan</h2>
+
+<div id="listingStatus" class="status"></div>
+
+
+<div class="input-group">
+<label>ÜRÜN / İLAN BAŞLIĞI</label>
+
+<input
+  type="text"
+  id="productTitle"
+  placeholder="Örn: Kumpir">
+</div>
+
+
+<div class="input-group">
+
+<label>ÜRÜN GÖRSELİ</label>
+
+<div class="image-box">
+
+<input
+  type="file"
+  id="productImageInput"
+  accept="image/jpeg,image/png,image/webp"
+  onchange="showFileName(this)">
+
+</div>
+
+<div id="fileNameDisplay"></div>
+
+<img
+  id="imagePreview"
+  alt="Ürün önizleme">
+
+</div>
+
+
+<div class="price-row">
+
+<div class="input-group">
+<label>ESKİ FİYAT</label>
+
+<input
+  type="number"
+  id="oldPrice"
+  placeholder="0"
+  min="0"
+  step="0.01">
+</div>
+
+
+<div class="input-group">
+<label>İNDİRİMLİ FİYAT</label>
+
+<input
+  type="number"
+  id="salePrice"
+  placeholder="0"
+  min="0"
+  step="0.01">
+</div>
+
+</div>
+
+
+<div class="input-group">
+<label>STOK</label>
+
+<input
+  type="number"
+  id="stock"
+  placeholder="Örn: 20"
+  min="0">
+</div>
+
+
+<div class="input-group">
+<label>GEÇERLİLİK</label>
+
+<input
+  type="text"
+  id="validUntil"
+  placeholder="Örn: Bugün 22:00'ye kadar">
+</div>
+
+
+<button
+  class="publish-btn"
+  id="publishButton"
+  onclick="ilanYayinla()">
+İlanı Yayınla
+</button>
+
+
+<button
+  class="logout-btn"
+  onclick="cikisYap()">
+Çıkış Yap
+</button>
+
+</div>
+
+</div>
+
+
 <script>
 
-function switchTab(tab) {
+/* ================================
+   SUPABASE
+================================ */
 
-    if (tab === 'giris') {
+const SUPABASE_URL =
+'https://ussqxddgtaflqkgqpcnf.supabase.co';
 
-        document.getElementById('tabKayit')
-            .classList.remove('active');
+const SUPABASE_KEY =
+'sb_publishable_1xxm0cRtO425-jC3dS-oRg_rh9Q6WrL';
 
-        document.getElementById('tabGiris')
-            .classList.add('active');
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-        document.getElementById('sectionKayit')
-            .classList.remove('active');
 
-        document.getElementById('sectionIlanVer')
-            .classList.remove('active');
+/* ================================
+   MESAJ
+================================ */
 
-        document.getElementById('sectionGiris')
-            .classList.add('active');
+function mesaj(id,text,type){
 
-    } else {
+const el=document.getElementById(id);
 
-        document.getElementById('tabGiris')
-            .classList.remove('active');
+el.innerText=text;
 
-        document.getElementById('tabKayit')
-            .classList.add('active');
+el.className='status '+type;
 
-        document.getElementById('sectionGiris')
-            .classList.remove('active');
-
-        document.getElementById('sectionIlanVer')
-            .classList.remove('active');
-
-        document.getElementById('sectionKayit')
-            .classList.add('active');
-    }
 }
 
 
-function girisYap() {
+/* ================================
+   GİRİŞ
+================================ */
 
-    const sifre =
-        document.getElementById('esnafSifreInput').value;
+async function girisYap(){
 
-    if (sifre !== '1314') {
+const email=
+document.getElementById('emailInput')
+.value.trim();
 
-        alert('Giriş şifresi yanlış.');
+const password=
+document.getElementById('passwordInput')
+.value;
 
-        return;
-    }
+if(!email || !password){
 
-    document.getElementById('sectionGiris')
-        .classList.remove('active');
+mesaj(
+'loginStatus',
+'E-posta ve şifreyi girin.',
+'error'
+);
 
-    document.getElementById('tabHeader')
-        .style.display = 'none';
+return;
+}
 
-    document.getElementById('sectionIlanVer')
-        .classList.add('active');
+const button=
+document.getElementById('loginButton');
+
+button.disabled=true;
+button.innerText='Giriş yapılıyor...';
+
+
+const {data,error}=
+await supabaseClient.auth
+.signInWithPassword({
+
+email:email,
+password:password
+
+});
+
+
+if(error){
+
+mesaj(
+'loginStatus',
+'Giriş hatası: '+error.message,
+'error'
+);
+
+button.disabled=false;
+button.innerText='Giriş Yap';
+
+return;
 }
 
 
-function showFileName(input) {
+if(!data.user){
 
-    const display =
-        document.getElementById('fileNameDisplay');
+mesaj(
+'loginStatus',
+'Kullanıcı bulunamadı.',
+'error'
+);
 
-    const preview =
-        document.getElementById('imagePreview');
+button.disabled=false;
+button.innerText='Giriş Yap';
 
-    if (input.files && input.files[0]) {
-
-        const file = input.files[0];
-
-        display.innerText =
-            '✓ Seçilen Görsel: ' + file.name;
-
-        display.style.display = 'block';
-
-        preview.src =
-            URL.createObjectURL(file);
-
-        preview.style.display = 'block';
-    }
+return;
 }
 
 
-function ilanYayinla() {
+/* PROFİL KONTROLÜ */
 
-    const baslik =
-        document.getElementById('productTitleInput').value.trim();
+const {
+data:profile,
+error:profileError
+}=
+await supabaseClient
+.from('profiles')
+.select('id,full_name,role')
+.eq('id',data.user.id)
+.single();
 
-    const foto =
-        document.getElementById('productImageInput').files[0];
 
-    if (!baslik) {
+if(profileError){
 
-        alert('Lütfen ürün / fırsat başlığını yazın.');
+await supabaseClient.auth.signOut();
 
-        return;
-    }
+mesaj(
+'loginStatus',
+'Profil bulunamadı: '+profileError.message,
+'error'
+);
 
-    if (!foto) {
+button.disabled=false;
+button.innerText='Giriş Yap';
 
-        alert('Lütfen ürün fotoğrafını seçin.');
-
-        return;
-    }
-
-    alert('İlan bilgileri hazır! Bir sonraki adımda Supabase’e kaydedeceğiz.');
+return;
 }
+
+
+if(
+profile.role!=='merchant' &&
+profile.role!=='admin'
+){
+
+await supabaseClient.auth.signOut();
+
+mesaj(
+'loginStatus',
+'Bu hesap esnaf hesabı değil.',
+'error'
+);
+
+button.disabled=false;
+button.innerText='Giriş Yap';
+
+return;
+}
+
+
+/* PANELİ AÇ */
+
+document.getElementById('userEmail')
+.innerText=data.user.email;
+
+document.getElementById('loginPanel')
+.classList.add('hidden');
+
+document.getElementById('listingPanel')
+.classList.remove('hidden');
+
+}
+
+
+/* ================================
+   GÖRSEL ÖNİZLEME
+================================ */
+
+function showFileName(input){
+
+const display=
+document.getElementById(
+'fileNameDisplay'
+);
+
+const preview=
+document.getElementById(
+'imagePreview'
+);
+
+
+if(input.files && input.files[0]){
+
+const file=input.files[0];
+
+display.innerText=
+'✓ Seçilen Görsel: '+file.name;
+
+display.style.display='block';
+
+preview.src=
+URL.createObjectURL(file);
+
+preview.style.display='block';
+
+}
+
+}
+
+
+/* ================================
+   İLAN YAYINLA
+================================ */
+
+async function ilanYayinla(){
+
+const title=
+document.getElementById(
+'productTitle'
+).value.trim();
+
+const oldPrice=
+document.getElementById(
+'oldPrice'
+).value;
+
+const salePrice=
+document.getElementById(
+'salePrice'
+).value;
+
+const stock=
+document.getElementById(
+'stock'
+).value;
+
+const validUntil=
+document.getElementById(
+'validUntil'
+).value.trim();
+
+const imageInput=
+document.getElementById(
+'productImageInput'
+);
+
+
+if(!title){
+
+mesaj(
+'listingStatus',
+'Ürün başlığını yazın.',
+'error'
+);
+
+return;
+}
+
+
+if(!salePrice){
+
+mesaj(
+'listingStatus',
+'İndirimli fiyatı yazın.',
+'error'
+);
+
+return;
+}
+
+
+if(
+!imageInput.files ||
+!imageInput.files[0]
+){
+
+mesaj(
+'listingStatus',
+'Lütfen ürün görseli seçin.',
+'error'
+);
+
+return;
+}
+
+
+const {
+data:sessionData
+}=
+await supabaseClient.auth.getSession();
+
+const session=
+sessionData.session;
+
+
+if(!session){
+
+mesaj(
+'listingStatus',
+'Oturum bulunamadı. Tekrar giriş yapın.',
+'error'
+);
+
+return;
+}
+
+
+const button=
+document.getElementById(
+'publishButton'
+);
+
+button.disabled=true;
+button.innerText='Yükleniyor...';
+
+
+try{
+
+const user=session.user;
+
+const file=imageInput.files[0];
+
+
+if(file.size>5*1024*1024){
+
+throw new Error(
+'Görsel 5 MBdan büyük olamaz.'
+);
+
+}
+
+
+/* DOSYA ADI */
+
+const extension=
+file.name
+.split('.')
+.pop()
+.toLowerCase();
+
+const fileName=
+user.id+
+'_'+
+Date.now()+
+'.'+
+extension;
+
+
+/* STORAGE */
+
+const {
+error:uploadError
+}=
+await supabaseClient
+.storage
+.from('listing-images')
+.upload(
+fileName,
+file,
+{
+cacheControl:'3600',
+upsert:false,
+contentType:file.type
+}
+);
+
+
+if(uploadError){
+
+throw uploadError;
+
+}
+
+
+/* PUBLIC URL */
+
+const {
+data:urlData
+}=
+supabaseClient
+.storage
+.from('listing-images')
+.getPublicUrl(fileName);
+
+const imageUrl=
+urlData.publicUrl;
+
+
+/* VERİTABANI */
+
+const {
+error:insertError
+}=
+await supabaseClient
+.from('listings')
+.insert({
+
+title:title,
+
+image_url:imageUrl,
+
+old_price:
+oldPrice
+?Number(oldPrice)
+:null,
+
+sale_price:
+Number(salePrice),
+
+stock:
+stock
+?Number(stock)
+:null,
+
+valid_until:
+validUntil || null,
+
+merchant_id:
+user.id
+
+});
+
+
+if(insertError){
+
+throw insertError;
+
+}
+
+
+/* BAŞARILI */
+
+mesaj(
+'listingStatus',
+'🎉 İlan başarıyla yayınlandı!',
+'success'
+);
+
+
+/* TEMİZLE */
+
+document.getElementById(
+'productTitle'
+).value='';
+
+document.getElementById(
+'oldPrice'
+).value='';
+
+document.getElementById(
+'salePrice'
+).value='';
+
+document.getElementById(
+'stock'
+).value='';
+
+document.getElementById(
+'validUntil'
+).value='';
+
+document.getElementById(
+'productImageInput'
+).value='';
+
+document.getElementById(
+'fileNameDisplay'
+).style.display='none';
+
+document.getElementById(
+'imagePreview'
+).style.display='none';
+
+document.getElementById(
+'imagePreview'
+).src='';
+
+}
+
+catch(error){
+
+console.error(error);
+
+mesaj(
+'listingStatus',
+'Hata: '+error.message,
+'error'
+);
+
+}
+
+
+button.disabled=false;
+button.innerText='İlanı Yayınla';
+
+}
+
+
+/* ================================
+   ÇIKIŞ
+================================ */
+
+async function cikisYap(){
+
+await supabaseClient.auth.signOut();
+
+document.getElementById(
+'listingPanel'
+).classList.add('hidden');
+
+document.getElementById(
+'loginPanel'
+).classList.remove('hidden');
+
+document.getElementById(
+'emailInput'
+).value='';
+
+document.getElementById(
+'passwordInput'
+).value='';
+
+}
+
+
+/* ================================
+   SAYFA AÇILINCA OTURUM KONTROLÜ
+================================ */
+
+async function oturumKontrol(){
+
+const {
+data
+}=
+await supabaseClient.auth.getSession();
+
+if(
+data &&
+data.session &&
+data.session.user
+){
+
+document.getElementById(
+'userEmail'
+).innerText=
+data.session.user.email;
+
+document.getElementById(
+'loginPanel'
+).classList.add('hidden');
+
+document.getElementById(
+'listingPanel'
+).classList.remove('hidden');
+
+}
+
+}
+
+oturumKontrol();
 
 </script>
 
